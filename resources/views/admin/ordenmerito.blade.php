@@ -10,11 +10,13 @@ $encuestax=$encuesta->verlistaencuesta();
  {$miasistencia=new DocenteController(); 
 
    echo "<table class='table table-striped'>
-       <tr style='background-color:black;color:white;'>
+      <thead> <tr style='background-color:black;color:white;'>
     <td>Nro</td> <td>Codigo</td> <td>Nombre</td>
     <td>EP</td>
     <td>Promedio</td>
-  </tr>";
+  </tr>
+  </thead>
+  ";
    $misalumnos=$miasistencia->vercursosalumnos(trim($codcur),$semestre);
 //dd($misalumnos);
 $nro=0;

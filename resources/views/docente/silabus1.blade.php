@@ -75,7 +75,7 @@ color: black;
 <div class="card shadow mb-4">
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary">
-      <i class="fa fa-book fa-2x" ></i> Lista de Cursos Asignados 
+      <i class="fa fa-book fa-2x" ></i> Lista de Cursos Asignado 
       </h6>
     </div>
   

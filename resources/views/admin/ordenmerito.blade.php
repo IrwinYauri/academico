@@ -1,8 +1,8 @@
 @php
 use App\Http\Controllers\AdminController; 
 use App\Http\Controllers\DocenteController; 
-$encuesta=new AdminController();
-$encuestax=$encuesta->verlistaencuesta();
+$listasemestres=new AdminController();
+$listasemestre=$listasemestres->versemestre();
 @endphp
 
 @php
@@ -47,7 +47,7 @@ echo "
         <div class="card-header py-3 bg-primary">
             <h6 class="m-0 font-weight-bold text-white">
             
-            <i class="fa fa-desktop"></i> ORDEN DE MERITO
+            <i class="fa fa-desktop"></i>CONSULTAS DE ORDEN DE MERITO
             </h6>
           </div>
        
@@ -56,14 +56,15 @@ echo "
      <div class="card-body bg-white">
          SELECCIONAR PERIODO ACADEMICO:
            <select name="" id="" onchange="listaencuestapreguntasemestre(this.value)">
-            @foreach ($encuestax as $encu)
+          
+            @foreach($listasemestre as $sem)
             
-                <option>{{ $encu->sem_iCodigo }}</option>
+                <option>{{ $sem->sem_iCodigo }}</option>
               
             @endforeach  
          </select>
           <div id="tmerito">
-            preubasewfwvwevw s
+            _
           </div>
           <div id="talumno" style="display:block;">
             @php

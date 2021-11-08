@@ -63,7 +63,7 @@ echo "
             @endforeach  
          </select>
           <div id="tmerito">
-            
+            preubas
           </div>
           <div id="talumno" style="display:block;">
             @php

@@ -97,6 +97,9 @@ color: white;
                         <a class="collapse-item" href="#" id="bcreardocente">Carga Academica<br>de Docentes</a>
                         <a class="collapse-item" href="#" id="bhorario">
                             <i class="fas fa-check"></i>Cursos y Horarios</a>
+
+                            <a class="collapse-item" href="#" id="bordenmerito">
+                                <i class="fas fa-desktop"></i>ORDEN DE MERITO</a>
                         <a class="collapse-item" href="#" id="bsilabus1">Validar Matriculas</a>
                         <a class="collapse-item" href="#" id="basistencia1">Nomina Oficial</a>
                         <a class="collapse-item" href="#" id="basistencia2">Gestion de Notas</a>

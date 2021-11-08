@@ -120,7 +120,7 @@ color: white;
                         <a class="collapse-item" href="#" id="basistencia2">
                             <i class="fas fa-file-alt"></i>Completar Asistencia</a>
                         <a class="collapse-item" href="#" id="bsilabus1">
-                            <i class="fas fa-upload"></i>Subir Silabus</a>
+                            <i class="fas fa-upload"></i>Subir Sílabo</a>
                         <a class="collapse-item" href="#" id="bsilabus2">
                             <i class="fas fa-cog"></i>Configura  Criterios <br> de evaluaciones</a>
                         <a class="collapse-item" href="#" id="bplanactividad">

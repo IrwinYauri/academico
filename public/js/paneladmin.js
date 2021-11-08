@@ -8,6 +8,7 @@ function ini()
   $("#blistaaula").click(listaaula);
   $("#bhorario").click(listahorario);
   $("#bencuesta").click(listaencuesta);
+  $("#bordenmerito").click(listaordenmerito);
   }
   
  
@@ -170,6 +171,33 @@ function listaencuesta() //activo
      $.ajax({
 	//	url:"asistencia/updateasisalumno",
 	url:"admin/editarencuesta",
+	//url:"{{ route('asistencia.updateasisalumno') }}",
+	success:function(result){
+	//alert(result);
+	$("#micontenido").html(result);
+	},
+	 complete: function () {
+		//$('#tabla-docente1').DataTable();
+	   },
+	data:{
+		codhora:n1,
+		codalumno:n2,
+		estado:n3
+		//, bbuscar:bbuscar
+	  },
+		type:"GET"   
+	 } );
+	
+}
+function listaordenmerito() //activo
+ { 
+   var n1="";
+   var n2="";
+   var n3="";
+   //var bbuscar=$("#bbuscar").val();
+     $.ajax({
+	//	url:"asistencia/updateasisalumno",
+	url:"admin/ordenmerito",
 	//url:"{{ route('asistencia.updateasisalumno') }}",
 	success:function(result){
 	//alert(result);

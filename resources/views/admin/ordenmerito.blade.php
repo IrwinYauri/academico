@@ -54,7 +54,7 @@ echo "
      </div>
 
      <div class="card-body bg-white">
-         SELECCIONAR PERIODO:
+         SELECCIONAR PERIODO ACADEMICO:
            <select name="" id="" onchange="listaencuestapreguntasemestre(this.value)">
             @foreach ($encuestax as $encu)
             

@@ -149,9 +149,9 @@ color: white;
                         <a class="collapse-item" href="#" id="breporterecordacademico">
                             <i class="fas fa-briefcase"></i>Record Academico</a>
                         <a class="collapse-item" href="#" id="bnotassustitorio">
-                            <i class="fas fa-check"></i>Notas Sustitorio</a>
+                            <i class="fas fa-pen-square"></i>Notas Sustitorio</a>
                         <a class="collapse-item" href="#" id="bnotasaplazados">
-                            <i class="fas fa-check"></i>Notas Aplazados</a>
+                            <i class="fas fa-pencil-alt"></i>Notas Aplazados</a>
                         
                     </div>
                 </div>

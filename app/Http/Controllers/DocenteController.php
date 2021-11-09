@@ -351,6 +351,7 @@ public function  verrecord($codprofe)
         `seccion`.`doc_iCodigo` = '$codprofe' AND 
         `seccion`.`sem_iCodigo` = '$semestre' AND 
         `seccion`.`cur_iCodigo` = '$codcur'
+        order by `alumno`.`alu_vcPaterno`
         ";
     $data1=DB::select($sql);
     return $data1;

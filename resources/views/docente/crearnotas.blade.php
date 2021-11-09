@@ -68,6 +68,9 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
   //verregistronotas($codprofe,$semestre,$codcur)
    echo' <div class="card-body " style="overflow: scroll;">
         <div class="card-header py-3" style="background-color:navy)">
+          
+        
+
             <h6 class="m-0 font-weight-bold text-dark-400">
               <table>
                 <tr>
@@ -313,7 +316,13 @@ $nn++;
 </table>
 </div>
 </div>
-<div id="mimensajex">GRABANDO</div>
+
+
+
+  <div id="row">
+    
+    <div id="mimensajex">GRABANDO</div>
+  </div>
 
 <script>
     function grabarnotas(idnota,idcurso,idalumno,unidad,nro)

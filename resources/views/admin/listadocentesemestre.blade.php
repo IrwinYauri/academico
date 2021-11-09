@@ -9,7 +9,7 @@ $listadocentes=$listadocente->listadocentesemestre(semestreactual());
 //dd($listadocentes);
 @endphp
 <h3>Lista de docentes del semestre actual</h3>
-<table id="tabla-docente" class="table table-hover table-condensed">
+<table id="tabla-docentesemestre" class="table table-hover table-condensed">
 <thead>
     <td>nro</td>
     <td>DNI</td>
@@ -37,3 +37,12 @@ $listadocentes=$listadocente->listadocentesemestre(semestreactual());
 @endforeach  
 </tbody>
 </table>
+
+<script>
+    $(document).ready(function() {
+   
+   $('#tabla-docentesemestre').DataTable();
+} );
+ 
+  
+</script>

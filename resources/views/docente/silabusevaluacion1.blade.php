@@ -235,8 +235,8 @@ transition: opacity 400ms ease-in;
       
      
       </td>
-      <td><a href="#openModal" class="btn btn-primary" 
-        onclick="vercursoscriterio('{{ $codcurso }} ', '{{ $curso }}',{{$listacur['sec_iCodigo'] }},{{semestreactual()}},{{ versilabuscriterioexiste(semestreactual(),$listacur['cur_iCodigo']) }});" >configurar</a>
+      <td><a  class="btn btn-primary" 
+        onclick="vercursoscriterio('{{ $codcurso }} ', '{{ $curso }}',{{$listacur['sec_iCodigo'] }},{{semestreactual()}},'{{ versilabuscriterioexiste(semestreactual(),$listacur['cur_iCodigo']) }}');" >configurar</a>
         </td>
     </tr>
     <tr style="display:none" id="tn{{$nn}}">
@@ -257,16 +257,19 @@ transition: opacity 400ms ease-in;
 
 <script> 
 function vercursoscriterio(idcurso,curso,seccion,semestre,estado)
-{ if(estado=="PENDIENTE")
-    { document.getElementById("idcurso").innerHTML=idcurso;
+{ if(estado==="PENDIENTE")
+    {//location.href=""
+    location.href="#openModal"
+       document.getElementById("idcurso").innerHTML=idcurso;
       document.getElementById("idcursonombre").innerHTML=curso;
       document.getElementById("seccion").value=seccion;
       reiniciar();
       buscarfechasemestre({{semestreactual()}});
       versemestrecriterios(seccion);
     }
-    if(estado=="COMPLETADO")
-    { alertagrabarx("CRITERIO DE EVALUACION YA ESTA CONFIGURADO",'navy')
+    if(estado==="COMPLETADO")
+    { location.href="#close"
+      alertagrabarx("CRITERIO DE EVALUACION YA ESTA CONFIGURADO",'navy')
     }
 }
 </script>

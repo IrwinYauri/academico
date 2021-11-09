@@ -112,7 +112,7 @@ color: white;
                         <a class="collapse-item" href="#" id="blistaalumno">
                             <i class="fas fa-check"></i>Gestion Alumnos</a>
                         <a class="collapse-item" href="#" id="blistadocente" >
-                            <i class="fas fa-check"></i>Gestion Docentes</a>
+                            <i class="fas fa-user-tie"></i>Gestion Docentes</a>
                         <a class="collapse-item" href="#" id="blistaaula">
                                 <i class="fas fa-check"></i>Gestion Aula</a>
                         <a class="collapse-item" href="#" id="basistencia2">Reporte general<br> de estudiantes</a>

@@ -23,7 +23,10 @@ $miscursosgrupo=$miasistencia->vercursosagrupado(semestreactual(),$coddocentex);
     .table-condensed{
   font-size: 10px;
   color: black;
-  }
+    }
+    .nocolumna
+    {display: none;
+    }
   
   
   </style>
@@ -120,10 +123,10 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                 <td>$n</td>
                 <td>$nota->alu_vcCodigo</td>
                 <td>".$nota->alu_vcPaterno." ".$nota->alu_vcMaterno." ".$nota->alu_vcNombre."</td>
-                <td ".cambiarcolornotas($nota->CE11)." style='display:none;'>" .$nota->CE11." </td>
-                <td ".cambiarcolornotas($nota->CE12)." style='display:none;'>".$nota->CE12."  </td>
-                <td ".cambiarcolornotas($nota->CE13)." style='display:none;'>".$nota->CE13."  </td>
-                <td ".cambiarcolornotas($nota->CE14)." style='display:none;'>".$nota->CE14." </td>
+                <td ".cambiarcolornotas($nota->CE11)." class='nocolumna'>" .$nota->CE11." </td>
+                <td ".cambiarcolornotas($nota->CE12)." class='nocolumna'>".$nota->CE12."  </td>
+                <td ".cambiarcolornotas($nota->CE13)." class='nocolumna'>".$nota->CE13."  </td>
+                <td ".cambiarcolornotas($nota->CE14)." class='nocolumna'>".$nota->CE14." </td>
                 <td class='columpro'  $oculprom[0]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,1)=="PA")
@@ -153,10 +156,10 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                   .versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,1)
                   .*/
                   echo "</td>
-                <td ".cambiarcolornotas($nota->CE21)." style='display:none;'>".$nota->CE21." </td>
-                <td ".cambiarcolornotas($nota->CE22)." style='display:none;'>".$nota->CE22." </td>
-                <td ".cambiarcolornotas($nota->CE23)." style='display:none;'>".$nota->CE23." </td>
-                <td ".cambiarcolornotas($nota->CE24)." style='display:none;'>".$nota->CE24." </td>
+                <td ".cambiarcolornotas($nota->CE21)." class='nocolumna'>".$nota->CE21." </td>
+                <td ".cambiarcolornotas($nota->CE22)." class='nocolumna'>".$nota->CE22." </td>
+                <td ".cambiarcolornotas($nota->CE23)." class='nocolumna'>".$nota->CE23." </td>
+                <td ".cambiarcolornotas($nota->CE24)." class='nocolumna'>".$nota->CE24." </td>
                 <td class='columpro' $oculprom[1]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,2)=="PA")
@@ -190,10 +193,10 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                   .versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,2)
                   .*/
                  echo "</td>
-                <td ".cambiarcolornotas($nota->CE31)." style='display:none;'>".$nota->CE31."</td>
-                <td ".cambiarcolornotas($nota->CE32)." style='display:none;'>".$nota->CE32."</td>
-                <td ".cambiarcolornotas($nota->CE33)." style='display:none;'>".$nota->CE33."</td>
-                <td ".cambiarcolornotas($nota->CE34)." style='display:none;'>".$nota->CE34."</td>
+                <td ".cambiarcolornotas($nota->CE31)." class='nocolumna'>".$nota->CE31."</td>
+                <td ".cambiarcolornotas($nota->CE32)." class='nocolumna'>".$nota->CE32."</td>
+                <td ".cambiarcolornotas($nota->CE33)." class='nocolumna'>".$nota->CE33."</td>
+                <td ".cambiarcolornotas($nota->CE34)." class='nocolumna'>".$nota->CE34."</td>
                 <td class='columpro' $oculprom[2]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,3)=="PA")
@@ -223,10 +226,10 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                   .versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,3)
                   .*/
                 echo  "</td>
-                <td ".cambiarcolornotas($nota->CE41)." style='display:none;'>".$nota->CE41." </td>
-                <td ".cambiarcolornotas($nota->CE42)." style='display:none;'>".$nota->CE42."  </td>
-                <td ".cambiarcolornotas($nota->CE43)." style='display:none;'>".$nota->CE43."  </td>
-                <td ".cambiarcolornotas($nota->CE44)." style='display:none;'>".$nota->CE44."  </td>
+                <td ".cambiarcolornotas($nota->CE41)." class='nocolumna'>".$nota->CE41." </td>
+                <td ".cambiarcolornotas($nota->CE42)." class='nocolumna'>".$nota->CE42."  </td>
+                <td ".cambiarcolornotas($nota->CE43)." class='nocolumna'>".$nota->CE43."  </td>
+                <td ".cambiarcolornotas($nota->CE44)." class='nocolumna'>".$nota->CE44."  </td>
                 <td class='columpro' $oculprom[3]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,4)=="PA")
@@ -256,10 +259,10 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                   .versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,4)
                   .*/
                   echo "</td>
-                <td ".cambiarcolornotas($nota->CE51)." style='display:none;'>".$nota->CE51."  </td>
-                <td ".cambiarcolornotas($nota->CE52)." style='display:none;'>".$nota->CE52."  </td>
-                <td ".cambiarcolornotas($nota->CE53)." style='display:none;'>".$nota->CE53." </td>
-                <td ".cambiarcolornotas($nota->CE54)." style='display:none;'>".$nota->CE54."  </td>
+                <td ".cambiarcolornotas($nota->CE51)." class='nocolumna'>".$nota->CE51."  </td>
+                <td ".cambiarcolornotas($nota->CE52)." class='nocolumna'>".$nota->CE52."  </td>
+                <td ".cambiarcolornotas($nota->CE53)." class='nocolumna'>".$nota->CE53." </td>
+                <td ".cambiarcolornotas($nota->CE54)." class='nocolumna'>".$nota->CE54."  </td>
                 <td class='columpro' $oculprom[4]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,5)=="PA")

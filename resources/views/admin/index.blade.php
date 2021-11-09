@@ -110,7 +110,7 @@ color: white;
                             <i class="fas fa-check"></i>Crear Cuentas <br>de Sistema</a>
                             
                         <a class="collapse-item" href="#" id="blistaalumno">
-                            <i class="fas fa-check"></i>Gestion Alumnos</a>
+                            <i class="fas fa-user"></i>Gestion Alumnos</a>
                         <a class="collapse-item" href="#" id="blistadocente" >
                             <i class="fas fa-user-tie"></i>Gestion Docentes</a>
                         <a class="collapse-item" href="#" id="blistaaula">

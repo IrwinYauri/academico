@@ -23,6 +23,7 @@ $miscursosgrupo=$miasistencia->vercursosagrupado(semestreactual(),$coddocentex);
   font-size: 10px;
   color: black;
   }
+  /*
   .fondocol{
     background-color: navy;
     color: white;
@@ -38,13 +39,13 @@ $miscursosgrupo=$miasistencia->vercursosagrupado(semestreactual(),$coddocentex);
   .ocultarnota
   {display: none;
 
-  }
+  }*/
   
   </style>
   @php
     use App\Http\Controllers\SilabusemestreController;   
 
-    function versilabuscriterio($sem,$codcurso,$unidad)
+   /* function versilabuscriterio($sem,$codcurso,$unidad)
     {
         $silabos=new SilabusemestreController();
         $rptsilabo=$silabos->buscarcriteriosilabo($sem,$codcurso);
@@ -185,9 +186,9 @@ $miscursosgrupo=$miasistencia->vercursosagrupado(semestreactual(),$coddocentex);
               
              }
          return  $nrounidad;        
-    }
+    }*/
   @endphp
-      
+       @include('docente.formulasnotas')
   @php
      // vercursonotas($coddocentex,semestreactual(),2)
 
@@ -549,5 +550,5 @@ $nn++;
        
 
 <script>
-  activarwow()
+ // activarwow()
 </script>

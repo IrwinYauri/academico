@@ -54,48 +54,16 @@ $miscursosgrupo=$miasistencia->vercursosagrupado(semestreactual(),$coddocentex);
   @php
     use App\Http\Controllers\SilabusemestreController;   
 
-    function versilabuscriterio($sem,$codcurso,$unidad)
-    {
-        $silabos=new SilabusemestreController();
-        $rptsilabo=$silabos->buscarcriteriosilabo($sem,$codcurso);
-        $tx=count($rptsilabo); 
-      //  dd($rptsilabo);
-        // if($tx>0)
-        $u1="";
-        $u2="";
-        $u3="";
-        $u4="";
-        $u5="";
-         foreach ($rptsilabo as $versilaboc) {
-       
-            $u1=$versilaboc->tipoPU1;
-              $u2=$versilaboc->tipoPU2;
-               $u3=$versilaboc->tipoPU3;
-                $u4=$versilaboc->tipoPU4;
-                $u5=$versilaboc->tipoPU5;
-      
-             }
-          
-        if($unidad==1)
-          { return $u1;}
-        if($unidad==2)
-          { return $u2;}
-        if($unidad==3)
-          { return $u3;}
-        if($unidad==4)
-          { return $u4;}
-        if($unidad==5)
-          { return $u5;}
-        
-    }
+    
   @endphp
-      
+      @include('docente.formulasnotas')
   @php
      // vercursonotas($coddocentex,semestreactual(),2)
 function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
 { $notas=new DocenteController();  
    //$vernotas=$notas->verregistronotas($coddocentex,$sem,$codcurso,$curso);
   $vernotas=$notas->verregistronotas($coddocentex,$sem,$codcurso);
+  $ttunidad=totalnrounidad($sem,$codcurso);
  //  dd($vernotas); 
   //verregistronotas($codprofe,$semestre,$codcur)
    echo' <div class="card-body " style="overflow: scroll;">
@@ -103,31 +71,75 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
             <h6 class="m-0 font-weight-bold text-dark-400">
               <table>
                 <tr>
-                  <td>
-              <i class="fa fa-book " ></i>CURSO:'.$curso.' 
-              </td><td>
-              ESCUELA:'.$escuela.'
+                  <td class="fondocol"><i class="fa fa-book " ></i></td>
+                  <td class="fondocol">
+              CURSO</td><td>'.$curso.' 
               </td>
+              </tr> 
+              <tr><td class="fondocol">
+                <i class="fa fa-award " ></i>
+                </td>
+                <td class="fondocol">
+              ESCUELA</td><td>'.$notas->nescuela($escuela).'
+              </td>
+            </tr>
+            <tr>
+              <td class="fondocol">
+                <i class="fa fa-cog " ></i></td>
+              <td class="fondocol">TOTAL DE UNIDADES</td><td> &nbsp;&nbsp;';
+                if($ttunidad<1)
+                echo "<div style='background-color:red'>NO CRITERIOS DE EVALUACION</div>";
+                else {
+                 echo $ttunidad;
+                }
+                echo '</td>
               </tr>
               </table>
               </h6>
+             
            </div>
+
            <div class="card-body tableFixHead table-responsive table-condensed" style="height: 600px; width:940px; overflow: scroll;"  >
-        <table   class="table table-striped table-responsive table-condensed " style="height: 500px; width:940px; overflow: scroll;">
+       
+             <table  class="table table-striped table-hover table-responsive-md text-dark-400 table-condensed">
            <thead>
-            <tr style="background-color:black;color:white">
+            ';
+            echo "<tr style='background-color:black;color:white'>
+              <td></td>
+              <td></td>
+              <td></td>";
+              $estadover="";
+              $oculprom=array("","","","","");
+              $oculpromx=array("","","","","");
+              for($x = 1; $x < 6; $x++)
+                { if( $ttunidad<$x)
+                  $estadover="style='display:none;'";
+                  ///versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,$x)
+                    echo "<td colspan='4' $estadover>Nro Ev: ".versilabusnroeval($sem,$codcurso,$x)."</td>";
+                    if(versilabusnroeval($sem,$codcurso,$x)<1)
+                    {$oculprom[$x-1]="style='display:none;'";
+                     $oculpromx[$x-1]="class='ocultarnota'";
+                    }
+                    echo " <td  $estadover ></td>";
+                    
+              } 
+              echo " <td>".formulapf($sem,$codcurso,1).formulapf($sem,$codcurso,2)." </td>";
+                echo "</tr>";
+
+                echo '<tr style="background-color:black;color:white">
                 <th>NRO</th>
                 <th>Codigo</th>
                 <th>Alumno</th>';
-    
+     $estadover="";
                 for($x = 1; $x < 6; $x++)
-                {
+                { if( $ttunidad<$x)
+                  $estadover="style='display:none;'";
                     for($n = 1; $n < 5; $n++)
-                   { echo "<th> CE$n</th>";
+                   { echo "<th  $estadover> CE$n</th>";
                     } 
-                    echo " <th> PU$x</th>";
+                    echo " <th  $estadover> PU$x</th>";
               } 
-            
+                 echo " <th> PF</th>";
         echo "    </tr>
         </thead>";
     
@@ -140,91 +152,95 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                 <td class='fix1'>$n</td>
                 <td class='fix1'>$nota->alu_vcCodigo</td>
                 <td class='fix1'>".$nota->alu_vcPaterno." ".$nota->alu_vcMaterno." ".$nota->alu_vcNombre."</td>
-                <td> <input type='text' value='".$nota->CE11."' size=2 name='nt10$n'
+                <td $oculpromx[0]> <input type='text' value='".$nota->CE11."' size=2 name='nt10$n'
                     onkeyup='jsnotascolor(this);
                     grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",1,1)' 
                     ".cambiarcolornotas($nota->CE11)."></td>
-                <td><input type='text' value='".$nota->CE12."' size=2 name='nt10$n' 
+                <td $oculpromx[0]><input type='text' value='".$nota->CE12."' size=2 name='nt10$n' 
                   onkeyup='jsnotascolor(this);
                     grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",1,2)' 
                   ".cambiarcolornotas($nota->CE12)."></td>
-                <td><input type='text' value='".$nota->CE13."' size=2 name='nt10$n' 
+                <td $oculpromx[0]><input type='text' value='".$nota->CE13."' size=2 name='nt10$n' 
                   onkeyup='jsnotascolor(this);
                     grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",1,3)' 
                   ".cambiarcolornotas($nota->CE13)."></td>
-                <td><input type='text' value='".$nota->CE14."' size=2 name='nt10$n' 
+                <td $oculpromx[0]><input type='text' value='".$nota->CE14."' size=2 name='nt10$n' 
                   onkeyup='jsnotascolor(this);
                     grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",1,4)' 
                   ".cambiarcolornotas($nota->CE14)."></td>
-                <td>".versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,1)."</td>
-                <td><input type='text' value='".$nota->CE21."' size=2 name='nt20$n' 
+                <td $oculpromx[0]>".versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,1)."</td>
+
+                <td $oculpromx[1]><input type='text' value='".$nota->CE21."' size=2 name='nt20$n' 
                   onkeyup='jsnotascolor(this);
                   grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",2,1)' 
                   ".cambiarcolornotas($nota->CE21)."></td>
-                <td><input type='text' value='".$nota->CE22."' size=2 name='nt20$n' 
+                <td $oculpromx[1]><input type='text' value='".$nota->CE22."' size=2 name='nt20$n' 
                   onkeyup='jsnotascolor(this);
                     grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",2,2)' 
                   ".cambiarcolornotas($nota->CE22)."></td>
-                <td><input type='text' value='".$nota->CE23."' size=2 name='nt20$n' 
+                <td $oculpromx[1]><input type='text' value='".$nota->CE23."' size=2 name='nt20$n' 
                   onkeyup='jsnotascolor(this);
                   grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",2,3)' 
                   ".cambiarcolornotas($nota->CE23)."></td>
-                <td><input type='text' value='".$nota->CE24."' size=2 name='nt20$n' 
+                <td $oculpromx[1]><input type='text' value='".$nota->CE24."' size=2 name='nt20$n' 
                   onkeyup='jsnotascolor(this);
                     grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",2,4)' 
                   ".cambiarcolornotas($nota->CE24)."></td>
-                <td>".versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,2)."</td>
-                <td><input type='text' value='".$nota->CE31."' size=2 name='nt30$n' 
+                <td $oculpromx[1]>".versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,2)."</td>
+
+                <td $oculpromx[2]><input type='text' value='".$nota->CE31."' size=2 name='nt30$n' 
                   onkeyup='jsnotascolor(this);
                     grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",3,1)' 
                   ".cambiarcolornotas($nota->CE31)."></td>
-                <td><input type='text' value='".$nota->CE32."' size=2 name='nt30$n' 
+                <td $oculpromx[2]><input type='text' value='".$nota->CE32."' size=2 name='nt30$n' 
                   onkeyup='jsnotascolor(this);
                     grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",3,2)' 
                   ".cambiarcolornotas($nota->CE32)."></td>
-                <td><input type='text' value='".$nota->CE33."' size=2 name='nt30$n' 
+                <td $oculpromx[2]><input type='text' value='".$nota->CE33."' size=2 name='nt30$n' 
                   onkeyup='jsnotascolor(this);
                     grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",3,3)' 
                   ".cambiarcolornotas($nota->CE33)."></td>
-                <td><input type='text' value='".$nota->CE34."' size=2 name='nt30$n'
+                <td $oculpromx[2]><input type='text' value='".$nota->CE34."' size=2 name='nt30$n'
                   onkeyup='jsnotascolor(this);
                     grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",3,4)' 
                   ".cambiarcolornotas($nota->CE34)."></td>
-                <td>".versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,3)."</td>
-                <td><input type='text' value='".$nota->CE41."' size=2 name='nt40$n' 
+                <td $oculpromx[2]>".versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,3)."</td>
+
+                <td $oculpromx[3]><input type='text' value='".$nota->CE41."' size=2 name='nt40$n' 
                   onkeyup='jsnotascolor(this);
                     grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",4,1)' 
                   ".cambiarcolornotas($nota->CE41)."></td>
-                <td><input type='text' value='".$nota->CE42."' size=2 name='nt40$n'
+                <td $oculpromx[3]><input type='text' value='".$nota->CE42."' size=2 name='nt40$n'
                   onkeyup='jsnotascolor(this);
                     grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",4,2)' 
                   ".cambiarcolornotas($nota->CE42)."></td>
-                <td><input type='text' value='".$nota->CE43."' size=2 name='nt40$n'
+                <td $oculpromx[3]><input type='text' value='".$nota->CE43."' size=2 name='nt40$n'
                   onkeyup='jsnotascolor(this);
                     grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",4,3)' 
                   ".cambiarcolornotas($nota->CE43)."></td>
-                <td><input type='text' value='".$nota->CE44."' size=2 name='nt40$n'
+                <td $oculpromx[3]><input type='text' value='".$nota->CE44."' size=2 name='nt40$n'
                   onkeyup='jsnotascolor(this);
                   grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",4,4)' 
                   ".cambiarcolornotas($nota->CE44)."></td>
-                <td>".versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,4)."</td>
-                <td><input type='text' value='".$nota->CE51."' size=2 name='nt50$n'
+                <td $oculpromx[3]>".versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,4)."</td>
+
+                <td $oculpromx[4]><input type='text' value='".$nota->CE51."' size=2 name='nt50$n'
                   onkeyup='jsnotascolor(this);
                     grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",5,1)' 
                   ".cambiarcolornotas($nota->CE51)."></td>
-                <td><input type='text' value='".$nota->CE52."' size=2 name='nt50$n'
+                <td $oculpromx[4]><input type='text' value='".$nota->CE52."' size=2 name='nt50$n'
                   onkeyup='jsnotascolor(this);
                     grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",5,2)'
                   ".cambiarcolornotas($nota->CE52)."></td>
-                <td><input type='text' value='".$nota->CE53."' size=2 name='nt50$n'
+                <td $oculpromx[4]><input type='text' value='".$nota->CE53."' size=2 name='nt50$n'
                   onkeyup='jsnotascolor(this);
                     grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",5,3)' 
                   ".cambiarcolornotas($nota->CE53)."></td>
-                <td><input type='text' value='".$nota->CE54."' size=2 name='nt50$n'
+                <td $oculpromx[4]><input type='text' value='".$nota->CE54."' size=2 name='nt50$n'
                   onkeyup='jsnotascolor(this);
                     grabarnotas(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.",5,4)' 
                   ".cambiarcolornotas($nota->CE54)."></td>
-                <td>".versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,5) ."</td>
+                <td $oculpromx[4]>".versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,5) ."</td>
             </tr>";
         }
          echo " </table> </div>

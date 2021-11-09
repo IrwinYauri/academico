@@ -232,6 +232,8 @@ function fotodocente($dni,$t=1,$forma="no")
       var x = document.getElementById("mimensajex");
       x.innerHTML=t;
      x.style.backgroundColor=ncolor;
+    
+     x.style.zIndex =2000;
       x.className = "show";
       setTimeout(function(){ x.className = x.className.replace("show", ""); }, tiem);
       }///mstar
@@ -266,7 +268,7 @@ function fotodocente($dni,$t=1,$forma="no")
       border-radius: 2px;
       padding: 16px;
       position: fixed;
-      z-index: 1;
+      z-index: 5;
       left: 50%;
       bottom: 30px;
       font-size: 17px;

@@ -50,4 +50,37 @@ function color(t)
     </div>
     </div>
     </div>
+    
 
+    <script src="{{ asset('ohsnap/ohsnap.js')}}"></script>
+   
+    <style>
+       
+
+        .alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #eed3d7;
+  border-radius: 4px;
+  position: absolute;
+  bottom: 0px;
+  right: 21px;
+  /* Each alert has its own width */
+  float: right;
+  clear: right;
+  background-color: #DA4453;
+}
+
+    </style>
+     <div id="ohsnap" ></div>
+<script>
+function vermensaje()
+{
+ 
+ohSnap('REGISTRANDO', {'duration':'1500'});  // 2 seconds
+
+
+}
+//vermensaje()
+</script>
+<a class="button" id="green" onclick="vermensaje()"><span>Success</span></a>

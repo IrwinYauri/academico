@@ -339,5 +339,5 @@ $nn++;
 <script src="{{ asset('js/panelnotas.js')}}"></script>
 
 <script>
-  activarwow()
+  //activarwow()
 </script>

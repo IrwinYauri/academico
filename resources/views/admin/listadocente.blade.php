@@ -118,7 +118,7 @@ transition: opacity 400ms ease-in;
         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Nuevo Docente</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">ver horarios</button>
+      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#semestreactual" type="button" role="tab" aria-controls="semestreactual" aria-selected="false">VER DOCENTES ACTIVOS</button>
   </li>
     </ul>
     <div class="tab-content" id="myTabContent">
@@ -399,6 +399,12 @@ transition: opacity 400ms ease-in;
                   </div>  </form>
                 
                 </div> 
+
+
+                <div class="tab-pane fade show active" id="semestreactual" role="tabpanel" aria-labelledby="home-tab">
+                  @include('admin.listadocentesemestre')
+              </div>
+
     </div>
     
     </div>

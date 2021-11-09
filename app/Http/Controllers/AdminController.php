@@ -379,6 +379,31 @@ public function cambiarclavedocente($cod,$clave){
        $r=DB::select($sql);
       //  return back();
         }
+
+        public function listadocentesemestre($semestre)
+        {$sql="SELECT
+          seccion.sem_iCodigo,
+          docente.doc_vcDocumento,
+          docente.doc_vcPaterno,
+          docente.doc_vcMaterno,
+          docente.doc_vcNombre,
+          docente.doc_iCodigo
+          FROM
+          seccion
+          INNER JOIN seccion_horario ON seccion.sec_iCodigo = seccion_horario.sec_iCodigo
+          INNER JOIN docente ON seccion_horario.doc_iCodigo = docente.doc_iCodigo
+          where seccion.sem_iCodigo='$semestre' group by seccion.sem_iCodigo,docente.doc_vcDocumento,
+          docente.doc_vcPaterno,
+          docente.doc_vcMaterno,
+          docente.doc_vcNombre,
+          docente.doc_iCodigo
+          ";
+          $r=DB::select($sql);
+          return $r;
+          //  return back();
+            }
+
+        
   
     
 }

@@ -138,7 +138,9 @@ function nroromano($nro)
 
 
 function cambiarcolornotas($valor)
-     { if($valor*1>=10.5)
+     { if($valor=="" || is_null($valor))
+          $valor=0;
+       if($valor*1>=10.5)
        return "style='color:blue;' ";
        else 
        return "style='color:red;' ";

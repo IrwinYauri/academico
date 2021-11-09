@@ -1,3 +1,4 @@
+
 @php
 session_start();
  $coddocentex="";
@@ -23,29 +24,12 @@ $miscursosgrupo=$miasistencia->vercursosagrupado(semestreactual(),$coddocentex);
   font-size: 10px;
   color: black;
   }
-  /*
-  .fondocol{
-    background-color: navy;
-    color: white;
-  }
-  .columpro
-  {font-weight: bold;
-    font-size: 11px;
-  }
-  .columprof
-  {font-weight: bold;
-    font-size: 12px;
-  }
-  .ocultarnota
-  {display: none;
-
-  }*/
+  
   
   </style>
   @php
     use App\Http\Controllers\SilabusemestreController;   
 
-   
   @endphp
        @include('docente.formulasnotas')
   @php
@@ -89,7 +73,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
         <table  class="table table-striped table-hover table-responsive-md text-dark-400 table-condensed">
            <thead>
             ';
-            echo "<tr style='background-color:black;color:white'>
+            echo "<tr style='background-color:black;color:white;display:none;'>
               <td></td>
               <td></td>
               <td></td>";
@@ -119,7 +103,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                 { if( $ttunidad<$x)
                   $estadover="style='display:none;'";
                     for($n = 1; $n < 5; $n++)
-                   { echo "<td  $estadover> CE$n</td>";
+                   { echo "<td  style='display:none;'> CE$n</td>";
                     } 
                     echo " <td  $estadover> PU$x</td>";
               } 
@@ -136,14 +120,14 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                 <td>$n</td>
                 <td>$nota->alu_vcCodigo</td>
                 <td>".$nota->alu_vcPaterno." ".$nota->alu_vcMaterno." ".$nota->alu_vcNombre."</td>
-                <td ".cambiarcolornotas($nota->CE11)." $oculpromx[0]>" .$nota->CE11." </td>
-                <td ".cambiarcolornotas($nota->CE12)." $oculpromx[0]>".$nota->CE12."  </td>
-                <td ".cambiarcolornotas($nota->CE13)." $oculpromx[0]>".$nota->CE13."  </td>
-                <td ".cambiarcolornotas($nota->CE14)." $oculpromx[0]>".$nota->CE14." </td>
+                <td ".cambiarcolornotas($nota->CE11)." style='display:none;'>" .$nota->CE11." </td>
+                <td ".cambiarcolornotas($nota->CE12)." style='display:none;'>".$nota->CE12."  </td>
+                <td ".cambiarcolornotas($nota->CE13)." style='display:none;'>".$nota->CE13."  </td>
+                <td ".cambiarcolornotas($nota->CE14)." style='display:none;'>".$nota->CE14." </td>
                 <td class='columpro'  $oculprom[0]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,1)=="PA")
-                  {$prome=($nota->CE11+$nota->CE12+$nota->CE13+$nota->CE14)/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,1);
+                  {$prome=(sinnota($nota->CE11)+sinnota($nota->CE12)+sinnota($nota->CE13)+sinnota($nota->CE14))/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,1);
                   }
                   else {$xpp1=0;$xpp2=0;$xpp3=0;$xpp4=0;
                     $pesox = versilabusformula($nota->sem_iCodigo,$nota->cur_iCodigo,1);
@@ -169,10 +153,10 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                   .versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,1)
                   .*/
                   echo "</td>
-                <td ".cambiarcolornotas($nota->CE21)." $oculpromx[1]>".$nota->CE21." </td>
-                <td ".cambiarcolornotas($nota->CE22)." $oculpromx[1]>".$nota->CE22." </td>
-                <td ".cambiarcolornotas($nota->CE23)." $oculpromx[1]>".$nota->CE23." </td>
-                <td ".cambiarcolornotas($nota->CE24)." $oculpromx[1]>".$nota->CE24." </td>
+                <td ".cambiarcolornotas($nota->CE21)." style='display:none;'>".$nota->CE21." </td>
+                <td ".cambiarcolornotas($nota->CE22)." style='display:none;'>".$nota->CE22." </td>
+                <td ".cambiarcolornotas($nota->CE23)." style='display:none;'>".$nota->CE23." </td>
+                <td ".cambiarcolornotas($nota->CE24)." style='display:none;'>".$nota->CE24." </td>
                 <td class='columpro' $oculprom[1]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,2)=="PA")
@@ -206,10 +190,10 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                   .versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,2)
                   .*/
                  echo "</td>
-                <td ".cambiarcolornotas($nota->CE31)." $oculpromx[2]>".$nota->CE31."</td>
-                <td ".cambiarcolornotas($nota->CE32)." $oculpromx[2]>".$nota->CE32."</td>
-                <td ".cambiarcolornotas($nota->CE33)." $oculpromx[2]>".$nota->CE33."</td>
-                <td ".cambiarcolornotas($nota->CE34)." $oculpromx[2]>".$nota->CE34."</td>
+                <td ".cambiarcolornotas($nota->CE31)." style='display:none;'>".$nota->CE31."</td>
+                <td ".cambiarcolornotas($nota->CE32)." style='display:none;'>".$nota->CE32."</td>
+                <td ".cambiarcolornotas($nota->CE33)." style='display:none;'>".$nota->CE33."</td>
+                <td ".cambiarcolornotas($nota->CE34)." style='display:none;'>".$nota->CE34."</td>
                 <td class='columpro' $oculprom[2]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,3)=="PA")
@@ -239,10 +223,10 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                   .versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,3)
                   .*/
                 echo  "</td>
-                <td ".cambiarcolornotas($nota->CE41)." $oculpromx[3]>".$nota->CE41." </td>
-                <td ".cambiarcolornotas($nota->CE42)." $oculpromx[3]>".$nota->CE42."  </td>
-                <td ".cambiarcolornotas($nota->CE43)." $oculpromx[3]>".$nota->CE43."  </td>
-                <td ".cambiarcolornotas($nota->CE44)." $oculpromx[3]>".$nota->CE44."  </td>
+                <td ".cambiarcolornotas($nota->CE41)." style='display:none;'>".$nota->CE41." </td>
+                <td ".cambiarcolornotas($nota->CE42)." style='display:none;'>".$nota->CE42."  </td>
+                <td ".cambiarcolornotas($nota->CE43)." style='display:none;'>".$nota->CE43."  </td>
+                <td ".cambiarcolornotas($nota->CE44)." style='display:none;'>".$nota->CE44."  </td>
                 <td class='columpro' $oculprom[3]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,4)=="PA")
@@ -272,10 +256,10 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                   .versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,4)
                   .*/
                   echo "</td>
-                <td ".cambiarcolornotas($nota->CE51)." $oculpromx[4]>".$nota->CE51."  </td>
-                <td ".cambiarcolornotas($nota->CE52)." $oculpromx[4]>".$nota->CE52."  </td>
-                <td ".cambiarcolornotas($nota->CE53)." $oculpromx[4]>".$nota->CE53." </td>
-                <td ".cambiarcolornotas($nota->CE54)." $oculpromx[4]>".$nota->CE54."  </td>
+                <td ".cambiarcolornotas($nota->CE51)." style='display:none;'>".$nota->CE51."  </td>
+                <td ".cambiarcolornotas($nota->CE52)." style='display:none;'>".$nota->CE52."  </td>
+                <td ".cambiarcolornotas($nota->CE53)." style='display:none;'>".$nota->CE53." </td>
+                <td ".cambiarcolornotas($nota->CE54)." style='display:none;'>".$nota->CE54."  </td>
                 <td class='columpro' $oculprom[4]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,5)=="PA")
@@ -334,6 +318,8 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
 
                 echo cambiarcolorpromedio($tpro);
                  echo "</td>";
+                 echo "<td><input type='text'>
+                      </td>";
             echo "</tr>";
         }
          echo " </table>
@@ -406,7 +392,12 @@ $nn++;
 </table>
 </div>
 </div>
+       
 
+
+
+
+////////-----------
 <script>
 function color(t)
 { t.style.color='red';}

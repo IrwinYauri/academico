@@ -45,148 +45,6 @@ $miscursosgrupo=$miasistencia->vercursosagrupado(semestreactual(),$coddocentex);
   @php
     use App\Http\Controllers\SilabusemestreController;   
 
-   /* function versilabuscriterio($sem,$codcurso,$unidad)
-    {
-        $silabos=new SilabusemestreController();
-        $rptsilabo=$silabos->buscarcriteriosilabo($sem,$codcurso);
-        $tx=count($rptsilabo); 
-    //    dd($rptsilabo);
-        // if($tx>0)
-        $u1="";
-        $u2="";
-        $u3="";
-        $u4="";
-        $u5="";
-         foreach ($rptsilabo as $versilaboc) {
-       
-            $u1=$versilaboc->tipoPU1;
-              $u2=$versilaboc->tipoPU2;
-               $u3=$versilaboc->tipoPU3;
-                $u4=$versilaboc->tipoPU4;
-                $u5=$versilaboc->tipoPU5;
-      
-             }
-          
-        if($unidad==1)
-          { return $u1;}
-        if($unidad==2)
-          { return $u2;}
-        if($unidad==3)
-          { return $u3;}
-        if($unidad==4)
-          { return $u4;}
-        if($unidad==5)
-          { return $u5;}
-        
-    }
-
-    function versilabusformula($sem,$codcurso,$unidad)
-    {
-        $silabos=new SilabusemestreController();
-        $rptsilabo=$silabos->buscarcriteriosilabo($sem,$codcurso);
-        $tx=count($rptsilabo); 
-    //    dd($rptsilabo);
-        // if($tx>0)
-        $u1="";
-        $u2="";
-        $u3="";
-        $u4="";
-        $u5="";
-         foreach ($rptsilabo as $versilaboc) {
-       
-            $u1=$versilaboc->formulaPU1;
-              $u2=$versilaboc->formulaPU2;
-               $u3=$versilaboc->formulaPU3;
-                $u4=$versilaboc->formulaPU4;
-                $u5=$versilaboc->formulaPU5;
-      
-             }
-          
-        if($unidad==1)
-          { return $u1;}
-        if($unidad==2)
-          { return $u2;}
-        if($unidad==3)
-          { return $u3;}
-        if($unidad==4)
-          { return $u4;}
-        if($unidad==5)
-          { return $u5;}
-        
-    }
-    function versilabusnroeval($sem,$codcurso,$unidad)
-    {
-        $silabos=new SilabusemestreController();
-        $rptsilabo=$silabos->buscarcriteriosilabo($sem,$codcurso);
-        $tx=count($rptsilabo); 
-    //    dd($rptsilabo);
-        // if($tx>0)
-        $u1="";
-        $u2="";
-        $u3="";
-        $u4="";
-        $u5="";
-         foreach ($rptsilabo as $versilaboc) {
-       
-            $u1=$versilaboc->nro_evalPU1;
-              $u2=$versilaboc->nro_evalPU2;
-               $u3=$versilaboc->nro_evalPU3;
-                $u4=$versilaboc->nro_evalPU4;
-                $u5=$versilaboc->nro_evalPU5;
-      
-             }
-          
-        if($unidad==1)
-          { return $u1;}
-        if($unidad==2)
-          { return $u2;}
-        if($unidad==3)
-          { return $u3;}
-        if($unidad==4)
-          { return $u4;}
-        if($unidad==5)
-          { return $u5;}
-        
-    }
-    function formulapf($sem,$codcurso,$tipo)
-    {
-        $silabos=new SilabusemestreController();
-        $rptsilabo=$silabos->buscarcriteriosilabo($sem,$codcurso);
-        $tx=count($rptsilabo); 
-    //    dd($rptsilabo);
-        // if($tx>0)
-       
-        $pfti="";
-        $pffo="";
-       
-         foreach ($rptsilabo as $versilaboc) {
-       
-          $pfti=$versilaboc->tipoPF;
-          $pffo=$versilaboc->formulaPF;
-             
-      
-             }
-          
-        if($tipo==1)
-          { return $pfti;}
-        if($tipo==2)
-          { return $pffo;}
-      
-        
-    }
-    function totalnrounidad($sem,$codcurso)
-    {
-        $silabos=new SilabusemestreController();
-        $rptsilabo=$silabos->buscarcriteriosilabo($sem,$codcurso);
-        $tx=count($rptsilabo); 
-       // dd($rptsilabo);
-       $nrounidad="";
-         foreach ($rptsilabo as $versilaboc) {
-       $nrounidad=$versilaboc->unidades;
-              
-             }
-         return  $nrounidad;        
-    }*/
   @endphp
        @include('docente.formulasnotas')
   @php
@@ -284,7 +142,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                 <td class='columpro'  $oculprom[0]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,1)=="PA")
-                  {$prome=($nota->CE11+$nota->CE12+$nota->CE13+$nota->CE14)/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,1);
+                  {$prome=(sinnota($nota->CE11)+sinnota($nota->CE12)+sinnota($nota->CE13)+sinnota($nota->CE14))/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,1);
                   }
                   else {$xpp1=0;$xpp2=0;$xpp3=0;$xpp4=0;
                     $pesox = versilabusformula($nota->sem_iCodigo,$nota->cur_iCodigo,1);
@@ -305,6 +163,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                   }
                   $promediox1=$prome;
                  echo cambiarcolorpromedio($prome);
+                 echo "--".versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,1);
                  /*.versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,1)
                      ."--".versilabusformula($nota->sem_iCodigo,$nota->cur_iCodigo,1)."--"
                   .versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,1)
@@ -317,7 +176,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                 <td class='columpro' $oculprom[1]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,2)=="PA")
-                  {$prome=($nota->CE21+$nota->CE22+$nota->CE23+$nota->CE24)/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,2);
+                  {$prome=(sinnota($nota->CE21)+sinnota($nota->CE22)+sinnota($nota->CE23)+sinnota($nota->CE24))/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,2);
                   }
                   else {$xpp1=0.0;$xpp2=0.0;$xpp3=0.0;$xpp4=0.0;
                     $pesox = versilabusformula($nota->sem_iCodigo,$nota->cur_iCodigo,2);
@@ -354,7 +213,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                 <td class='columpro' $oculprom[2]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,3)=="PA")
-                  {$prome=($nota->CE31+$nota->CE32+$nota->CE33+$nota->CE34)/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,3);
+                  {$prome=(sinnota($nota->CE31)+sinnota($nota->CE32)+sinnota($nota->CE33)+sinnota($nota->CE34))/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,3);
                   }
                   else {$xpp1=0.0;$xpp2=0.0;$xpp3=0.0;$xpp4=0.0;
                     $pesox = versilabusformula($nota->sem_iCodigo,$nota->cur_iCodigo,3);
@@ -387,7 +246,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                 <td class='columpro' $oculprom[3]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,4)=="PA")
-                  {$prome=($nota->CE41+$nota->CE42+$nota->CE43+$nota->CE44)/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,4);
+                  {$prome=(sinnota($nota->CE41)+sinnota($nota->CE42)+sinnota($nota->CE43)+sinnota($nota->CE44))/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,4);
                   }
                   else {$xpp1=0.0;$xpp2=0.0;$xpp3=0.0;$xpp4=0.0;
                     $pesox = versilabusformula($nota->sem_iCodigo,$nota->cur_iCodigo,4);
@@ -420,7 +279,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                 <td class='columpro' $oculprom[4]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,5)=="PA")
-                  {$prome=($nota->CE51+$nota->CE52+$nota->CE53+$nota->CE54)/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,5);
+                  {$prome=(sinnota($nota->CE51)+sinnota($nota->CE52)+sinnota($nota->CE53)+sinnota($nota->CE54))/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,5);
                   }
                   else {$xpp1=0.0;$xpp2=0.0;$xpp3=0.0;$xpp4=0.0;
                     $pesox = versilabusformula($nota->sem_iCodigo,$nota->cur_iCodigo,5);
@@ -451,7 +310,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                  if(formulapf($sem,$codcurso,1)=="PA")
                 {
                   if($ttunidad>0)
-                  $tpro=($promediox1+$promediox2+$promediox3+$promediox4+$promediox5)/$ttunidad;
+                  $tpro=(sinnota($promediox1)+sinnota($promediox2)+sinnota($promediox3)+sinnota($promediox4)+sinnota($promediox5))/$ttunidad;
                // echo cambiarcolorpromedio($tpro);
                 }else {$ps1=0.0;$ps2=0.0;$ps3=0.0;$ps4=0.0;$ps5=0.0;
                   $pesox = formulapf($sem,$codcurso,2);

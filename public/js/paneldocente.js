@@ -43,11 +43,15 @@ function mostrarasistenciaactual() //activado
  { 
 	 var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
+   $( "#micontenido" ).load( "docente/cargando" );
+ 	$("#cargando").show();
+	 
      $.ajax({
 		url:"docente/asistencia21",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	 },
 	data:{
 		 n1:n1,

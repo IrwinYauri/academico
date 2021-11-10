@@ -55,223 +55,222 @@ color: white;
 
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <div class="miizquierda">
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin">
-                <div class="sidebar-brand-icon rotate-n-1">
-                    <i class="fas fa-user-cog"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">UNAAT<sup>{{semestreactual()}}</sup></div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="admin">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>PANEL DE CONTROL</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-               MODULOS
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>MOD ADMINISTRATIVO</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Gestion Academica:</h6>
-                      
-                        <a class="collapse-item" href="#" id="blistasemestre">
-                            <i class="fas fa-clock"></i>Calendario Academico</a>
-                        <a class="collapse-item" href="#" id="bcreardocente">Carga Academica<br>de Docentes</a>
-                        <a class="collapse-item" href="#" id="bhorario">
-                            <i class="fas fa-check"></i>Cursos y Horarios</a>
-
-                            <a class="collapse-item" href="#" id="bordenmerito">
-                                <i class="fas fa-desktop"></i>ORDEN DE MERITO</a>
-                        <a class="collapse-item" href="#" id="bsilabus1">Validar Matriculas</a>
-                        <a class="collapse-item" href="#" id="basistencia1">Nomina Oficial</a>
-                        <a class="collapse-item" href="#" id="basistencia2">Gestion de Notas</a>
-                        <a class="collapse-item" href="#" id="basistencia2">Auditoria de Notas</a>
-                        <a class="collapse-item" href="#" id="bencuesta">
-                            <i class="fa fa-question-circle"></i>Configuracion <br>de Encuesta</a>
-                        <a class="collapse-item" href="#" id="blistausuario">
-                            <i class="fas fa-check"></i>Crear Cuentas <br>de Sistema</a>
-                            
-                        <a class="collapse-item" href="#" id="blistaalumno">
-                            <i class="fas fa-user"></i>Gestion Alumnos</a>
-                        <a class="collapse-item" href="#" id="blistadocente" >
-                            <i class="fas fa-user-tie"></i>Gestion Docentes</a>
-                        <a class="collapse-item" href="#" id="blistaaula">
-                                <i class="fas fa-check"></i>Gestion Aula</a>
-                        <a class="collapse-item" href="#" id="basistencia2">Reporte general<br> de estudiantes</a>
-                        onclick="creardocente();"
+                <!-- Sidebar - Brand -->
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin">
+                    <div class="sidebar-brand-icon rotate-n-1">
+                        <i class="fas fa-user-cog"></i>
                     </div>
-                </div>
-            </li>
+                    <div class="sidebar-brand-text mx-3">UNAAT<sup>{{semestreactual()}}</sup></div>
+                </a>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>MOD ESCUELA PROFESIONAL</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Operaciones:</h6>
-                        <a class="collapse-item" href="#" id="basistencia1">Alumnos Matriculados</a>
-                        <a class="collapse-item" href="#" id="bsilabus1">Validar Matriculas</a>
-                        <a class="collapse-item" href="#" id="breportenotas">Reporte de Registro<br> de Notas</a>
-                        <a class="collapse-item" href="#" id="breporterecordacademico">Configurar Horario <br>por Escuela</a>
-                                <a class="collapse-item" href="#" id="basistencia2">Auditoria de Notas</a>
-                 
-                        
-                    </div>
-                </div>
-            </li>
-             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2"
-                    aria-expanded="true" aria-controls="collapseUtilities2">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>MOD CAJA</span>
-                </a>
-                <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Operaciones:</h6>
-                        <a class="collapse-item" href="#" id="basistencia1">VALIDAR PAGOS</a>
-                        <a class="collapse-item" href="#" id="bsilabus1">REPORTE DE PAGOS</a>
-                                               
-                    </div>
-                </div>
-            </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0">
 
-             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities3"
-                    aria-expanded="true" aria-controls="collapseUtilities3">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>MOD BIENESTRAR UNIVERSITARIO</span>
-                </a>
-                <div id="collapseUtilities3" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Operaciones:</h6>
-                        <a class="collapse-item" href="#" id="basistencia1">VALIDAR SEGUROS</a>
-                        <a class="collapse-item" href="#" id="bsilabus1">CONSULTAR FSECO</a>
-                                               
-                    </div>
-                </div>
-            </li>
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item active">
+                    <a class="nav-link" href="admin">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>PANEL DE CONTROL</span></a>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities4"
-                    aria-expanded="true" aria-controls="collapseUtilities4">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>MOD ATENCION TRAMITES<br> ACADEMICOS</span>
-                </a>
-                <div id="collapseUtilities4" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Operaciones:</h6>
-                        <a class="collapse-item" href="#" id="basistencia1">Estudiantes Matriculados</a>
-                        <a class="collapse-item" href="#" id="bsilabus1">Estudiantes con Reserva</a>
-                        <a class="collapse-item" href="#" id="bsilabus1">Estudiantes poblacion
-                            <br> incluido reserva</a>
-                        <a class="collapse-item" href="#" id="bsilabus1">Reporte de Ficha<br> de matricula</a>
-                         <a class="collapse-item" href="#" id="bsilabus1">Ficha de Matriculas<br>Segmentados</a>
-                         <a class="collapse-item" href="#" id="bsilabus1">Auditoria de Notas</a>
-                         <a class="collapse-item" href="#" id="bsilabus1">Certificados</a>
-                         <a class="collapse-item" href="#" id="bsilabus1">Promedio Ponderado<br>Tercio/Quinto Superior</a>
-                         <a class="collapse-item" href="#" id="bsilabus1">Constancia Primeros <br> Puestos</a>
-                         <a class="collapse-item" href="#" id="bsilabus1">Resumen de Alumno<br> Aprobados</a>
-                         <a class="collapse-item" href="#" id="bsilabus1">Resumen de Alumno<br> Sustitorio</a>
-                          <a class="collapse-item" href="#" id="bsilabus1">Resumen de Alumno<br> Aplazados</a>
-                        <a class="collapse-item" href="#" id="bsilabus1">Resumen de Alumno<br> Repitentes</a>
-                         <a class="collapse-item" href="#" id="bsilabus1">Resumen de Alumno<br> Reicorporados</a>
-                          <a class="collapse-item" href="#" id="bsilabus1">Resumen de Alumno<br> Becados</a>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                   MODULOS
+                </div>
+
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>MOD ADMINISTRATIVO</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Gestion Academica:</h6>
                           
-                        <a class="collapse-item" href="#" id="bsilabus1">Record de notas</a>
-                       
-                        
+                            <a class="collapse-item" href="#" id="blistasemestre">
+                                <i class="fas fa-clock"></i>Calendario Academico</a>
+                            <a class="collapse-item" href="#" id="bcreardocente">Carga Academica<br>de Docentes</a>
+                            <a class="collapse-item" href="#" id="bhorario">
+                                <i class="fas fa-check"></i>Cursos y Horarios</a>
 
-                                               
+                                <a class="collapse-item" href="#" id="bordenmerito">
+                                    <i class="fas fa-desktop"></i>ORDEN DE MERITO</a>
+                            <a class="collapse-item" href="#" id="bsilabus1">Validar Matriculas</a>
+                            <a class="collapse-item" href="#" id="basistencia1">Nomina Oficial</a>
+                            <a class="collapse-item" href="#" id="basistencia2">Gestion de Notas</a>
+                            <a class="collapse-item" href="#" id="basistencia2">Auditoria de Notas</a>
+                            <a class="collapse-item" href="#" id="bencuesta">
+                                <i class="fa fa-question-circle"></i>Configuracion <br>de Encuesta</a>
+                            <a class="collapse-item" href="#" id="blistausuario">
+                                <i class="fas fa-check"></i>Crear Cuentas <br>de Sistema</a>
+                                
+                            <a class="collapse-item" href="#" id="blistaalumno">
+                                <i class="fas fa-user"></i>Gestion Alumnos</a>
+                            <a class="collapse-item" href="#" id="blistadocente" >
+                                <i class="fas fa-user-tie"></i>Gestion Docentes</a>
+                            <a class="collapse-item" href="#" id="blistaaula">
+                                    <i class="fas fa-check"></i>Gestion Aula</a>
+                            <a class="collapse-item" href="#" id="basistencia2">Reporte general<br> de estudiantes</a>
+                            onclick="creardocente();"
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
 
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Datos del Docente
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Configurar datos</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Configurar:</h6>
-                        <a class="collapse-item" href="#" id="bsubirfoto">Subir Foto</a>
-                        <a class="collapse-item" href="#" id="bdatospersonal">Datos Personales</a>
-                        <a class="collapse-item" href="#" id="bsubirhojadevida">Hoja de Vida</a>
-                        <a class="collapse-item" href="#" id="bverpassword">Cambiar Contraseña</a>
-                        <div class="collapse-divider"></div>
-                     <!--   <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a> //-->
+                <!-- Nav Item - Utilities Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                        aria-expanded="true" aria-controls="collapseUtilities">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span>MOD ESCUELA PROFESIONAL</span>
+                    </a>
+                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                        data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Operaciones:</h6>
+                            <a class="collapse-item" href="#" id="basistencia1">Alumnos Matriculados</a>
+                            <a class="collapse-item" href="#" id="bsilabus1">Validar Matriculas</a>
+                            <a class="collapse-item" href="#" id="breportenotas">Reporte de Registro<br> de Notas</a>
+                            <a class="collapse-item" href="#" id="breporterecordacademico">Configurar Horario <br>por Escuela</a>
+                                    <a class="collapse-item" href="#" id="basistencia2">Auditoria de Notas</a>
+                     
+                            
+                        </div>
                     </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2"
+                        aria-expanded="true" aria-controls="collapseUtilities2">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span>MOD CAJA</span>
+                    </a>
+                    <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities"
+                        data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Operaciones:</h6>
+                            <a class="collapse-item" href="#" id="basistencia1">VALIDAR PAGOS</a>
+                            <a class="collapse-item" href="#" id="bsilabus1">REPORTE DE PAGOS</a>
+                                                   
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities3"
+                        aria-expanded="true" aria-controls="collapseUtilities3">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span>MOD BIENESTRAR UNIVERSITARIO</span>
+                    </a>
+                    <div id="collapseUtilities3" class="collapse" aria-labelledby="headingUtilities"
+                        data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Operaciones:</h6>
+                            <a class="collapse-item" href="#" id="basistencia1">VALIDAR SEGUROS</a>
+                            <a class="collapse-item" href="#" id="bsilabus1">CONSULTAR FSECO</a>
+                                                   
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities4"
+                        aria-expanded="true" aria-controls="collapseUtilities4">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span>MOD ATENCION TRAMITES<br> ACADEMICOS</span>
+                    </a>
+                    <div id="collapseUtilities4" class="collapse" aria-labelledby="headingUtilities"
+                        data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Operaciones:</h6>
+                            <a class="collapse-item" href="#" id="basistencia1">Estudiantes Matriculados</a>
+                            <a class="collapse-item" href="#" id="bsilabus1">Estudiantes con Reserva</a>
+                            <a class="collapse-item" href="#" id="bsilabus1">Estudiantes poblacion
+                                <br> incluido reserva</a>
+                            <a class="collapse-item" href="#" id="bsilabus1">Reporte de Ficha<br> de matricula</a>
+                             <a class="collapse-item" href="#" id="bsilabus1">Ficha de Matriculas<br>Segmentados</a>
+                             <a class="collapse-item" href="#" id="bsilabus1">Auditoria de Notas</a>
+                             <a class="collapse-item" href="#" id="bsilabus1">Certificados</a>
+                             <a class="collapse-item" href="#" id="bsilabus1">Promedio Ponderado<br>Tercio/Quinto Superior</a>
+                             <a class="collapse-item" href="#" id="bsilabus1">Constancia Primeros <br> Puestos</a>
+                             <a class="collapse-item" href="#" id="bsilabus1">Resumen de Alumno<br> Aprobados</a>
+                             <a class="collapse-item" href="#" id="bsilabus1">Resumen de Alumno<br> Sustitorio</a>
+                              <a class="collapse-item" href="#" id="bsilabus1">Resumen de Alumno<br> Aplazados</a>
+                            <a class="collapse-item" href="#" id="bsilabus1">Resumen de Alumno<br> Repitentes</a>
+                             <a class="collapse-item" href="#" id="bsilabus1">Resumen de Alumno<br> Reicorporados</a>
+                              <a class="collapse-item" href="#" id="bsilabus1">Resumen de Alumno<br> Becados</a>
+                              
+                            <a class="collapse-item" href="#" id="bsilabus1">Record de notas</a>
+                           
+                            
+
+                                                   
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Datos del Docente
                 </div>
-            </li>
 
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="#" id="brespuestaencuesta">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>ENCUESTA</span></a>
-            </li>
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                        aria-expanded="true" aria-controls="collapsePages">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Configurar datos</span>
+                    </a>
+                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Configurar:</h6>
+                            <a class="collapse-item" href="#" id="bsubirfoto">Subir Foto</a>
+                            <a class="collapse-item" href="#" id="bdatospersonal">Datos Personales</a>
+                            <a class="collapse-item" href="#" id="bsubirhojadevida">Hoja de Vida</a>
+                            <a class="collapse-item" href="#" id="bverpassword">Cambiar Contraseña</a>
+                            <div class="collapse-divider"></div>
+                         <!--   <h6 class="collapse-header">Other Pages:</h6>
+                            <a class="collapse-item" href="404.html">404 Page</a>
+                            <a class="collapse-item" href="blank.html">Blank Page</a> //-->
+                        </div>
+                    </div>
+                </li>
 
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="#" id="bvermensaje">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>MENSAJES</span></a>
-            </li>
+                <!-- Nav Item - Charts -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="brespuestaencuesta">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>ENCUESTA</span></a>
+                </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+                <!-- Nav Item - Tables -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="bvermensaje">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>MENSAJES</span></a>
+                </li>
 
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+
+                <!-- Sidebar Toggler (Sidebar) -->
+                <div class="text-center d-none d-md-inline">
+                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>
+
+                <!-- Sidebar Message -->
+                <div class="sidebar-card d-none d-lg-flex">
+                    <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
+                    <p class="text-center mb-2"><strong>SISACADEMICO</strong> Dejanos tus comentarios</p>
+                    <a class="btn btn-success btn-sm" href="#">Comentar</a>
+                </div>
             </div>
-
-            <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
-                <p class="text-center mb-2"><strong>SISACADEMICO</strong> Dejanos tus comentarios</p>
-                <a class="btn btn-success btn-sm" href="#">Comentar</a>
-            </div>
-</div>
         </ul>
     </div>
         <!-- End of Sidebar -->
@@ -291,18 +290,20 @@ color: white;
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
+                    <!--form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for...kkkkkkkkkk"
                                 aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
-                        </div>
-                    </form>
+                        </dvi>
+                    </form-->
+
+                    <h1 class="h3 mb-0 text-gray-500" style="font-size: 1.2rem;">SISTEMA ACADÉMICO - ADMINISTRADOR</h1>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -492,17 +493,17 @@ color: white;
                 <div class="container-fluid" id="micontenido">
 
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <!--div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">MODULOS ADMINISTRATIVOS</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generar Reporte</a>
-                    </div>
+                    </div-->
 
                     <!-- Content Row -->
                     <div class="row">
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-4 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -522,7 +523,7 @@ color: white;
                         </div>
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-4 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -543,19 +544,15 @@ color: white;
 
                         
                         <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-4 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-blue text-uppercase mb-1">
-                                               CALENDARIO ACADEMICO</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                <button  onclick="listasemestre()" id="blistadocente" class="btn btn-primary">EDITAR</button>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-cog fa-2x text-gray-300"></i>
+                                        <div class="col mr-2">                                            
+                                            <div class="text-primary" id="mihora" style="text-align:center;font-size: 38px;font-weight: bold;">hora </div>
+                                            <!--div class="text-xs font-weight-bold text-blue text-uppercase mb-1">Se acerca el evento</div>
+                                            <div class="text-xs font-weight-bold text-blue text-uppercase mb-1">Ingreso de Notas 3ra Unidad</div>
+                                            <div class="text-xs font-weight-bold text-blue text-uppercase mb-1">Encuesta Estudiantil</div-->
                                         </div>
                                     </div>
                                 </div>
@@ -566,82 +563,79 @@ color: white;
                     <!-- Content Row -->
 
                     <div class="row">
-
                         <!-- Area Chart -->
                         <div class="col-xl-8 col-lg-7">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">ESCUELAS PROFESIONALES</h6>
-                                   
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">ESCUELAS PROFESIONALES</h6>                                   
                                 </div>  
-                                  <div class="row">
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-primary text-white shadow">
-                                        <div class="card-body">
-                                           ADMINISTRACION DE NEGOCIOS
-                                            <div class="text-white-50 small">Ciencias Administrativas</div>
+                                <div class="row" style="padding: 15px 15px 0px 15px;">
+                                    <div class="col-lg-6 mb-4">
+                                        <div class="card bg-primary text-white shadow">
+                                            <div class="card-body">
+                                               ADMINISTRACION DE NEGOCIOS
+                                                <div class="text-white-50 small">Ciencias Administrativas</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-4">
+                                        <div class="card bg-success text-white shadow">
+                                            <div class="card-body">
+                                               ENFERMERIA
+                                                <div class="text-white-50 small">Ciencias de la Salud</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-4">
+                                        <div class="card bg-info text-white shadow">
+                                            <div class="card-body">
+                                               INGENIERIA AGROINDUSTRIAL
+                                                <div class="text-white-50 small">Facultad de Ingenieria</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-4" style="display:none; ">
+                                        <div class="card bg-warning text-white shadow">
+                                            <div class="card-body">
+                                                Fisica
+                                                <div class="text-white-50 small">Teorico/Practico</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-4" style="display:none; ">
+                                        <div class="card bg-danger text-white shadow">
+                                            <div class="card-body">
+                                               Logica y Funciones 
+                                                <div class="text-white-50 small">Teorico</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-4" style="display:none; ">
+                                        <div class="card bg-secondary text-white shadow">
+                                            <div class="card-body">
+                                                Secondary
+                                                <div class="text-white-50 small">Teorico/Practico</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-4" style="display:none; ">
+                                        <div class="card bg-light text-black shadow">
+                                            <div class="card-body">
+                                                Light
+                                                <div class="text-black-50 small">#f8f9fc</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-4" style="display:none; ">
+                                        <div class="card bg-dark text-white shadow">
+                                            <div class="card-body">
+                                                Dark
+                                                <div class="text-white-50 small">#5a5c69</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-success text-white shadow">
-                                        <div class="card-body">
-                                           ENFERMERIA
-                                            <div class="text-white-50 small">Ciencias de la Salud</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-info text-white shadow">
-                                        <div class="card-body">
-                                           INGENIERIA AGROINDUSTRIAL
-                                            <div class="text-white-50 small">Facultad de Ingenieria</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4" style="display:none; ">
-                                    <div class="card bg-warning text-white shadow">
-                                        <div class="card-body">
-                                            Fisica
-                                            <div class="text-white-50 small">Teorico/Practico</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4" style="display:none; ">
-                                    <div class="card bg-danger text-white shadow">
-                                        <div class="card-body">
-                                           Logica y Funciones 
-                                            <div class="text-white-50 small">Teorico</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4" style="display:none; ">
-                                    <div class="card bg-secondary text-white shadow">
-                                        <div class="card-body">
-                                            Secondary
-                                            <div class="text-white-50 small">Teorico/Practico</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4" style="display:none; ">
-                                    <div class="card bg-light text-black shadow">
-                                        <div class="card-body">
-                                            Light
-                                            <div class="text-black-50 small">#f8f9fc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4" style="display:none; ">
-                                    <div class="card bg-dark text-white shadow">
-                                        <div class="card-body">
-                                            Dark
-                                            <div class="text-white-50 small">#5a5c69</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                                 <!-- Card Body -->
                                 <!-- inicio grafico ok
                                 <div class="card-body">
@@ -651,14 +645,14 @@ color: white;
                                 </div>  fin grafico ok//-->
                             </div>
 <!-- /widget-header -->
-<div class="widget-content">
+<!--div class="widget-content">
     <div class="shortcuts"> <a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-list-alt"></i><span
                               class="shortcut-label">Apps</span> </a><a href="javascript:;" class="shortcut"><i
                                   class="shortcut-icon icon-bookmark"></i><span class="shortcut-label">Bookmarks</span> </a><a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-signal"></i> <span class="shortcut-label">Reports</span> </a><a href="javascript:;" class="shortcut"> <i class="shortcut-icon icon-comment"></i><span class="shortcut-label">Comments</span> </a><a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-user"></i><span
                                       class="shortcut-label">Users</span> </a><a href="javascript:;" class="shortcut"><i
                                           class="shortcut-icon icon-file"></i><span class="shortcut-label">Notes</span> </a><a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-picture"></i> <span class="shortcut-label">Photos</span> </a><a href="javascript:;" class="shortcut"> <i class="shortcut-icon icon-tag"></i><span class="shortcut-label">Tags</span> </a> </div>
-    <!-- /shortcuts --> 
-  </div>
+    
+  </div-->
   <!-- /widget-content --> 
                         </div>
                          
@@ -667,10 +661,8 @@ color: white;
                         <div class="col-xl-4 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Avance Curricular</h6>
-                                  
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Avance Curricular</h6>                                  
                                 </div>
                                 <div class="card-body">
                                     <h4 class="small font-weight-bold" style="display:none; ">Matematica Basica <span
@@ -777,6 +769,10 @@ color: white;
             </div>
         </div>
     </div>
+
+    <div id="cargando" style="display: none;">
+        <img style="position: absolute;top: 0px;opacity: 0.5;width: 100%;" src="{{asset('img/cargar.gif')}}">
+    </div>
  <!-- Card Body -->
                                 <!-- inicio grafico ok 
                                 <div class="card-body">
@@ -808,6 +804,33 @@ $('.miizquierda').css('background-color','black');
 
 //$('.d-none').css("background-image", "url(img/login2.jpg)");  
 //$("#mibloque").css("background-image", "url(img/logo1.jpg)");  
+
+function mueveReloj()
+{
+    momentoActual = new Date();
+    hora = momentoActual.getHours();
+    minuto = momentoActual.getMinutes();
+    segundo = momentoActual.getSeconds();
+
+    str_segundo = new String (segundo)
+    if (str_segundo.length == 1)
+       segundo = "0" + segundo;
+
+    str_minuto = new String (minuto)
+    if (str_minuto.length == 1)
+       minuto = "0" + minuto;
+
+    str_hora = new String (hora)
+    if (str_hora.length == 1)
+       hora = "0" + hora;
+
+    horaImprimible = hora + " : " + minuto + " : " + segundo;
+    document.getElementById('mihora').innerHTML= horaImprimible;
+    setTimeout("mueveReloj()",1000) 
+  //  document.form_reloj.reloj.value = horaImprimible
+}
+mueveReloj();
+
 </script>
 </body>
 

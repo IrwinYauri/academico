@@ -13,8 +13,8 @@ function ini()
   
  
 
-  function listadocente() //activo
- { 
+function listadocente() //activo
+{ 
    var n1="";
    var n2="";
    var n3="";
@@ -90,26 +90,29 @@ function listausuario() //activo
 }
 function listasemestre() //activo
  { //var n1=$("#codpro").val();
-   var n1="";
-   var n2="";
-   var n3="";
-   //var bbuscar=$("#bbuscar").val();
-     $.ajax({
+    var n1="";
+    var n2="";
+    var n3="";
+    //var bbuscar=$("#bbuscar").val();
+    $("#cargando").show();
+    $.ajax({
 	//	url:"asistencia/updateasisalumno",
 	url:"admin/listasemestre",
 	//url:"{{ route('asistencia.updateasisalumno') }}",
-	success:function(result){
-	//alert(result);
-	$("#micontenido").html(result);
-	 },
-	data:{
+	success:function(result)
+	{
+		$("#micontenido").html(result);
+		$("#cargando").hide();
+	},
+	data:
+	{
 		codhora:n1,
 		codalumno:n2,
 		estado:n3
 		//, bbuscar:bbuscar
-	  },
+	},
 		type:"GET"   
-	 } );
+	});
 	
 }
 

@@ -273,6 +273,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
     
   </head>
   <h3 style="color:rgb(13, 13, 206)">REGISTRAR NOTAS POR UNIDAD</h3>
+  <div id="mimensajex">GRABANDO</div>
   <table>
 <tr style="background-color: navy;color:white">
 <td>CURSO</td>
@@ -319,10 +320,7 @@ $nn++;
 
 
 
-  <div id="row">
-    
-    <div id="mimensajex">GRABANDO</div>
-  </div>
+
 
 <script>
     function grabarnotas(idnota,idcurso,idalumno,unidad,nro)

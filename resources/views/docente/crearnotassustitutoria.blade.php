@@ -362,6 +362,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
   <div class="card mb-4">
         <div class="card-header bg-Info text-black" style='background-color:rgb(88, 25, 236);color:white;'>
             REPORTE DE NOTAS POR UNIDAD
+            <div id="ohsnap" ></div>
             </div>
         <div class="card-body">
             <table>
@@ -412,7 +413,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
 
 
 
-////////-----------
+
 <script>
 function color(t)
 { t.style.color='red';}
@@ -450,7 +451,7 @@ function color(t)
 }
 
     </style>
-     <div id="ohsnap" ></div>
+     
 <script>
 function vermensaje()
 {
@@ -461,7 +462,7 @@ ohSnap('REGISTRANDO', {'duration':'1500'});  // 2 seconds
 }
 //vermensaje()
 </script>
-<a class="button" id="green" onclick="vermensaje()"><span>Success</span></a>
+<!-- <a class="button" id="green" onclick="vermensaje()"><span>Success</span></a> //-->
 
 
 

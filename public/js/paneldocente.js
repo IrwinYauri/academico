@@ -26,10 +26,15 @@ function ini()
  function mostrarhorario() //activado
  { var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
+
+   $( "#micontenido" ).load( "docente/cargando" );
+ 	$("#cargando").show();
+
      $.ajax({
 		url:"docente/horario",
 	success:function(result){
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	 },
 	data:{
 		 n1:n1,

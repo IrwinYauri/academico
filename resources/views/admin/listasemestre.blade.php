@@ -112,28 +112,29 @@ $listasemestre=$listasemestres->versemestre();
     }
     @endphp
   </script> 
- 
+
 <div class="container table-condensed">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
-          Lista de cuenta de Sistema</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
-          Nuevo cuenta de Sistema</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestrefecha" type="button" role="tab" aria-controls="semestrefecha" aria-selected="false">
-        <i class="fas fa-calendar-alt"></i>
-        CONFIGURAR FECHAS</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestre" type="button" role="tab" aria-controls="semestre" aria-selected="false">APERTURA/SEMESTRE</button>
-</li>
+      <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
+            Lista de cuenta de Sistema</button>
+      </li>
+      <li class="nav-item" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
+            Nuevo cuenta de Sistema</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestrefecha" type="button" role="tab" aria-controls="semestrefecha" aria-selected="false">
+          <i class="fas fa-calendar-alt"></i>
+          CONFIGURAR FECHAS</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestre" type="button" role="tab" aria-controls="semestre" aria-selected="false">APERTURA/SEMESTRE</button>
+      </li>
     </ul>
+
     <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <h3>Lista de Calendario semestre</h3>
         <table id="tabla-semestre" class="table table-hover table-condensed text-dark-80">
         <thead class="micolor">
@@ -150,7 +151,7 @@ $listasemestre=$listasemestres->versemestre();
         <tbody>
        @foreach ($listasemestre as $sem)
     
-       <tr class="micolor">
+        <tr class="micolor">
             <td>{{ $sem->sem_iCodigo }}</td>
             <td>{{ $sem->sem_nombre }}</td>
            
@@ -174,7 +175,7 @@ $listasemestre=$listasemestres->versemestre();
               <a href="javascript:void(0)" onclick="editarAnimal('.$animales->id.')" class="btn btn-info btn-sm table-condensed"> Editar </a>
                 &nbsp;&nbsp;<button type="button" name="delete" id="'.$animales->id.'" class="delete btn btn-danger btn-sm table-condensed"> Eliminar </button>
             </td>
-           </tr>
+        </tr>
         @endforeach  
         </tbody>
         </table>

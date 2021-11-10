@@ -58,9 +58,9 @@ color: white;
                 <!-- Sidebar - Brand -->
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin">
                     <div class="sidebar-brand-icon rotate-n-1">
-                        <i class="fas fa-user-cog"></i>
+                        <img src="{{asset('img/escudo2.png')}}" style="width: 40px;">
                     </div>
-                    <div class="sidebar-brand-text mx-3">UNAAT<sup>{{semestreactual()}}</sup></div>
+                    <div class="sidebar-brand-text mx-3" style="font-size: 25px;">UNAAT<!--sup>{{semestreactual()}}</sup--></div>
                 </a>
 
                 <!-- Divider -->
@@ -771,7 +771,7 @@ color: white;
     </div>
 
     <div id="cargando" style="display: none;">
-        <img style="position: absolute;top: 0px;opacity: 0.5;width: 100%;" src="{{asset('img/cargar.gif')}}">
+        <img style="position: absolute;top: 0px;opacity: 0.75;width: 100%;" src="{{asset('img/cargar.gif')}}">
     </div>
  <!-- Card Body -->
                                 <!-- inicio grafico ok 

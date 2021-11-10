@@ -1,43 +1,45 @@
 $(document).ready(ini);
 function ini()
 { //$("#bverhorario1").click(updateasistenciadia);
-  $("#blistadocente").click(listadocente);
-  $("#blistaalumno").click(listaalumno);
-  $("#blistausuario").click(listausuario);
-  $("#blistasemestre").click(listasemestre);
-  $("#blistaaula").click(listaaula);
-  $("#bhorario").click(listahorario);
-  $("#bencuesta").click(listaencuesta);
-  $("#bordenmerito").click(listaordenmerito);
-  }
+	$("#blistadocente").click(listadocente);
+	$("#blistaalumno").click(listaalumno);
+	$("#blistausuario").click(listausuario);
+	$("#blistasemestre").click(listasemestre);
+	$("#blistaaula").click(listaaula);
+	$("#bhorario").click(listahorario);
+	$("#bencuesta").click(listaencuesta);
+	$("#bordenmerito").click(listaordenmerito);
+}
   
  
 
 function listadocente() //activo
 { 
-   var n1="";
-   var n2="";
-   var n3="";
-   //var bbuscar=$("#bbuscar").val();
-     $.ajax({
+    var n1="";
+    var n2="";
+    var n3="";
+    //var bbuscar=$("#bbuscar").val();
+    $("#cargando").show();
+    $.ajax({
 	//	url:"asistencia/updateasisalumno",
 	url:"admin/listadocente",
 	//url:"{{ route('asistencia.updateasisalumno') }}",
 	success:function(result){
-	//alert(result);
-	$("#micontenido").html(result);
+		//alert(result);
+		$("#micontenido").html(result);
+		$("#cargando").hide();
 	},
-	 complete: function () {
+	complete: function () {
 		$('#tabla-docente1').DataTable();
-	   },
+	},
 	data:{
 		codhora:n1,
 		codalumno:n2,
 		estado:n3
 		//, bbuscar:bbuscar
-	  },
+	},
 		type:"GET"   
-	 } );
+	});
 	
 }
 function listaalumno() //activo
@@ -46,6 +48,7 @@ function listaalumno() //activo
    var n2="";
    var n3="";
    //var bbuscar=$("#bbuscar").val();
+   $("#cargando").show();
      $.ajax({
 	//	url:"asistencia/updateasisalumno",
 	url:"admin/listaalumno",
@@ -53,6 +56,7 @@ function listaalumno() //activo
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	 },
 	data:{
 		codhora:n1,
@@ -70,6 +74,7 @@ function listausuario() //activo
    var n2="";
    var n3="";
    //var bbuscar=$("#bbuscar").val();
+   $("#cargando").show();
      $.ajax({
 	//	url:"asistencia/updateasisalumno",
 	url:"admin/listausuario",
@@ -77,6 +82,7 @@ function listausuario() //activo
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	 },
 	data:{
 		codhora:n1,
@@ -123,6 +129,7 @@ function listaaula() //activo
    var n2="";
    var n3="";
    //var bbuscar=$("#bbuscar").val();
+   $("#cargando").show();
      $.ajax({
 	//	url:"asistencia/updateasisalumno",
 	url:"admin/listaaula",
@@ -130,6 +137,7 @@ function listaaula() //activo
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	 },
 	data:{
 		codhora:n1,
@@ -142,27 +150,33 @@ function listaaula() //activo
 	
 }
 function listahorario() //activo
- { //var n1=$("#codpro").val();
-   var n1="";
-   var n2="";
-   var n3="";
-   //var bbuscar=$("#bbuscar").val();
-     $.ajax({
-	//	url:"asistencia/updateasisalumno",
-	url:"admin/horario",
-	//url:"{{ route('asistencia.updateasisalumno') }}",
-	success:function(result){
-	//alert(result);
-	$("#micontenido").html(result);
-	 },
-	data:{
-		codhora:n1,
-		codalumno:n2,
-		estado:n3
-		//, bbuscar:bbuscar
-	  },
-		type:"GET"   
-	 } );
+ {  
+    //var n1=$("#codpro").val();
+    var n1="";
+    var n2="";
+    var n3="";
+    //var bbuscar=$("#bbuscar").val();
+    
+    $("#cargando").show();
+    $.ajax(
+    {
+		//	url:"asistencia/updateasisalumno",
+		url:"admin/horario",
+		//url:"{{ route('asistencia.updateasisalumno') }}",
+		success:function(result)
+		{
+			//alert(result);
+			$("#micontenido").html(result);
+			$("#cargando").hide();
+		},
+		data:{
+			codhora:n1,
+			codalumno:n2,
+			estado:n3
+			//, bbuscar:bbuscar
+		  },
+			type:"GET"   
+	});
 	
 }
 function listaencuesta() //activo
@@ -171,6 +185,7 @@ function listaencuesta() //activo
    var n2="";
    var n3="";
    //var bbuscar=$("#bbuscar").val();
+   $("#cargando").show();
      $.ajax({
 	//	url:"asistencia/updateasisalumno",
 	url:"admin/editarencuesta",
@@ -178,6 +193,7 @@ function listaencuesta() //activo
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	},
 	 complete: function () {
 		//$('#tabla-docente1').DataTable();
@@ -198,6 +214,7 @@ function listaordenmerito() //activo
    var n2="";
    var n3="";
    //var bbuscar=$("#bbuscar").val();
+   $("#cargando").show();
      $.ajax({
 	//	url:"asistencia/updateasisalumno",
 	url:"admin/ordenmerito",
@@ -205,6 +222,7 @@ function listaordenmerito() //activo
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	},
 	 complete: function () {
 		//$('#tabla-docente1').DataTable();
@@ -224,6 +242,7 @@ function listaencuestapreguntasemestre(semestre) //activo
    var n1=semestre;
  
    //var bbuscar=$("#bbuscar").val();
+   $("#cargando").show();
      $.ajax({
 	//	url:"asistencia/updateasisalumno",
 	url:"admin/encuestapreguntasemestre",
@@ -231,6 +250,7 @@ function listaencuestapreguntasemestre(semestre) //activo
 	success:function(result){
 	//alert(result);
 	$("#tcategoria").html(result);
+	$("#cargando").hide();
 	},
 	 complete: function () {
 		//$('#tabla-docente1').DataTable();
@@ -249,6 +269,7 @@ function listaencuestapreguntasemestre(semestre) //activo
    var n2="";
    var n3="";
    //var bbuscar=$("#bbuscar").val();
+   $("#cargando").show();
      $.ajax({
 	//	url:"asistencia/updateasisalumno",
 	url:"../asistencia/updateasisalumno",
@@ -256,6 +277,7 @@ function listaencuestapreguntasemestre(semestre) //activo
 	success:function(result){
 	//alert(result);
 	$("#micontenidowww").html(result);
+	$("#cargando").hide();
 	
 	 },
 	data:{
@@ -274,6 +296,7 @@ function crearsemanaasis(codcur,semana,dia)
 	var n2="";
 	var n3="";*/
 	//var bbuscar=$("#bbuscar").val();
+	$("#cargando").show();
 	  $.ajax({
 	 //	url:"asistencia/updateasisalumno",
 	 url:"../asistencia/crearsemana2",

@@ -54,6 +54,41 @@ class NotasController extends Controller
 
 
    }
+
+   function editarnotasustitutorio($semestre,$curso,$codalumno,$nota)
+   {$sql="update
+     `matriculadetalle`
+     INNER JOIN `registroeval` ON (`matriculadetalle`.`matdet_iCodigo` = `registroeval`.`matdet_iCodigo`)
+     INNER JOIN `seccion` ON (`matriculadetalle`.`sec_iCodigo` = `seccion`.`sec_iCodigo`)
+     INNER JOIN `seccion_horario` ON (`seccion`.`sec_iCodigo` = `seccion_horario`.`sec_iCodigo`)
+     INNER JOIN `matricula` ON (`matriculadetalle`.`mat_iCodigo` = `matricula`.`mat_iCodigo`)
+   set 
+   sust='$nota'
+   WHERE
+     `matricula`.`sem_iCodigo` = '$semestre' AND 
+     `seccion`.`cur_iCodigo` = '$curso' AND 
+     `matricula`.`alu_iCodigo` = '$codalumno'";
+     $data1=DB::select($sql);
+    return $data1;
+   }
+
+   function editarnotaaplazado($semestre,$curso,$codalumno,$nota)
+   {$sql="update
+     `matriculadetalle`
+     INNER JOIN `registroeval` ON (`matriculadetalle`.`matdet_iCodigo` = `registroeval`.`matdet_iCodigo`)
+     INNER JOIN `seccion` ON (`matriculadetalle`.`sec_iCodigo` = `seccion`.`sec_iCodigo`)
+     INNER JOIN `seccion_horario` ON (`seccion`.`sec_iCodigo` = `seccion_horario`.`sec_iCodigo`)
+     INNER JOIN `matricula` ON (`matriculadetalle`.`mat_iCodigo` = `matricula`.`mat_iCodigo`)
+   set 
+   aplaz='$nota'
+   WHERE
+     `matricula`.`sem_iCodigo` = '$semestre' AND 
+     `seccion`.`cur_iCodigo` = '$curso' AND 
+     `matricula`.`alu_iCodigo` = '$codalumno'";
+     $data1=DB::select($sql);
+    return $data1;
+   }
+
    public function show($mivistas)
    {return view("notas.".$mivistas."");
     

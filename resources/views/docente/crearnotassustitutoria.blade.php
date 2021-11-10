@@ -112,6 +112,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
               } 
                  echo " <td> PF</td>";
                  echo " <td>Sustitutorio</td>";
+               
         echo "    </tr>
         </thead>";
     
@@ -325,9 +326,14 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                 if($tpro>=8 && $tpro<=10.5)
                 $mibloqueo="";
                  echo "</td>";
-                 echo "<td><input type='text' size=2 $mibloqueo  onkeyup='jsnotascolor(this);
-                    vermensaje()'>
+                 echo "<td><input type='text' size=2 $mibloqueo  
+                  value='".$nota->sust."'
+                  onkeyup='jsnotascolor(this);
+                  grabarnotassusti(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.");
+                    vermensaje();'>
                       </td>";
+
+                      
             echo "</tr>";
         }
          echo " </table>
@@ -360,8 +366,9 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
 
   <h5 style="color:Navy"></h5>
   <div class="card mb-4">
-        <div class="card-header bg-Info text-black" style='background-color:rgb(88, 25, 236);color:white;'>
-            REPORTE DE NOTAS POR UNIDAD
+        <div class="card-header bg-primary text-black" style='background-color:rgb(88, 25, 236);color:white;'>
+            REPORTE DE NOTAS SUSTITUTORIO
+            <div id="ohsnap" ></div>
             </div>
         <div class="card-body">
             <table>
@@ -412,7 +419,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
 
 
 
-////////-----------
+
 <script>
 function color(t)
 { t.style.color='red';}
@@ -450,7 +457,7 @@ function color(t)
 }
 
     </style>
-     <div id="ohsnap" ></div>
+     
 <script>
 function vermensaje()
 {
@@ -460,8 +467,31 @@ ohSnap('REGISTRANDO', {'duration':'1500'});  // 2 seconds
 
 }
 //vermensaje()
+
 </script>
-<a class="button" id="green" onclick="vermensaje()"><span>Success</span></a>
+<script src="{{ asset('js/panelnotas.js')}}"></script>
+
+
+<script>
+  function grabarnotassusti(idnota,idcurso,idalumno)
+  {//alert(id.value);
+      if(idnota.value>=0 && idnota.value<=20)
+      {men="GRABANDO:"+idnota.value.toString()+"";
+    //  alertagrabarx(men,"#301934");
+     //editarnotasjs(semestre,codcurso,codalumno,nota)
+     editarnotasutisjs({{semestreactual()}},idcurso,idalumno,idnota.value);
+  }
+      else
+      {men="Error solo notas entre 0 a 20";
+      alertagrabarx(men,"red");
+      id.value="";
+      }
+
+  }
+//  alertagrabarx("COMPLETANDO","blue")
+
+</script>
+<!-- <a class="button" id="green" onclick="vermensaje()"><span>Success</span></a> //-->
 
 
 

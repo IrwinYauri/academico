@@ -89,6 +89,48 @@ function editarnotasutisjs(semestre,codcurso,codalumno,nota)
 	 } );
 	
 }
+function editarnotaaplazajs(semestre,codcurso,codalumno,nota)
+ { //var n1=$("#codpro").val();
+   var n1=semestre;
+   var n2=codcurso;
+   var n3=codalumno;
+   var n4=nota;
+   //var n5=unidad;
+  // var n6=nro;
+   var rurl="";
+   //var bbuscar=$("#bbuscar").val();
+     $.ajax({
+		url:"notas/editarnotasaplaz",
+	//rurl=urlExiste("../asistencia/updateasisalumno","/asistencia/updateasisalumno");
+	//url:"../asistencia/updateasisalumno",
+	//url:urlExiste("../asistencia/updateasisalumno","asistencia/updateasisalumno"),
+	//url:"{{ route('asistencia.updateasisalumno') }}",
+	success:function(result){
+	//alert(result);
+	//alertagrabarx(result);
+	//toastr.success('asistencia editada','Actualizado',{timeOut:3000});
+	$("#micontenidowww").html(result);
+	console.log(semestre);
+	console.log(codcurso);
+	console.log(codalumno);
+	console.log(nota);
+	//console.log(unidad);
+	//console.log(nro);
+	 },
+	data:{
+	
+		semestre:n1,
+		codcurso:n2,
+		codalumno:n3,
+		nota:n4
+	//	unidad:n5,
+	//	nro:n6
+		//, bbuscar:bbuscar
+	  },
+		type:"GET"   
+	 } );
+	
+}
 function crearsemanaasisx(codcur,semana,dia,boton1,urlx)
  { //var n1=$("#codpro").val();
 	/*var n1="";

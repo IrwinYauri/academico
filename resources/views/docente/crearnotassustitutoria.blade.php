@@ -112,6 +112,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
               } 
                  echo " <td> PF</td>";
                  echo " <td>Sustitutorio</td>";
+               
         echo "    </tr>
         </thead>";
     
@@ -331,6 +332,8 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                   grabarnotassusti(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.");
                     vermensaje();'>
                       </td>";
+
+                      
             echo "</tr>";
         }
          echo " </table>
@@ -363,8 +366,8 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
 
   <h5 style="color:Navy"></h5>
   <div class="card mb-4">
-        <div class="card-header bg-Info text-black" style='background-color:rgb(88, 25, 236);color:white;'>
-            REPORTE DE NOTAS POR UNIDAD
+        <div class="card-header bg-primary text-black" style='background-color:rgb(88, 25, 236);color:white;'>
+            REPORTE DE NOTAS SUSTITUTORIO
             <div id="ohsnap" ></div>
             </div>
         <div class="card-body">

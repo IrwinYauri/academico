@@ -440,7 +440,7 @@ color: white;
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid wow fadeInUp" id="micontenido">
+                <div class="container-fluid" id="micontenido">
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">

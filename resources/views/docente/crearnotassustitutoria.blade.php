@@ -325,8 +325,11 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                 if($tpro>=8 && $tpro<=10.5)
                 $mibloqueo="";
                  echo "</td>";
-                 echo "<td><input type='text' size=2 $mibloqueo  onkeyup='jsnotascolor(this);
-                    vermensaje()'>
+                 echo "<td><input type='text' size=2 $mibloqueo  
+                  value='".$nota->sust."'
+                  onkeyup='jsnotascolor(this);
+                  grabarnotassusti(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.");
+                    vermensaje();'>
                       </td>";
             echo "</tr>";
         }
@@ -461,6 +464,29 @@ ohSnap('REGISTRANDO', {'duration':'1500'});  // 2 seconds
 
 }
 //vermensaje()
+
+</script>
+<script src="{{ asset('js/panelnotas.js')}}"></script>
+
+
+<script>
+  function grabarnotassusti(idnota,idcurso,idalumno)
+  {//alert(id.value);
+      if(idnota.value>=0 && idnota.value<=20)
+      {men="GRABANDO:"+idnota.value.toString()+"";
+    //  alertagrabarx(men,"#301934");
+     //editarnotasjs(semestre,codcurso,codalumno,nota)
+     editarnotasutisjs({{semestreactual()}},idcurso,idalumno,idnota.value);
+  }
+      else
+      {men="Error solo notas entre 0 a 20";
+      alertagrabarx(men,"red");
+      id.value="";
+      }
+
+  }
+//  alertagrabarx("COMPLETANDO","blue")
+
 </script>
 <!-- <a class="button" id="green" onclick="vermensaje()"><span>Success</span></a> //-->
 

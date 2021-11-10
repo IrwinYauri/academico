@@ -163,7 +163,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                   }
                   $promediox1=$prome;
                  echo cambiarcolorpromedio($prome);
-                 echo "--".versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,1);
+                // echo "--".versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,1);
                  /*.versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,1)
                      ."--".versilabusformula($nota->sem_iCodigo,$nota->cur_iCodigo,1)."--"
                   .versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,1)

@@ -21,7 +21,7 @@ $miscursosgrupo=$miasistencia->vercursosagrupado(semestreactual(),$coddocentex);
  @endphp
  <style>
     .table-condensed{
-  font-size: 10px;
+  font-size: 12px;
   color: black;
     }
     .nocolumna
@@ -43,7 +43,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
    $vernotas=$notas->verregistronotas($coddocentex,$sem,$codcurso,$curso);
    $ttunidad=totalnrounidad($sem,$codcurso);
    echo' <div class="card-body " style="overflow: scroll;">
-        <div class="card-header py-3" style="background-color:navy)">
+        <div class="card-header py-3 " style="background-color:navy)">
             <h6 class="m-0 font-weight-bold text-dark-400">
               <table>
                 <tr>
@@ -73,7 +73,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
               </table>
               </h6>
            </div>
-        <table  class="table table-striped table-hover table-responsive-md text-dark-400 table-condensed">
+        <table  class="table table-striped table-hover table-responsive-md text-dark-400 table-condensed" border=1>
            <thead>
             ';
             echo "<tr style='background-color:black;color:white;display:none;'>
@@ -111,6 +111,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                     echo " <td  $estadover> PU$x</td>";
               } 
                  echo " <td> PF</td>";
+                 echo " <td>Sustitutorio</td>";
         echo "    </tr>
         </thead>";
     
@@ -163,7 +164,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                 <td class='columpro' $oculprom[1]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,2)=="PA")
-                  {$prome=($nota->CE21+$nota->CE22+$nota->CE23+$nota->CE24)/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,2);
+                  {$prome=(sinnota($nota->CE21)+sinnota($nota->CE22)+sinnota($nota->CE23)+sinnota($nota->CE24))/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,2);
                   }
                   else {$xpp1=0.0;$xpp2=0.0;$xpp3=0.0;$xpp4=0.0;
                     $pesox = versilabusformula($nota->sem_iCodigo,$nota->cur_iCodigo,2);
@@ -200,7 +201,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                 <td class='columpro' $oculprom[2]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,3)=="PA")
-                  {$prome=($nota->CE31+$nota->CE32+$nota->CE33+$nota->CE34)/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,3);
+                  {$prome=(sinnota($nota->CE31)+sinnota($nota->CE32)+sinnota($nota->CE33)+sinnota($nota->CE34))/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,3);
                   }
                   else {$xpp1=0.0;$xpp2=0.0;$xpp3=0.0;$xpp4=0.0;
                     $pesox = versilabusformula($nota->sem_iCodigo,$nota->cur_iCodigo,3);
@@ -233,7 +234,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                 <td class='columpro' $oculprom[3]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,4)=="PA")
-                  {$prome=($nota->CE41+$nota->CE42+$nota->CE43+$nota->CE44)/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,4);
+                  {$prome=(sinnota($nota->CE41)+sinnota($nota->CE42)+sinnota($nota->CE43)+sinnota($nota->CE44))/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,4);
                   }
                   else {$xpp1=0.0;$xpp2=0.0;$xpp3=0.0;$xpp4=0.0;
                     $pesox = versilabusformula($nota->sem_iCodigo,$nota->cur_iCodigo,4);
@@ -266,7 +267,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                 <td class='columpro' $oculprom[4]>";
                   $prome=0;
                   if(versilabuscriterio($nota->sem_iCodigo,$nota->cur_iCodigo,5)=="PA")
-                  {$prome=($nota->CE51+$nota->CE52+$nota->CE53+$nota->CE54)/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,5);
+                  {$prome=(sinnota($nota->CE51)+sinnota($nota->CE52)+sinnota($nota->CE53)+sinnota($nota->CE54))/versilabusnroeval($nota->sem_iCodigo,$nota->cur_iCodigo,5);
                   }
                   else {$xpp1=0.0;$xpp2=0.0;$xpp3=0.0;$xpp4=0.0;
                     $pesox = versilabusformula($nota->sem_iCodigo,$nota->cur_iCodigo,5);
@@ -297,7 +298,7 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                  if(formulapf($sem,$codcurso,1)=="PA")
                 {
                   if($ttunidad>0)
-                  $tpro=($promediox1+$promediox2+$promediox3+$promediox4+$promediox5)/$ttunidad;
+                  $tpro=(sinnota($promediox1)+sinnota($promediox2)+sinnota($promediox3)+sinnota($promediox4)+sinnota($promediox5))/$ttunidad;
                // echo cambiarcolorpromedio($tpro);
                 }else {$ps1=0.0;$ps2=0.0;$ps3=0.0;$ps4=0.0;$ps5=0.0;
                   $pesox = formulapf($sem,$codcurso,2);
@@ -320,8 +321,12 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
                 }
 
                 echo cambiarcolorpromedio($tpro);
+                $mibloqueo="disabled style='background-color:#cdcdcd;'";
+                if($tpro>=8 && $tpro<=10.5)
+                $mibloqueo="";
                  echo "</td>";
-                 echo "<td><input type='text'>
+                 echo "<td><input type='text' size=2 $mibloqueo  onkeyup='jsnotascolor(this);
+                    vermensaje()'>
                       </td>";
             echo "</tr>";
         }
@@ -351,49 +356,56 @@ function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
   </head>
-  <h5 style="color:Navy">REPORTE DE NOTAS POR UNIDAD</h5>
-  <table>
-<tr style="background-color: navy;color:white">
-<td>CURSO</td>
-<td>PLAN ES</td>
-<td>ALUMNO</td>
-    </tr>
 
 
-@php
-$nn=0;
-//    dd($miscursos);
-//$milistadata
-//foreach($miscursos as $listacur)
-@endphp
-@foreach($miscursosgrupo as $listacur)
-@php
-$nn++;
-@endphp
-<tr>
-<td><button type="button"  class="btn btn-primary" href="#"
-  onclick="mostrarobjeto('tn{{$nn}}')">VER 
-</button> 
-{{ $listacur["cur_vcCodigo"] }} ::
-{{ $listacur["cur_vcNombre"] }} ::
-{{ $listacur["sec_iNumero"] }}</td>
-<td>{{ $listacur["escpla_vcCodigo"] }}
-{{ left($listacur["cur_vcCodigo"],2) }}</td>
-<td id="nlista{{$nn}}">0</td>
+  <h5 style="color:Navy"></h5>
+  <div class="card mb-4">
+        <div class="card-header bg-Info text-black" style='background-color:rgb(88, 25, 236);color:white;'>
+            REPORTE DE NOTAS POR UNIDAD
+            </div>
+        <div class="card-body">
+            <table>
+            <tr style="background-color: navy;color:white">
+            <td>CURSO</td>
+            <td>PLAN ES</td>
+            <td>ALUMNO</td>
+                </tr>
 
-</tr>
-<tr style="display:none" id="tn{{$nn}}">
-<td colspan="6"> 
-@php
-  // veralumnomatriculados($listacur["cur_iCodigo"],semestreactual(),$nn);
-  vercursonotas($coddocentex,semestreactual(),$listacur["cur_iCodigo"],$nn,$listacur["cur_vcNombre"],left($listacur["cur_vcCodigo"],2));
-@endphp
-</td>
-</tr>
-@endforeach
 
-</table>
-</div>
+            @php
+            $nn=0;
+            //    dd($miscursos);
+            //$milistadata
+            //foreach($miscursos as $listacur)
+            @endphp
+            @foreach($miscursosgrupo as $listacur)
+            @php
+            $nn++;
+            @endphp
+            <tr>
+            <td><button type="button"  class="btn btn-primary" href="#"
+            onclick="mostrarobjeto('tn{{$nn}}')">VER 
+            </button> 
+            {{ $listacur["cur_vcCodigo"] }} ::
+            {{ $listacur["cur_vcNombre"] }} ::
+            {{ $listacur["sec_iNumero"] }}</td>
+            <td>{{ $listacur["escpla_vcCodigo"] }}
+            {{ left($listacur["cur_vcCodigo"],2) }}</td>
+            <td id="nlista{{$nn}}">0</td>
+
+            </tr>
+            <tr style="display:none" id="tn{{$nn}}">
+            <td colspan="6"> 
+            @php
+            // veralumnomatriculados($listacur["cur_iCodigo"],semestreactual(),$nn);
+            vercursonotas($coddocentex,semestreactual(),$listacur["cur_iCodigo"],$nn,$listacur["cur_vcNombre"],left($listacur["cur_vcCodigo"],2));
+            @endphp
+            </td>
+            </tr>
+            @endforeach
+
+            </table>
+    </div>
 </div>
        
 
@@ -415,44 +427,7 @@ function color(t)
         size:2;
     }
     </style>
-<div class="card mb-4">
-    <div class="card-header bg-Info text-black" style='background-color:rgb(88, 25, 236);color:white;'>
-    Actualizacion Notas Sustitoria
-    </div>
-    <div class="card-body">
-    <div style="overflow: scroll;">                               
-    <table class="table table-striped table-bordered table-sm " cellspacing="0"
-       id="dataTable"   >
-    <thead>
-    <tr style='background-color:navy;color:white;'>
-    <td>#</td>
-    <td>Codigo</td>
-    <td>Nombre</td>
-    <td>PU1</td>
-    <td>Prom</td>
-    <td>Sust</td>
-    <td>Action</td>
-    <td>Aplaz.</td>
-    <td>NF</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-    <td>1</td>
-    <td>20216OA</td>
-    <td>ASTUVILCA MIGUEL JOSELYN SHARON</td>
-    <td>10</td>
-    <td>-</td>
-    <td><input type="text" name="x1" id="x1" size=2></td>
-    <td><a class="btn btn-danger " id="bnotassustitoriocurso">Borrar</a></td>
-    <td>-</td>
-    <td>10</td>
-    </tr>
-    </tbody>
-    </table>
-    </div>
-    </div>
-    </div>
+
     
 
     <script src="{{ asset('ohsnap/ohsnap.js')}}"></script>
@@ -487,3 +462,9 @@ ohSnap('REGISTRANDO', {'duration':'1500'});  // 2 seconds
 //vermensaje()
 </script>
 <a class="button" id="green" onclick="vermensaje()"><span>Success</span></a>
+
+
+
+
+
+

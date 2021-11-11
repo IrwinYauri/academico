@@ -502,10 +502,12 @@ public function  verrecord($codprofe)
 
            public function rptcargahorario()
            { 
-            $pdf=PDF::loadView('docente.pdfcargahorario')
+           /* $pdf=PDF::loadView('docente.pdfcargahorario')
             ->setPaper('a4', 'landscape');
            return $pdf->download('reportex.pdf');
-           
+           */
+          $pag="1";
+          return view('docente.pdfcargahorario')->with('pag', $pag);
            }
            public function rptrecordacademico()
            { 

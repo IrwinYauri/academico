@@ -56,6 +56,7 @@
   }
 </script>
 <!-- <a href="javascript:pruebaDivAPdf()" class="button">Pasar a PDF</a>  //-->
+<button onclick="back()">Volver</button>
 <div id="imprimir">
 
 @php
@@ -158,8 +159,8 @@ if($t>0)
  { for($x=0;$x<$t;$x++)
   {if(trim($milista[$x])==trim($value->cur_vcCodigo))
   $b=1;
-// echo '<br>'.$milista[$x];
- //echo  '--'.$value->cur_vcCodigo;
+
+
   }
 }
   if($b==0)
@@ -173,11 +174,9 @@ if($t>0)
                   ];
  }
   
-//echo "xxx--".$milista[$t]."<br><br>";
+
 }
-//dd($miscursos); //antiguo
-//dd($milistadata);
-//FIN agrupando filtrando evitar duplicados
+
 @endphp
 
 
@@ -191,40 +190,7 @@ if($t>0)
 
 
 @php
-   /* 
-
-  foreach($milistadata as $listacur)
-   {
-echo "<table border=1 >
-  <tr style='background-color:navy;color:white;'>
-    <td>codcurso</td>
-    <td>cursos</td>
-    <td>seccion</td>
-    <td>plan</td>
-    <td>escuela</td>
-   
-    <td>Alumnos </td>
-    
-  </tr>
-      ";
-  echo '<tr>
-      
-    <td>'.$listacur["cur_vcCodigo"].'</td>
-    <td>'.$listacur["cur_vcNombre"].'</td>
-    <td>'. $listacur["sec_iNumero"].'</td>
-    <td>'.$listacur["escpla_vcCodigo"].'</td>
-    <td>'.left($listacur["cur_vcCodigo"],2).'</td>
-    <td >0</td>
-   
-  </tr>
-</table>
-<br>
-  ';
-//  veralumnomatriculados(2,semestreactual());
- 
-}
-*/
-//$codx=new array();
+  
 
 
 foreach($milistadata as $listacur)
@@ -284,3 +250,10 @@ for($x=0;$x<$t;$x++)
 <script>
 pruebaDivAPdf()
 </script>
+
+<script type="text/javascript">
+  function back(){
+    history.back();
+  }
+</script>
+

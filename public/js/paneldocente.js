@@ -26,10 +26,15 @@ function ini()
  function mostrarhorario() //activado
  { var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
+
+   $( "#micontenido" ).load( "docente/cargando" );
+ 	$("#cargando").show();
+
      $.ajax({
 		url:"docente/horario",
 	success:function(result){
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	 },
 	data:{
 		 n1:n1,
@@ -43,11 +48,15 @@ function mostrarasistenciaactual() //activado
  { 
 	 var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
+   $( "#micontenido" ).load( "docente/cargando" );
+ 	$("#cargando").show();
+	 
      $.ajax({
 		url:"docente/asistencia21",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	 },
 	data:{
 		 n1:n1,
@@ -60,11 +69,14 @@ function mostrarasistenciaactual() //activado
 function mostrarmatriculados()  //activado
  { 	 var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
+   $( "#micontenido" ).load( "docente/cargando" );
+ 	$("#cargando").show();
      $.ajax({
 		url:"docente/matriculados",
 	success:function(result){
 
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	 },
 	data:{
 		 n1:n1,
@@ -221,11 +233,14 @@ function mostrarplanactividad()
 function crearnotas()
  { var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
+   $("#micontenido" ).load( "docente/cargando" );
+   $("#cargando").show();
      $.ajax({
 		url:"docente/crearnotas",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	 },
 	data:{
 		 n1:n1,
@@ -307,19 +322,23 @@ function versemestrecriterios(seccion)//activo
 	 } );
 	
 }
-function notassustitorio()
- {  $.ajax({
-		url:"docente/crearnotassustitutoria",
-	success:function(result){
-	//alert(result);
-	$("#micontenido").html(result);
-	 },
-	data:{  },
-		type:"GET"   
-	 } );
-	
-}
-function notassustitoriocurso()
+	function notassustitorio()
+	{// $("#cargando").show();
+	$( "#micontenido" ).load( "docente/cargando" );
+	$("#cargando").show();
+		$.ajax({
+			url:"docente/crearnotassustitutoria",
+		success:function(result){
+		//alert(result);
+		$("#micontenido").html(result);
+		$("#cargando").hide();
+		},
+		data:{  },
+			type:"GET"   
+		} );
+		
+	}
+function notassustitoriocurso()//pendinte revisar
  {  $.ajax({
 	//	url:"notassustitoriocurso.php",
 	url:"notassustitoriocurso.php",
@@ -333,12 +352,15 @@ function notassustitoriocurso()
 	
 }
 function notasaplazados()
- {  $.ajax({
+ {  $( "#micontenido" ).load( "docente/cargando" );
+ 	$("#cargando").show();
+	 $.ajax({
 	//	url:"notasaplazados.php",
 	url:"docente/crearnotasaplazados",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	 },
 	data:{  },
 		type:"GET"   

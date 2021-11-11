@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
   
+=======
+  echo "==========================".$coddocentex."===========================";
+>>>>>>> cf48c16a65df08b71c5673cf29e041db33c84b7b
   //session_start();
   //$coddocentex="";
   
@@ -12,7 +16,11 @@
   use App\Http\Controllers\AsistenciaController;
 
   //$mihoras=new DocenteController();
+<<<<<<< HEAD
   $asistencias=new AsistenciaController();
+=======
+  //$asistencias=new AsistenciaController();
+>>>>>>> cf48c16a65df08b71c5673cf29e041db33c84b7b
   
   //$listahora= $mihoras->vercargahoraria($coddocentex,20212);
   
@@ -409,9 +417,13 @@
   </div>
 </div>
 <?php
+<<<<<<< HEAD
   //====>$asistencia=$asistencias->asistenciaalumno(447,439,1,16,"LUN");
 
 
+=======
+  $asistencia=$asistencias->asistenciaalumno(447,439,1,16,"LUN");
+>>>>>>> cf48c16a65df08b71c5673cf29e041db33c84b7b
   //verasis(447,439,1,16,"LUN");
   //$miasistencia=new DocenteController(); 
   //$misalumnos=$miasistencia->vercursosalumnos(2,20212);
@@ -424,6 +436,10 @@
 <script src="{{ asset('js/panelasistencia.js')}}"></script>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> cf48c16a65df08b71c5673cf29e041db33c84b7b
 <script>
   function alertagrabar(t) 
   {
@@ -470,5 +486,9 @@
 
   //activarwow();
 </script>
+<<<<<<< HEAD
 =======
 >>>>>>> ff9e53968f2b1aaffef0352f44f9450723bb9e13
+=======
+>>>>>>> b04e08dba1f940c51b39e75a80d864461acee128
+>>>>>>> cf48c16a65df08b71c5673cf29e041db33c84b7b

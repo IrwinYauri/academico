@@ -90,6 +90,7 @@ function mostrarmatriculados()  //activado
 }
 function mostrarasistenciacompletar()//Activado
 <<<<<<< HEAD
+<<<<<<< HEAD
 { 
 	//var n1=$("#n1").val();
     //var bbuscar=$("#bbuscar").val();
@@ -107,6 +108,8 @@ function mostrarasistenciacompletar()//Activado
 			bbuscar:bbuscar
 	  	}*/,
 =======
+=======
+>>>>>>> cf48c16a65df08b71c5673cf29e041db33c84b7b
  { var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
 
@@ -124,7 +127,28 @@ function mostrarasistenciacompletar()//Activado
 		 n1:n1,
 		 bbuscar:bbuscar
 	  },
+<<<<<<< HEAD
 >>>>>>> ff9e53968f2b1aaffef0352f44f9450723bb9e13
+=======
+=======
+{ 
+	//var n1=$("#n1").val();
+    //var bbuscar=$("#bbuscar").val();
+    $("#cargando").show();
+    $.ajax({
+		url:"vercargahoraria",
+		success:function(result)
+		{
+			$("#micontenido").html(result);
+			$("#cargando").hide();
+		}/*,
+		data:
+		{
+			n1:n1,
+			bbuscar:bbuscar
+	  	}*/,
+>>>>>>> b04e08dba1f940c51b39e75a80d864461acee128
+>>>>>>> cf48c16a65df08b71c5673cf29e041db33c84b7b
 		type:"GET"   
 	});	
 }

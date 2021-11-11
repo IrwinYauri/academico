@@ -68,9 +68,10 @@ color: white;
 
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
-                    <a class="nav-link" href="admin">
+                    <a class="nav-link" href="admin" onclick="$('#cargando').show();">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>PANEL DE CONTROL</span></a>
+                        <span>PANEL DE CONTROL</span>
+                    </a>
                 </li>
 
                 <!-- Divider -->
@@ -93,21 +94,21 @@ color: white;
                             <h6 class="collapse-header">Gestion Academica:</h6>
                           
                             <a class="collapse-item" href="#" id="blistasemestre">
-                                <i class="fas fa-clock"></i>Calendario Academico</a>
+                                <i class="fas fa-clock"></i> Calendario Academico</a>
                             <a class="collapse-item" href="#" id="bcreardocente">Carga Academica<br>de Docentes</a>
                             <a class="collapse-item" href="#" id="bhorario">
-                                <i class="fas fa-check"></i>Cursos y Horarios</a>
+                                <i class="fas fa-check"></i> Cursos y Horarios</a>
 
                                 <a class="collapse-item" href="#" id="bordenmerito">
-                                    <i class="fas fa-desktop"></i>ORDEN DE MERITO</a>
+                                    <i class="fas fa-desktop"></i> ORDEN DE MERITO</a>
                             <a class="collapse-item" href="#" id="bsilabus1">Validar Matriculas</a>
                             <a class="collapse-item" href="#" id="basistencia1">Nomina Oficial</a>
                             <a class="collapse-item" href="#" id="basistencia2">Gestion de Notas</a>
                             <a class="collapse-item" href="#" id="basistencia2">Auditoria de Notas</a>
                             <a class="collapse-item" href="#" id="bencuesta">
-                                <i class="fa fa-question-circle"></i>Configuracion <br>de Encuesta</a>
+                                <i class="fa fa-question-circle"></i> Configuracion <br>de Encuesta</a>
                             <a class="collapse-item" href="#" id="blistausuario">
-                                <i class="fas fa-check"></i>Crear Cuentas <br>de Sistema</a>
+                                <i class="fas fa-check"></i> Crear Cuentas <br>de Sistema</a>
                                 
                             <a class="collapse-item" href="#" id="blistaalumno">
                                 <i class="fas fa-user"></i>Gestion Alumnos</a>
@@ -635,25 +636,9 @@ color: white;
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Card Body -->
-                                <!-- inicio grafico ok
-                                <div class="card-body">
-                                    <div class="chart-area">Periodos
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
-                                </div>  fin grafico ok//-->
+                                </div>             
                             </div>
-<!-- /widget-header -->
-<!--div class="widget-content">
-    <div class="shortcuts"> <a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-list-alt"></i><span
-                              class="shortcut-label">Apps</span> </a><a href="javascript:;" class="shortcut"><i
-                                  class="shortcut-icon icon-bookmark"></i><span class="shortcut-label">Bookmarks</span> </a><a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-signal"></i> <span class="shortcut-label">Reports</span> </a><a href="javascript:;" class="shortcut"> <i class="shortcut-icon icon-comment"></i><span class="shortcut-label">Comments</span> </a><a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-user"></i><span
-                                      class="shortcut-label">Users</span> </a><a href="javascript:;" class="shortcut"><i
-                                          class="shortcut-icon icon-file"></i><span class="shortcut-label">Notes</span> </a><a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-picture"></i> <span class="shortcut-label">Photos</span> </a><a href="javascript:;" class="shortcut"> <i class="shortcut-icon icon-tag"></i><span class="shortcut-label">Tags</span> </a> </div>
-    
-  </div-->
-  <!-- /widget-content --> 
+
                         </div>
                          
 

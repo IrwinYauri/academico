@@ -21,8 +21,7 @@ $listasemestre=$listasemestres->versemestre();
   <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.0/datatables.min.js"></script>
   
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
-    <style>
+  <style>
         .table-condensed{
       font-size: 12px;
       color: black;
@@ -46,36 +45,36 @@ $listasemestre=$listasemestres->versemestre();
       
 <body>
   <script>
-      const semestre = [];
-      const  sem_iMatriculaInicio = [];
-      const sem_iMatriculaFinal = [];
-      const sem_dEncuestaInicio = [];
-      const sem_dEncuestaFinal = [];
-      const sem_dInicioClases = [];
-     const sem_iSemanas = [];
-     const sem_dActaInicio = [];
-     const  sem_dActaFinal = [];
-     const sem_iToleranciaInicio = [];
-     const sem_iToleranciaFinal = [];
-     const fech_ent1_ini = [];
-     const  fech_ent1_fin = [];
-     const fech_ent2_ini = [];
-     const  fech_ent2_fin = [];
-     const fech_ent3_ini = [];
-     const  fech_ent3_fin = [];
-     const fech_ent4_ini = [];
-     const  fech_ent4_fin = [];
-     const fech_ent5_ini = [];
-     const  fech_ent5_fin = [];
-     const  sem_dAplazadoInicio= [];
-     const sem_dAplazadoFinal= [];
-     const fecMatReg_ini= [];
-     const fecMatReg_fin= [];
-     const fecMatExt_ini= [];
-     const  fecMatExt_fin= [];
+    const semestre = [];
+    const  sem_iMatriculaInicio = [];
+    const sem_iMatriculaFinal = [];
+    const sem_dEncuestaInicio = [];
+    const sem_dEncuestaFinal = [];
+    const sem_dInicioClases = [];
+    const sem_iSemanas = [];
+    const sem_dActaInicio = [];
+    const  sem_dActaFinal = [];
+    const sem_iToleranciaInicio = [];
+    const sem_iToleranciaFinal = [];
+    const fech_ent1_ini = [];
+    const  fech_ent1_fin = [];
+    const fech_ent2_ini = [];
+    const  fech_ent2_fin = [];
+    const fech_ent3_ini = [];
+    const  fech_ent3_fin = [];
+    const fech_ent4_ini = [];
+    const  fech_ent4_fin = [];
+    const fech_ent5_ini = [];
+    const  fech_ent5_fin = [];
+    const  sem_dAplazadoInicio= [];
+    const sem_dAplazadoFinal= [];
+    const fecMatReg_ini= [];
+    const fecMatReg_fin= [];
+    const fecMatExt_ini= [];
+    const  fecMatExt_fin= [];
     @php
     $n=-1;
-      foreach ($listasemestre as $sem)
+    foreach ($listasemestre as $sem)
     { $n++;     
     echo "semestre[".$n."]=".$sem->sem_iCodigo.";";
     echo "sem_iMatriculaInicio[".$n."]='".$sem->sem_iMatriculaInicio."';";
@@ -97,407 +96,386 @@ $listasemestre=$listasemestres->versemestre();
     echo " fech_ent4_ini[".$n."]='".$sem->fech_ent4_ini."';";
     echo "fech_ent4_fin[".$n."]='".$sem->fech_ent4_fin."';";
     if(isset($sem->fech_ent5_ini))
-      { echo " fech_ent5_ini[".$n."]='".$sem->fech_ent4_ini."';";
-        echo "fech_ent5_fin[".$n."]='".$sem->fech_ent4_fin."';";}
+    { echo " fech_ent5_ini[".$n."]='".$sem->fech_ent4_ini."';";
+    echo "fech_ent5_fin[".$n."]='".$sem->fech_ent4_fin."';";}
     else
-      { echo " fech_ent5_ini[".$n."]='';";
-        echo "fech_ent5_fin[".$n."]='';";}  
+    { echo " fech_ent5_ini[".$n."]='';";
+    echo "fech_ent5_fin[".$n."]='';";}  
 
-     echo "sem_dAplazadoInicio[".$n."]='".left($sem->sem_dAplazadoInicio,10)."';";
-     echo "sem_dAplazadoFinal[".$n."]='".left($sem->sem_dAplazadoFinal,10)."';";
-     echo "fecMatReg_ini[".$n."]='".left($sem->fecMatReg_ini,10)."';";
-     echo "fecMatReg_fin[".$n."]='".left($sem->fecMatReg_fin,10)."';";
-     echo "fecMatExt_ini[".$n."]='".left($sem->fecMatExt_ini,10)."';";
-     echo "fecMatExt_fin[".$n."]='".left($sem->fecMatExt_fin,10)."';";       
+    echo "sem_dAplazadoInicio[".$n."]='".left($sem->sem_dAplazadoInicio,10)."';";
+    echo "sem_dAplazadoFinal[".$n."]='".left($sem->sem_dAplazadoFinal,10)."';";
+    echo "fecMatReg_ini[".$n."]='".left($sem->fecMatReg_ini,10)."';";
+    echo "fecMatReg_fin[".$n."]='".left($sem->fecMatReg_fin,10)."';";
+    echo "fecMatExt_ini[".$n."]='".left($sem->fecMatExt_ini,10)."';";
+    echo "fecMatExt_fin[".$n."]='".left($sem->fecMatExt_fin,10)."';";       
     }
     @endphp
   </script> 
 
+
 <div class="container table-condensed">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
-            Lista de cuenta de Sistema</button>
-      </li>
-      <li class="nav-item" role="presentation">
-          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
-            Nuevo cuenta de Sistema</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestrefecha" type="button" role="tab" aria-controls="semestrefecha" aria-selected="false">
-          <i class="fas fa-calendar-alt"></i>
-          CONFIGURAR FECHAS</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestre" type="button" role="tab" aria-controls="semestre" aria-selected="false">APERTURA/SEMESTRE</button>
-      </li>
-    </ul>
-
-    <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <h3>Lista de Calendario semestre</h3>
-        <table id="tabla-semestre" class="table table-hover table-condensed text-dark-80">
-        <thead class="micolor">
-            <td>codigo</td>
-            <td>Semestre</td>
-            <td>estado</td>
-            <td>Inicio_matricula</td>
-            <td>Cierre_matricula</td>
-            <td>Inicio_encuesta</td>
-            <td>Cierre_encuesta</td>
+  <h1 class="h3 mb-0 text-gray-600"><i class="fas fa-clock"></i> CALENDARIO ACADÉMICO</h1><br>
+  <div class="card shadow mb-4">        
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         
-            <td>ACCIONES</td>
-        </thead>
-        <tbody>
-       @foreach ($listasemestre as $sem)
     
-        <tr class="micolor">
-            <td>{{ $sem->sem_iCodigo }}</td>
-            <td>{{ $sem->sem_nombre }}</td>
-           
-            <td>
-              @if(left($sem->sem_cActivo,1)=="S")
-              <div class="bg-success text-white">
-                {{$sem->sem_cActivo}}  
-              </div>   
-              @else
-              {{$sem->sem_cActivo}}  
-              @endif
-            
-            </td>
-            <td>{{$sem->sem_iMatriculaInicio}}</td>
-            <td>{{$sem->sem_iMatriculaFinal}}</td>
-            <td>{{$sem->sem_dEncuestaInicio}}</td>
-            <td>{{$sem->sem_dEncuestaFinal}}</td>
-
-            <td>
-              <a href="javascript:void(0)" onclick="activarsemestre('{{$sem->sem_iCodigo}}'); " class="btn btn-success btn-sm table-condensed"> ACTIVAR</a>
-              <a href="javascript:void(0)" onclick="editarAnimal('.$animales->id.')" class="btn btn-info btn-sm table-condensed"> Editar </a>
-                &nbsp;&nbsp;<button type="button" name="delete" id="'.$animales->id.'" class="delete btn btn-danger btn-sm table-condensed"> Eliminar </button>
-            </td>
-        </tr>
-        @endforeach  
-        </tbody>
-        </table>
-    </div>
-            <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <h3>Nuevo Calendario semestre</h3>
-                                  
-                   @include('admin.semestrefechas');    
-                        
-            </div> 
-                <div class="tab-pane fade" id="semestre" role="tabpanel" aria-labelledby="semestre-tab">
-                   <div class="row align-items-center ">
-                        <div class="col-6 mx-auto">
-                        <h5 style="color: blue">  GESTIONAR SEMESTRE </h5>
-                            <div class="jumbotron">
-                              <h5 style="color:brown">  SEMESTRE ACTIVO:{{semestreactual()}} </h5>
-                              <table>
-                                <tr><td>
-                                  <button class="btn btn-primary" style="width: 280px">CERRAR SEMESTRE</button>
-                                  </td> 
-                                  <td>
-                                    <div class="p-3 mb-2 bg-success text-white">
-                                COMPLETADO
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr><td>
-                                  <button class="btn btn-light" style="width: 280px">ACTAS</button>
-                                  </td> 
-                                  <td>
-                                    <div class="p-3 mb-2 bg-success text-white">
-                               COMPLETADO
-                               </div>
-                                  </td>
-                                </tr>
-                                <tr><td>
-                                  <button class="btn btn-light" style="width: 280px">SEMESTRE</button>
-                                  </td> 
-                                  <td>
-                                    <div class="p-3 mb-2 bg-warning text-dark">
-                                PENDIENTE
-                              </div>
-                                  </td>
-                                </tr>
-                                <tr><td>
-                                  <button class="btn btn-light" style="width: 280px">APERTURA NUEVO SEMESTRE</button>
-                                  </td> 
-                                  <td>
-                                    <div class="p-3 mb-2 bg-warning text-dark">
-                                PENDIENTE
-                               </div>
-                                  </td>
-                                </tr>
-                              </table>
-                            
-                              
-                             
-                            </div>
-                        </div>
-                    </div>
-               
-                
-                </div>
-
-                <div class="tab-pane fade" id="semestrefecha" role="tabpanel" aria-labelledby="semestrefecha-tab">
-                  <div id="row g-4">
-                <h3 style="color: navy"> SEMESTRE: </h3>
-                 <select id="nrosemestre" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" onchange="vercalendario(this); revisarestadofecha();">
-                  <option >Seleccionar</option>
-                  @foreach ($listasemestre as $sem)
-                   <option value="{{ $sem->sem_iCodigo }}">{{ $sem->sem_iCodigo }}</option>
-                   
-                    @endforeach
-                 </select>
-                  </div>
-                 
-                    
-                      <div class="row g-4  "  >
-                          <div class="col-sm ">
-                        <label for="colFormLabelSm" class=" col-form-label  tamletra  ">INICIO DE MATRICULAS</label>
-                          <input type="date" class="form-control" placeholder="sem_iMatriculaInicio" aria-label="sem_iMatriculaInicio" id="sem_iMatriculaInicio">
-                      </div>
-                      <div class="col-sm">
-                        <label for="colFormLabelSm" class=" col-form-label  tamletra ">CIERRE DE MATRICULAS</label>
-                        <input type="date" class="form-control" placeholder="sem_iMatriculaFinal" aria-label="sem_iMatriculaFinal" id="sem_iMatriculaFinal">
-                      </div>
-                      <div class="col-sm">
-                        <label for="colFormLabelSm" class=" col-form-label  tamletra ">INICIO DE ENCUESTA</label>
-                        <input type="date" class="form-control" placeholder="sem_dEncuestaInicio" aria-label="sem_dEncuestaInicio" id="sem_dEncuestaInicio">
-                      </div>
-                
-                      <div class="col-sm">
-                        <label for="colFormLabelSm" class=" col-form-label  tamletra ">CIERRE DE ENCUESTA</label>
-                        <input type="date" class="form-control" placeholder="sem_dEncuestaFinal" aria-label="sem_dEncuestaFinal" id="sem_dEncuestaFinal">
-                      </div>
-                
-                    </div>
-               
-              
-                  <div class="row g-4 " >
-                  
-              
-                    <div class="col-sm ">
-                      <label for="colFormLabelSm" class=" col-form-label  tamletra ">INICIO DE CLASES</label>
-                        <input type="date" class="form-control" placeholder="sem_dInicioClases" aria-label="sem_dInicioClases" id="sem_dInicioClases">
-                    </div>
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class=" col-form-label  tamletra ">NRO DE SEMANAS</label>
-                      <input type="text" class="form-control" placeholder="sem_iSemanas" aria-label="sem_iSemanas" id="sem_iSemanas">
-                    </div>
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class=" col-form-label  tamletra ">INICIO DE ACTAS</label>
-                      <input type="date" class="form-control" placeholder="sem_dActaInicio" aria-label="sem_dActaInicio" id="sem_dActaInicio">
-                    </div>
-              
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class=" col-form-label  tamletra ">CIERRE DE ACTAS</label>
-                      <input type="date" class="form-control" placeholder="sem_dActaFinal" aria-label="sem_dActaFinal" id="sem_dActaFinal">
-                    </div>
-              
-                   
-                  </div>
-              
-                  <div class="row g-4 ">
-                  
-              
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class=" col-form-label  tamletra ">MINUTOS ESPERA</label>
-                        <input type="text" class="form-control" placeholder="sem_iToleranciaInicio" aria-label="sem_iToleranciaInicio" id="sem_iToleranciaInicio">
-                    </div>
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class=" col-form-label  tamletra ">MINUTOS CIERRE</label>
-                      <input type="text" class="form-control" placeholder="sem_iToleranciaFinal" aria-label="sem_iToleranciaFinal" id="sem_iToleranciaFinal">
-                    </div>
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class=" col-form-label  tamletra ">INICIO UNIDAD I</label>
-                      <input type="date" class="form-control" placeholder="fech_ent1_ini" aria-label="fech_ent1_ini" id="fech_ent1_ini">
-                    </div>
-              
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class=" col-form-label  tamletra ">CIERRE UNIDAD I</label>
-                      <input type="date" class="form-control" placeholder="fech_ent1_fin" aria-label="fech_ent1_fin" id="fech_ent1_fin" >
-                    </div>
-                  
-                  </div>
-                  <div class="row g-4 ">
-    
-
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO UNIDAD II</label>
-                        <input type="date" class="form-control" placeholder="fech_ent2_ini" aria-label="fech_ent2_ini" id="fech_ent2_ini">
-                    </div>
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE UNIDAD II</label>
-                      <input type="date" class="form-control" placeholder="fech_ent2_fin" aria-label="fech_ent2_fin" id="fech_ent2_fin">
-                    </div>
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO UNIDAD III</label>
-                      <input type="date" class="form-control" placeholder="fech_ent3_ini" aria-label="fech_ent3_ini" id="fech_ent3_ini">
-                    </div>
-              
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE UNIDAD III</label>
-                      <input type="date" class="form-control" placeholder="fech_ent3_fin" aria-label="fech_ent3_fin" id="fech_ent3_fin">
-                    </div>
-                  
-                  </div>
-              
-                  <div class="row g-4">
-                  
-              
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO UNIDAD IV</label>
-                        <input type="date" class="form-control" placeholder="fech_ent4_ini" aria-label="fech_ent4_ini" id="fech_ent4_ini">
-                    </div>
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE UNIDAD IV</label>
-                      <input type="date" class="form-control" placeholder="fech_ent2_fin" aria-label="fech_ent4_fin" id="fech_ent4_fin">
-                    </div>
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO UNIDAD V</label>
-                      <input type="date" class="form-control" placeholder="fech_ent5_ini" aria-label="fech_ent5_ini" id="fech_ent5_ini">
-                    </div>
-              
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE UNIDAD V</label>
-                      <input type="date" class="form-control" placeholder="fech_ent5_fin" aria-label="fech_ent5_fin" id="fech_ent5_fin">
-                    </div>
-                  
-                  </div>
-              
-                  <div class="row g-4">
-                  
-              
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO APLAZADOS</label>
-                        <input type="date" class="form-control" placeholder="sem_dAplazadoInicio" aria-label="sem_dAplazadoInicio" id="sem_dAplazadoInicio">
-                    </div>
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE APLAZADOS</label>
-                      <input type="date" class="form-control" placeholder="sem_dAplazadoFinal" aria-label="sem_dAplazadoFinal" id="sem_dAplazadoFinal">
-                    </div>
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO REGISTRO MATRICULA</label>
-                      <input type="date" class="form-control" placeholder="fecMatReg_ini" aria-label="fecMatReg_ini" id="fecMatReg_ini">
-                    </div>
-              
-                    <div class="col-sm">
-                      <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE REGISTRO MATRICULA</label>
-                      <input type="date" class="form-control" placeholder="fecMatReg_fin" aria-label="fecMatReg_fin" id="fecMatReg_fin">
-                    </div>
-                  
-                  </div>
-              
-                  <div class="row g-4">
-                  
-              
-                    <div class="col-sm-3">
-                      <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO  MATRICULA EXTEMPORANEA</label>
-                        <input type="date" class="form-control" placeholder="fecMatExt_ini" aria-label="fecMatExt_ini" id="fecMatExt_ini">
-                    </div>
-                    <div class="col-sm-3">
-                      <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE MATRICULA EXTEMPORANEA</label>
-                      <input type="date" class="form-control" placeholder="fecMatExt_fin" aria-label="fecMatExt_fin" id="fecMatExt_fin">
-                    </div>
-
-                </div>
-
-                 <div class="row g-4" align="center">
-                  
-                  <button type="button" class="btn btn-primary" onclick="modificarfechasemetre();revisarestadofecha();">
-                    <i class="fas fa-save"></i> GUARDAR CAMBIOS</button>
-                   
-                 </div>
-             
-
-
-    </div>
-    
-    </div>
-
-
-
-
-<!-- Modal acctualizar -->
-<div class="modal fade" id="animal_edit_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Editar Calendario semestre</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#animal_edit_modal').modal('hide');">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form id="animal_edit_form">
-      <div class="modal-body">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item m-0 font-weight-bold text-primary" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true" onclick="listasemestre()">
+              Lista de Semestres</button>
+        </li>
+        <!--li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
+              Nuevo cuenta de Sistema</button>
+        </li-->
+        <li class="nav-item m-0 font-weight-bold text-primary" role="presentation">
+          <button class="nav-link" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestrefecha" type="button" role="tab" aria-controls="semestrefecha" aria-selected="false">
+            <i class="fas fa-calendar-alt"></i>
+            Modificar Fechas</button>
+        </li>
+        <li class="nav-item m-0 font-weight-bold text-primary" role="presentation">
+          <button class="nav-link" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestre" type="button" role="tab" aria-controls="semestre" aria-selected="false">APERTURA/SEMESTRE</button>
+        </li>
+      </ul>
+    </div>  
+    <div class="tab-content" id="myTabContent">
       
-                  @csrf
-                 @include('admin.semestrefechas')
-          
+      <!--div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">ESCUELAS PROFESIONALES</h6>                                   
+        </div>  
+        <div class="row" style="padding: 15px 15px 0px 15px;">
+            
+        </div>             
+      </div-->
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        
+          <div class="row" style="padding: 20px 45px;">
+            <table id="tabla-semestre" class="table table-hover table-condensed text-dark-80">
+              <thead class="micolor">
+                <!--th>codigo</th-->
+                <th style="border-top: 0px solid #e3e6f0;">SEMESTRE</th>
+                <th style="border-top: 0px solid #e3e6f0;">ESTADO</th>
+                <th style="border-top: 0px solid #e3e6f0;">INICIO MATRÍCULA</th>
+                <th style="border-top: 0px solid #e3e6f0;">CIERRE MATRÍCULA</th>
+                <th style="border-top: 0px solid #e3e6f0;">INICIO SEMESTRE</th>
+                <th style="border-top: 0px solid #e3e6f0;">INICIO ENCUESTA</th>
+                <th style="border-top: 0px solid #e3e6f0;">CIERRE ENCUESTA</th>        
+                <th style="border-top: 0px solid #e3e6f0;">ACCIONES</th>
+              </thead>
+              <tbody>
+                @foreach ($listasemestre as $sem)
+                  <tr class="micolor">
+                    <!--td>{{ $sem->sem_iCodigo }}</td-->
+                    <td style="text-align: center;">
+                      <span class="badge badge-pill badge-info" style="font-size: 11px;">{{ $sem->sem_nombre }}</span>
+                    </td>               
+                    <td style="text-align: center;">
+                      @if(left($sem->sem_cActivo,1)=="S")
+                        <div class="bg-success text-white">
+                          {{$sem->sem_cActivo}}  
+                        </div>   
+                      @else
+                        {{$sem->sem_cActivo}}  
+                      @endif                
+                    </td>
+                    <td style="text-align: center;">{{$sem->sem_iMatriculaInicio}}</td>
+                    <td style="text-align: center;">{{$sem->sem_iMatriculaFinal}}</td>
+                    <td style="text-align: center;">{{$sem->sem_dInicioClases}}</td>
+                    <td style="text-align: center;">{{$sem->sem_dEncuestaInicio}}</td>
+                    <td style="text-align: center;">{{$sem->sem_dEncuestaFinal}}</td>
+                    <td style="text-align: center;">
+                      <a href="javascript:void(0)" onclick="activarsemestre('{{$sem->sem_iCodigo}}'); " class="btn btn-success btn-sm table-condensed"> ACTIVAR</a>
+                      <!--a href="javascript:void(0)" onclick="editarAnimal('.$animales->id.')" class="btn btn-info btn-sm table-condensed"> Editar </a>
+                        &nbsp;&nbsp;<button type="button" name="delete" id="'.$animales->id.'" class="delete btn btn-danger btn-sm table-condensed"> Eliminar </button-->
+                    </td>
+                  </tr>
+                @endforeach  
+              </tbody>
+            </table>      
+          </div>             
+        
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#animal_edit_modal').modal('hide');">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Actualizar</button>
+
+      <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <h3>Nuevo Calendario semestre</h3>                                  
+        @include('admin.semestrefechas');
       </div>
-      </form>
+
+       <div class="tab-pane fade" id="semestrefecha" role="tabpanel" aria-labelledby="semestrefecha-tab" style="padding: 31px 32px;font-size: 12px;">
+        <div id="row g-4">
+          <select id="nrosemestre" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" onchange="vercalendario(this); revisarestadofecha();" style="font-size: 14px;">
+            <option >Seleccionar semestre</option>
+            @foreach ($listasemestre as $sem)
+              <option value="{{ $sem->sem_iCodigo }}">{{ $sem->sem_iCodigo }}</option>               
+            @endforeach
+          </select>
+        </div>
+                                  
+        <div class="row g-4">
+          <div class="col-sm">
+            <label for="colFormLabelSm" class=" col-form-label  tamletra  ">INICIO DE MATRICULAS</label>
+            <input type="date" class="form-control" placeholder="sem_iMatriculaInicio" aria-label="sem_iMatriculaInicio" id="sem_iMatriculaInicio" style="font-size:12px;">
+          </div>
+          <div class="col-sm">
+            <label for="colFormLabelSm" class=" col-form-label  tamletra ">CIERRE DE MATRICULAS</label>
+            <input type="date" class="form-control" placeholder="sem_iMatriculaFinal" aria-label="sem_iMatriculaFinal" id="sem_iMatriculaFinal" style="font-size:12px;">
+          </div>
+          <div class="col-sm">
+            <label for="colFormLabelSm" class=" col-form-label  tamletra ">INICIO DE ENCUESTA</label>
+            <input type="date" class="form-control" placeholder="sem_dEncuestaInicio" aria-label="sem_dEncuestaInicio" id="sem_dEncuestaInicio" style="font-size:12px;">
+          </div>
+    
+          <div class="col-sm">
+            <label for="colFormLabelSm" class=" col-form-label  tamletra ">CIERRE DE ENCUESTA</label>
+            <input type="date" class="form-control" placeholder="sem_dEncuestaFinal" aria-label="sem_dEncuestaFinal" id="sem_dEncuestaFinal" style="font-size:12px;">
+          </div>                
+        </div>
+            
+        <div class="row g-4" >
+          <div class="col-sm">
+            <label for="colFormLabelSm" class=" col-form-label  tamletra ">INICIO DE CLASES</label>
+              <input type="date" class="form-control" placeholder="sem_dInicioClases" aria-label="sem_dInicioClases" id="sem_dInicioClases" style="font-size:12px;">
+          </div>
+          <div class="col-sm">
+            <label for="colFormLabelSm" class=" col-form-label  tamletra ">NRO DE SEMANAS</label>
+            <input type="text" class="form-control" placeholder="sem_iSemanas" aria-label="sem_iSemanas" id="sem_iSemanas" style="font-size:12px;">
+          </div>
+          <div class="col-sm">
+            <label for="colFormLabelSm" class=" col-form-label  tamletra ">INICIO DE ACTAS</label>
+            <input type="date" class="form-control" placeholder="sem_dActaInicio" aria-label="sem_dActaInicio" id="sem_dActaInicio" style="font-size:12px;">
+          </div>
+    
+          <div class="col-sm">
+            <label for="colFormLabelSm" class=" col-form-label  tamletra ">CIERRE DE ACTAS</label>
+            <input type="date" class="form-control" placeholder="sem_dActaFinal" aria-label="sem_dActaFinal" id="sem_dActaFinal" style="font-size:12px;">
+          </div>
+        </div>
+            
+        <div class="row g-4">
+          <div class="col-sm">
+            <label for="colFormLabelSm" class=" col-form-label  tamletra ">MINUTOS ESPERA</label>
+              <input type="text" class="form-control" placeholder="sem_iToleranciaInicio" aria-label="sem_iToleranciaInicio" id="sem_iToleranciaInicio" style="font-size:12px;">
+          </div>
+          <div class="col-sm">
+            <label for="colFormLabelSm" class=" col-form-label  tamletra ">MINUTOS CIERRE</label>
+            <input type="text" class="form-control" placeholder="sem_iToleranciaFinal" aria-label="sem_iToleranciaFinal" id="sem_iToleranciaFinal" style="font-size:12px;">
+          </div>
+          <div class="col-sm">
+            <label for="colFormLabelSm" class=" col-form-label  tamletra ">INICIO UNIDAD I</label>
+            <input type="date" class="form-control" placeholder="fech_ent1_ini" aria-label="fech_ent1_ini" id="fech_ent1_ini" style="font-size:12px;">
+          </div>
+    
+          <div class="col-sm">
+            <label for="colFormLabelSm" class=" col-form-label  tamletra ">CIERRE UNIDAD I</label>
+            <input type="date" class="form-control" placeholder="fech_ent1_fin" aria-label="fech_ent1_fin" id="fech_ent1_fin" style="font-size:12px;" >
+          </div>                  
+        </div>
+        <div class="row g-4 ">   
+          <div class="col-sm">
+            <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO UNIDAD II</label>
+              <input type="date" class="form-control" placeholder="fech_ent2_ini" aria-label="fech_ent2_ini" id="fech_ent2_ini" style="font-size:12px;">
+          </div>
+          <div class="col-sm">
+            <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE UNIDAD II</label>
+            <input type="date" class="form-control" placeholder="fech_ent2_fin" aria-label="fech_ent2_fin" id="fech_ent2_fin" style="font-size:12px;">
+          </div>
+          <div class="col-sm">
+            <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO UNIDAD III</label>
+            <input type="date" class="form-control" placeholder="fech_ent3_ini" aria-label="fech_ent3_ini" id="fech_ent3_ini" style="font-size:12px;">
+          </div>
+          <div class="col-sm">
+            <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE UNIDAD III</label>
+            <input type="date" class="form-control" placeholder="fech_ent3_fin" aria-label="fech_ent3_fin" id="fech_ent3_fin" style="font-size:12px;">
+          </div>
+        </div>
+    
+        <div class="row g-4">
+          <div class="col-sm">
+            <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO UNIDAD IV</label>
+              <input type="date" class="form-control" placeholder="fech_ent4_ini" aria-label="fech_ent4_ini" id="fech_ent4_ini" style="font-size:12px;">
+          </div>
+          <div class="col-sm">
+            <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE UNIDAD IV</label>
+            <input type="date" class="form-control" placeholder="fech_ent2_fin" aria-label="fech_ent4_fin" id="fech_ent4_fin" style="font-size:12px;">
+          </div>
+          <div class="col-sm">
+            <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO UNIDAD V</label>
+            <input type="date" class="form-control" placeholder="fech_ent5_ini" aria-label="fech_ent5_ini" id="fech_ent5_ini" style="font-size:12px;">
+          </div>
+    
+          <div class="col-sm">
+            <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE UNIDAD V</label>
+            <input type="date" class="form-control" placeholder="fech_ent5_fin" aria-label="fech_ent5_fin" id="fech_ent5_fin" style="font-size:12px;">
+          </div>
+        </div>
+    
+        <div class="row g-4">
+          <div class="col-sm">
+            <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO APLAZADOS</label>
+              <input type="date" class="form-control" placeholder="sem_dAplazadoInicio" aria-label="sem_dAplazadoInicio" id="sem_dAplazadoInicio" style="font-size:12px;">
+          </div>
+          <div class="col-sm">
+            <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE APLAZADOS</label>
+            <input type="date" class="form-control" placeholder="sem_dAplazadoFinal" aria-label="sem_dAplazadoFinal" id="sem_dAplazadoFinal" style="font-size:12px;">
+          </div>
+          <div class="col-sm">
+            <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO REGISTRO MATRICULA</label>
+            <input type="date" class="form-control" placeholder="fecMatReg_ini" aria-label="fecMatReg_ini" id="fecMatReg_ini" style="font-size:12px;">
+          </div>
+    
+          <div class="col-sm">
+            <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE REGISTRO MATRICULA</label>
+            <input type="date" class="form-control" placeholder="fecMatReg_fin" aria-label="fecMatReg_fin" id="fecMatReg_fin" style="font-size:12px;">
+          </div>
+        </div>
+    
+        <div class="row g-4">
+          <div class="col-sm-3">
+            <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO  MATRICULA EXTEMPORANEA</label>
+              <input type="date" class="form-control" placeholder="fecMatExt_ini" aria-label="fecMatExt_ini" id="fecMatExt_ini" style="font-size:12px;">
+          </div>
+          <div class="col-sm-3">
+            <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE MATRICULA EXTEMPORANEA</label>
+            <input type="date" class="form-control" placeholder="fecMatExt_fin" aria-label="fecMatExt_fin" id="fecMatExt_fin" style="font-size:12px;">
+          </div>
+        </div>
+        <br>
+        <div class="row g-4" align="center">                  
+          <button type="button" class="btn btn-primary" onclick="modificarfechasemetre();revisarestadofecha();">
+          <i class="fas fa-save"></i> GUARDAR CAMBIOS</button>                   
+        </div>
+      </div>  
+
+      <div class="tab-pane fade" id="semestre" role="tabpanel" aria-labelledby="semestre-tab">
+        <div class="row align-items-center ">
+          <div class="col-6 mx-auto">
+            <h5 style="color: blue">  GESTIONAR SEMESTRE </h5>
+            <div class="jumbotron">
+              <h5 style="color:brown">  SEMESTRE ACTIVO:{{semestreactual()}} </h5>
+              <table>
+                <tr><td>
+                  <button class="btn btn-primary" style="width: 280px">CERRAR SEMESTRE</button>
+                  </td> 
+                  <td>
+                    <div class="p-3 mb-2 bg-success text-white">
+                COMPLETADO
+                    </div>
+                  </td>
+                </tr>
+                <tr><td>
+                  <button class="btn btn-light" style="width: 280px">ACTAS</button>
+                  </td> 
+                  <td>
+                    <div class="p-3 mb-2 bg-success text-white">
+               COMPLETADO
+               </div>
+                  </td>
+                </tr>
+                <tr><td>
+                  <button class="btn btn-light" style="width: 280px">SEMESTRE</button>
+                  </td> 
+                  <td>
+                    <div class="p-3 mb-2 bg-warning text-dark">
+                PENDIENTE
+              </div>
+                  </td>
+                </tr>
+                <tr><td>
+                  <button class="btn btn-light" style="width: 280px">APERTURA NUEVO SEMESTRE</button>
+                  </td> 
+                  <td>
+                    <div class="p-3 mb-2 bg-warning text-dark">
+                PENDIENTE
+               </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+       
+    </div> 
+  </div>
+
+  <!-- Modal acctualizar -->
+  <div class="modal fade" id="animal_edit_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Editar Calendario semestre</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#animal_edit_modal').modal('hide');">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="animal_edit_form">
+          <div class="modal-body">
+            @csrf
+            @include('admin.semestrefechas')          
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#animal_edit_modal').modal('hide');">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
 
-
-<!-- Modal Eliminar-->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Eliminar - Confirmar</h5>
-        <button type="button" class="close"  data-dismiss="modal" aria-label="Close" onclick="$('#confirmModal').modal('hide');">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      ¿Desea Eliminar el registro seleccionado?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#confirmModal').modal('hide');">Cancelar</button>
-        <button type="button" class="btn btn-danger" name="btnEliminar" id="btnEliminar">Eliminar</button>
+  <!-- Modal Eliminar-->
+  <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Eliminar - Confirmar</h5>
+          <button type="button" class="close"  data-dismiss="modal" aria-label="Close" onclick="$('#confirmModal').modal('hide');">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        ¿Desea Eliminar el registro seleccionado?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#confirmModal').modal('hide');">Cancelar</button>
+          <button type="button" class="btn btn-danger" name="btnEliminar" id="btnEliminar">Eliminar</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
 </div><!-- //fin container //-->
 
 <script>
-  $('#registro-animal').submit(function(e){
-      e.preventDefault();
-      
-      var nombre=$('#txtNombre').val();
-      var especie=$('#selEspecie').val();
-      var genero=$("input[name='rbGenero']:checked").val();
-      var _token=$("input[name=_token]").val();
+  $('#registro-animal').submit(function(e)
+  {
+    e.preventDefault();    
+    var nombre=$('#txtNombre').val();
+    var especie=$('#selEspecie').val();
+    var genero=$("input[name='rbGenero']:checked").val();
+    var _token=$("input[name=_token]").val();
 
-      $.ajax({
-          url:"{{ route('admin.registrardocente') }}",
-          type:"POST",
-          data:{
-            nombre:nombre,
-            especie:especie,
-            genero:genero,
-            _token:_token
-          },
-          
-          success:function(response){
-            if(response){
-              $('#registro-animal')[0].reset();
-              toastr.success('El registro se agrego','Nuevo Registro',{timeOut:3000});
-               $('#tabla-animal').DataTable().ajax.reload();
-                        
-            }
+    $.ajax({
+        url:"{{ route('admin.registrardocente') }}",
+        type:"POST",
+        data:{
+          nombre:nombre,
+          especie:especie,
+          genero:genero,
+          _token:_token
+        },        
+        success:function(response)
+        {
+          if(response)
+          {
+            $('#registro-animal')[0].reset();
+            toastr.success('El registro se agrego','Nuevo Registro',{timeOut:3000});
+             $('#tabla-animal').DataTable().ajax.reload();                      
           }
-      });
-    });  
+        }
+    });
+  });  
 </script>
 <script>
   var ani_id;
@@ -506,20 +484,20 @@ $listasemestre=$listasemestres->versemestre();
     $('#confirmModal').modal('show');
   });
   $('#btnEliminar').click(function(){
-$.ajax({
-  url:"admin/eliminardocente/"+ani_id,
-  beforeSend:function(){
-    $('#btnEliminar').text('Eliminado ...');
-  },
-  success:function(data){
-    setTimeout(function(){
-$('#confirmModal').modal('hide');
-toastr.warning('El registro Fue Elimino ','Eliminar Registro',{timeOut:3000});
-$('#tabla-animal').DataTable().ajax.reload();
-    },1000);
-    $('#btnEliminar').text('Eliminar');
-  }
-}); 
+    $.ajax({
+      url:"admin/eliminardocente/"+ani_id,
+      beforeSend:function(){
+        $('#btnEliminar').text('Eliminado ...');
+      },
+      success:function(data){
+        setTimeout(function(){
+    $('#confirmModal').modal('hide');
+    toastr.warning('El registro Fue Elimino ','Eliminar Registro',{timeOut:3000});
+    $('#tabla-animal').DataTable().ajax.reload();
+        },1000);
+        $('#btnEliminar').text('Eliminar');
+      }
+    }); 
  });
 </script>
 <script>
@@ -541,41 +519,11 @@ $('#tabla-animal').DataTable().ajax.reload();
    });
   }
 </script>
-<script>
-  $('#animal_edit_form').submit(function(e){
-    e.preventDefault();
-    var id2=$('#txtId2').val();
-    var nombre2=$('#txtNombre2').val();
-    var especie2=$('#selEspecie2').val();
-    var genero2=$("input[name='rbGenero2']:checked").val();
-    var _token2=$("input[name=_token]").val();
-
-    $.ajax({
-      url:"{{ route('admin.actualizardocente') }}",
-      type:"POSt",
-      data:{
-        id:id2,
-        nombre:nombre2,
-        especie:especie2,
-        genero:genero2,
-        _token:_token2
-      },
-      success:function(response){
-        if(response){
-          $('#animal_edit_modal').modal('hide');
-          toastr.info('El registro fue actualizado correctamente.','Actualizacion Completada',{timeOut:3000});
-          $('#tabla-animal').DataTable().ajax.reload();
-        }
-      }
-    });
-
-  });
-</script>
 
 <script>
     $(document).ready(function() {
    
-   $('#tabla-semestre').DataTable();
+   //$('#tabla-semestre').DataTable();
 } );
  
   function vercalendario(element)

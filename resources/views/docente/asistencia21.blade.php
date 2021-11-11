@@ -424,6 +424,4 @@ $xdia="";
                   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
                 }///mstar
                 </script>
-            <script>
-                activarwow()
-              </script>
+          

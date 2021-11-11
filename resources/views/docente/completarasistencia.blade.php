@@ -423,6 +423,7 @@
 <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 <script src="{{ asset('js/panelasistencia.js')}}"></script>
 
+<<<<<<< HEAD
 <script>
   function alertagrabar(t) 
   {
@@ -469,3 +470,5 @@
 
   //activarwow();
 </script>
+=======
+>>>>>>> ff9e53968f2b1aaffef0352f44f9450723bb9e13

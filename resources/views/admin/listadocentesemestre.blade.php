@@ -163,6 +163,3 @@ vermiscursos(semestreactual(),51);
 @endphp
        
 
-<script>
- // activarwow()
-</script>

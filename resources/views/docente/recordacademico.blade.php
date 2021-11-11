@@ -102,6 +102,3 @@ Semestre {{ $sem->sem_iCodigo }}
 @endforeach
 </div>
 
-<script>
-    activarwow()
-  </script>

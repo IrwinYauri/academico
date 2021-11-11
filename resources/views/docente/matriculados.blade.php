@@ -148,6 +148,3 @@ if($t>0)
 </div>
 </div>
 
-<script>
-  activarwow()
-</script>

@@ -139,6 +139,3 @@ $nombre = $misareas2;
 
 @endphp
 
-<script>
-  activarwow()
-</script>

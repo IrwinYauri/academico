@@ -691,7 +691,7 @@ ocultarnrounidad();
 
       <script>
         
-       activarwow()
+       
 
        function ncrearsilabus()
        {error=0

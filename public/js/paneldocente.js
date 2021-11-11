@@ -29,14 +29,14 @@ function ini()
    var bbuscar=$("#bbuscar").val();
 
    $( "#micontenido" ).load( "docente/cargando" );
- 	$("#cargando").show();
-
+   $("#cargando").show();
+   
      $.ajax({
 		url:"docente/horario",
 	success:function(result){
 	$("#micontenido").html(result);
 	$("#cargando").hide();
-	 },
+	},
 	data:{
 		 n1:n1,
 		 bbuscar:bbuscar
@@ -49,9 +49,10 @@ function mostrarasistenciaactual() //activado
  { 
 	 var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
+
    $( "#micontenido" ).load( "docente/cargando" );
- 	$("#cargando").show();
-	 
+   $("#cargando").show();
+
      $.ajax({
 		url:"docente/asistencia21",
 	success:function(result){
@@ -88,6 +89,7 @@ function mostrarmatriculados()  //activado
 	
 }
 function mostrarasistenciacompletar()//Activado
+<<<<<<< HEAD
 { 
 	//var n1=$("#n1").val();
     //var bbuscar=$("#bbuscar").val();
@@ -104,17 +106,41 @@ function mostrarasistenciacompletar()//Activado
 			n1:n1,
 			bbuscar:bbuscar
 	  	}*/,
+=======
+ { var n1=$("#n1").val();
+   var bbuscar=$("#bbuscar").val();
+
+   $("#micontenido").load("docente/cargando" );
+   $("#cargando").show();
+
+     $.ajax({
+		url:"docente/completarasistencia",
+	success:function(result){
+	//alert(result);
+	$("#micontenido").html(result);
+	$("#cargando").hide();
+	 },
+	data:{
+		 n1:n1,
+		 bbuscar:bbuscar
+	  },
+>>>>>>> ff9e53968f2b1aaffef0352f44f9450723bb9e13
 		type:"GET"   
 	});	
 }
 function mostrarsilabus() //activado
  { var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
+   
+   $("#micontenido").load("docente/cargando" );
+   $("#cargando").show();
+
      $.ajax({
 		url:"docente/silabus1",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	 },
 	data:{
 		 n1:n1,
@@ -127,11 +153,16 @@ function mostrarsilabus() //activado
 function mostrarsilabusconfigurar() //activado
  { var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
+
+   $( "#micontenido" ).load( "docente/cargando" );
+   $("#cargando").show();
+
      $.ajax({
 		url:"docente/silabusevaluacion1",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	 },
 	data:{
 		 n1:n1,
@@ -220,11 +251,17 @@ function crearsilabus(seccion,unidades,
 function mostrarplanactividad()
  { var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
+
+   $( "#micontenido" ).load( "docente/cargando" );
+   $("#cargando").show();
+
      $.ajax({
 		url:"docente/planactividad",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
+	$("#cargando").hide();
+
 	 },
 	data:{
 		 n1:n1,
@@ -255,11 +292,14 @@ function crearnotas()
 	
 }
 function reporteasistencia()
- {  $.ajax({
+ { $( "#micontenido" ).load( "docente/cargando" );
+ $("#cargando").show();
+	  $.ajax({
 		url:"docente/reporteasistencia",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	 },
 	data:{  },
 		type:"GET"   
@@ -267,11 +307,14 @@ function reporteasistencia()
 	
 }
 function reportenotasg() //pediente
- {  $.ajax({
+ {$( "#micontenido" ).load( "docente/cargando" );
+ $("#cargando").show();
+	   $.ajax({
 		url:"docente/crearnotas",
 	success:function(result){
 //	alert(result);
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	 },
 	data:{  },
 		type:"GET"   
@@ -279,11 +322,14 @@ function reportenotasg() //pediente
 	
 }
 function reportenotas()//activo
- {  $.ajax({
+ {  $( "#micontenido" ).load( "docente/cargando" );
+ 	$("#cargando").show();
+	 $.ajax({
 		url:"docente/registronotas",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	 },
 	data:{  },
 		type:"GET"   
@@ -291,11 +337,15 @@ function reportenotas()//activo
 	
 }
 function reporterecordacademico()//activo
- {  $.ajax({
+ {   $( "#micontenido" ).load( "docente/cargando" );
+ 	 $("#cargando").show();
+
+	 $.ajax({
 		url:"docente/recordacademico",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	 },
 	data:{  },
 		type:"GET"   
@@ -384,11 +434,14 @@ function notasaplazadoscurso()
 	
 }
 function subirfoto()
- {  $.ajax({
+ {   $( "#micontenido" ).load( "docente/cargando" );
+ 	 $("#cargando").show();
+	 $.ajax({
 		url:"docente/subirfoto",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	 },
 	data:{  },
 		type:"GET"   
@@ -396,11 +449,14 @@ function subirfoto()
 	
 }
 function datospersonales()
- {  $.ajax({
+ {  $("#micontenido" ).load( "docente/cargando" );
+ 	$("#cargando").show();
+	 $.ajax({
 		url:"docente/datospersonales",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
+	$("#cargando").hide();
 	 },
 	data:{  },
 		type:"GET"   
@@ -408,11 +464,14 @@ function datospersonales()
 	
 }
 function verpassword() //activo
- {  $.ajax({
+ { //$("#micontenido" ).load( "docente/cargando" );
+ //  $("#cargando").show();
+	  $.ajax({
 		url:"docente/password",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
+	//$("#cargando").hide();
 	 },
 	data:{  },
 		type:"GET"   
@@ -448,11 +507,14 @@ function cambiarpassworddocente(n1,n2)//activo
 	
 }
 function subirhojadevida()
-{  $.ajax({
+{  $("#micontenido" ).load( "docente/cargando" );
+   $("#cargando").show();
+	$.ajax({
 	   url:"docente/subirhojadevida",
    success:function(result){
    //alert(result);
    $("#micontenido").html(result);
+   $("#cargando").hide();
 	},
    data:{  },
 	   type:"GET"   

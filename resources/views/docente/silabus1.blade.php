@@ -188,8 +188,5 @@ color: black;
     </div>  
 
   </div>  
-  <script>
-    activarwow()
-  </script>
-
+ 
   <div id="miresultadoxy"></div>

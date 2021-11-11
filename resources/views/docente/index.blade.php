@@ -849,7 +849,7 @@ function macarSalida(hora)
 </script>
 <script src="{{ asset('js/paneldocente.js')}}"></script>
 
-<script src="{{ asset('wow/js/wow.js')}}"></script>
+
 
 </body>
 @php
@@ -875,7 +875,5 @@ function macarSalida(hora)
    }
 @endphp
 
-<script>
-    activarwow()
-  </script>
+
 </html>

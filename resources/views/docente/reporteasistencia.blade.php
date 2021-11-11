@@ -178,7 +178,3 @@ $nn++;
 <script src="{{ asset('vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 <script src="{{ asset('js/panelnotas.js')}}"></script>
-
-<script>
-  activarwow()
-</script>

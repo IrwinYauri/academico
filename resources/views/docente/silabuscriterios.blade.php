@@ -26,6 +26,3 @@ unidades
    versilabuscriterio(semestreactual(),62) ;
 @endphp
 
-<script>
-  activarwow()
-</script>

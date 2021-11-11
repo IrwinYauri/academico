@@ -493,6 +493,3 @@ $asistencia=$asistencias->asistenciaalumno(447,439,1,16,"LUN");
 <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 <script src="{{ asset('js/panelasistencia.js')}}"></script>
 
-<script>
-  activarwow()
-</script>

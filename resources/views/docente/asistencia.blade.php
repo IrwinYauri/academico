@@ -181,6 +181,4 @@ echo "</table>";
                 </tr>
               </table>  
 
-              <script>
-                activarwow()
-              </script>
+            

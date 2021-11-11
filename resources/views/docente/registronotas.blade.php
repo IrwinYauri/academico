@@ -408,6 +408,3 @@ $nn++;
 </div>
        
 
-<script>
- // activarwow()
-</script>

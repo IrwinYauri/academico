@@ -1,5 +1,5 @@
 <?php
-  echo "==========================".$coddocentex."===========================";
+  
   //session_start();
   //$coddocentex="";
   
@@ -12,7 +12,7 @@
   use App\Http\Controllers\AsistenciaController;
 
   //$mihoras=new DocenteController();
-  //$asistencias=new AsistenciaController();
+  $asistencias=new AsistenciaController();
   
   //$listahora= $mihoras->vercargahoraria($coddocentex,20212);
   
@@ -409,7 +409,9 @@
   </div>
 </div>
 <?php
-  $asistencia=$asistencias->asistenciaalumno(447,439,1,16,"LUN");
+  //====>$asistencia=$asistencias->asistenciaalumno(447,439,1,16,"LUN");
+
+
   //verasis(447,439,1,16,"LUN");
   //$miasistencia=new DocenteController(); 
   //$misalumnos=$miasistencia->vercursosalumnos(2,20212);

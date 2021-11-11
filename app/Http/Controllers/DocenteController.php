@@ -30,7 +30,8 @@ class DocenteController extends Controller
      {return view('docente.matriculados');
        }
    public function show($mivistas)
-   {return view("docente.".$mivistas."");
+   {
+    return view("docente.".$mivistas."");
     
    }
    public function  vercursos($semestre,$coddocente)
@@ -94,63 +95,73 @@ class DocenteController extends Controller
   $data1=DB::select($sql);
  return $data1;
  }
- public function  vercargahoraria($coddoc,$semestre)
+  
+
+  public function vercargahoraria()
   { 
-      $sql='
+
+    //session_start();
+
+    $coddocentex=51;//$_SESSION['coddocentex'];
+    $semestre=semestreactual();
+
+    $sql='
       SELECT
-seccion_horario.sec_iCodigo,
-seccion_horario.dia_vcCodigo,
-seccion_horario.sechor_iHoraInicio,
-seccion_horario.sechor_iHoraFinal,
-seccion_horario.sectip_cCodigo,
-docente.doc_vcDocumento,
-docente.doc_vcPaterno,
-docente.doc_vcMaterno,
-docente.doc_vcNombre,
-seccion.sem_iCodigo,
-seccion.cur_iCodigo,
-curso.cur_vcNombre,
-seccion.tur_cCodigo,
-seccion_horario.doc_iCodigo,
-seccion_horario.sechor_iCodigo,
-curso.escpla_iCodigo,
-escuela.esc_vcNombre,
-escuela.esc_vcCodigo,
-curso.cur_iSemestre,
-seccion.sec_iNumero,
-cursotipodictado.curdic_vcNombre AS tipodictado,
-seccion.sec_iCodigo,
-seccion_horario.aul_iCodigo,
-aula.loc_iCodigo,
-aula.aul_vcCodigo,
-`local`.loc_vcNombre,
-curso.cur_vcCodigo,
-cursohoras.curhor_iHoras,
-docentedepaca.depaca_vcNombre,
-docente.cateDocente,
-concat(docente.doc_vcPaterno," ",
-docente.doc_vcMaterno," ",
-docente.doc_vcNombre) as docente
-FROM
-seccion_horario
-INNER JOIN docente ON (seccion_horario.doc_iCodigo = docente.doc_iCodigo)
-INNER JOIN seccion ON (seccion_horario.sec_iCodigo = seccion.sec_iCodigo)
-INNER JOIN curso ON (seccion.cur_iCodigo = curso.cur_iCodigo)
-INNER JOIN escuelaplan ON (curso.escpla_iCodigo = escuelaplan.escpla_iCodigo)
-INNER JOIN escuela ON (escuelaplan.esc_vcCodigo = escuela.esc_vcCodigo)
-INNER JOIN cursotipodictado ON (seccion_horario.sectip_cCodigo = cursotipodictado.curdic_cCodigo)
-INNER JOIN aula ON (seccion_horario.aul_iCodigo = aula.aul_iCodigo)
-INNER JOIN `local` ON (aula.loc_iCodigo = `local`.loc_iCodigo)
-INNER JOIN cursohoras ON cursohoras.cur_iCodigo = curso.cur_iCodigo AND cursohoras.curdic_cCodigo = cursotipodictado.curdic_cCodigo
-INNER JOIN docentedepaca ON docente.depaca_iCodigo = docentedepaca.depaca_iCodigo
-WHERE
-seccion.sem_iCodigo = "'.$semestre.'" AND 
-seccion_horario.doc_iCodigo = "'.$coddoc.'"
-ORDER BY
-curso.cur_vcCodigo,  
-seccion_horario.dia_vcCodigo';
-  $data1=DB::select($sql);
- return $data1;
+      seccion_horario.sec_iCodigo,
+      seccion_horario.dia_vcCodigo,
+      seccion_horario.sechor_iHoraInicio,
+      seccion_horario.sechor_iHoraFinal,
+      seccion_horario.sectip_cCodigo,
+      docente.doc_vcDocumento,
+      docente.doc_vcPaterno,
+      docente.doc_vcMaterno,
+      docente.doc_vcNombre,
+      seccion.sem_iCodigo,
+      seccion.cur_iCodigo,
+      curso.cur_vcNombre,
+      seccion.tur_cCodigo,
+      seccion_horario.doc_iCodigo,
+      seccion_horario.sechor_iCodigo,
+      curso.escpla_iCodigo,
+      escuela.esc_vcNombre,
+      escuela.esc_vcCodigo,
+      curso.cur_iSemestre,
+      seccion.sec_iNumero,
+      cursotipodictado.curdic_vcNombre AS tipodictado,
+      seccion.sec_iCodigo,
+      seccion_horario.aul_iCodigo,
+      aula.loc_iCodigo,
+      aula.aul_vcCodigo,
+      `local`.loc_vcNombre,
+      curso.cur_vcCodigo,
+      cursohoras.curhor_iHoras,
+      docentedepaca.depaca_vcNombre,
+      docente.cateDocente,
+      concat(docente.doc_vcPaterno," ",
+      docente.doc_vcMaterno," ",
+      docente.doc_vcNombre) as docente
+      FROM
+      seccion_horario
+      INNER JOIN docente ON (seccion_horario.doc_iCodigo = docente.doc_iCodigo)
+      INNER JOIN seccion ON (seccion_horario.sec_iCodigo = seccion.sec_iCodigo)
+      INNER JOIN curso ON (seccion.cur_iCodigo = curso.cur_iCodigo)
+      INNER JOIN escuelaplan ON (curso.escpla_iCodigo = escuelaplan.escpla_iCodigo)
+      INNER JOIN escuela ON (escuelaplan.esc_vcCodigo = escuela.esc_vcCodigo)
+      INNER JOIN cursotipodictado ON (seccion_horario.sectip_cCodigo = cursotipodictado.curdic_cCodigo)
+      INNER JOIN aula ON (seccion_horario.aul_iCodigo = aula.aul_iCodigo)
+      INNER JOIN `local` ON (aula.loc_iCodigo = `local`.loc_iCodigo)
+      INNER JOIN cursohoras ON cursohoras.cur_iCodigo = curso.cur_iCodigo AND cursohoras.curdic_cCodigo = cursotipodictado.curdic_cCodigo
+      INNER JOIN docentedepaca ON docente.depaca_iCodigo = docentedepaca.depaca_iCodigo
+      WHERE
+      seccion.sem_iCodigo = "'.$semestre.'" AND 
+      seccion_horario.doc_iCodigo = "'.$coddocentex.'"
+      ORDER BY
+      curso.cur_vcCodigo,  
+      seccion_horario.dia_vcCodigo';
+    
+    $listahora=DB::select($sql);
+
+    return view("docente.completarasistencia", compact('listahora','coddocentex')); 
  }
 /*
   public function login()

@@ -46,12 +46,12 @@ Route::resource('asistencia',AsistenciaController::class);
 Route::resource('hojavida',HojavidaController::class);
 
 Route::get('docente/rptmatriculados',[DocenteController::class,'rptmatriculados'])->name('rptmatriculados');
-
 Route::get('docente/rptcargahorario',[DocenteController::class,'rptcargahorario'])->name('rptcargahorario');
-
 Route::get('docente/rptrecordacademico',[DocenteController::class,'rptrecordacademico'])->name('rptrecordacademico');
-
 Route::get('semestre/semestreactivo',[SemestreController::class,'semestreactivo'])->name('semestre.semestreactivo');
+
+Route::get('vercargahoraria',[DocenteController::class,'vercargahoraria'])->name('vercargahoraria');
+
 Route::resource('semestre',SemestreController::class);
 /*
 Route::resource('docente',DocenteController::class);

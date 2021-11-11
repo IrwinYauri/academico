@@ -1,27 +1,28 @@
 $(document).ready(ini);
 function ini()
-{ $("#bhorario1").click(mostrarhorario);//activo
-  $("#blistalumnomatriculado").click(mostrarmatriculados);//activo
-  $("#basistencia1").click(mostrarasistenciaactual);//activo
-  $("#basistencia2").click(mostrarasistenciacompletar);// activo
-  $("#bsilabus1").click(mostrarsilabus);//activo
-  $("#bsilabus2").click(mostrarsilabusconfigurar);//activo
-  $("#bplanactividad").click(mostrarplanactividad);
-  $("#bcrearnotas").click(crearnotas);//activo
-  $("#breporteasistencia1").click(reporteasistencia);
-  $("#breportenotas").click(reportenotas);//activo
-  $("#breportenotasg").click(reportenotasg);
-  $("#breporterecordacademico").click(reporterecordacademico);
-  $("#bnotassustitorio").click(notassustitorio);
-  $("#bnotassustitoriocurso").click(notassustitoriocurso);
-  $("#bnotasaplazados").click(notasaplazados);
-  $("#bsubirfoto").click(subirfoto);
-  $("#bdatospersonal").click(datospersonales);
-  $("#bverpassword").click(verpassword);
-  $("#bsubirhojadevida").click(subirhojadevida);
-  $("#brespuestaencuesta").click(respuestaencuesta);
-  $("#bvermensaje").click(vermensaje);
-  }
+{ 
+	$("#bhorario1").click(mostrarhorario);//activo
+	$("#blistalumnomatriculado").click(mostrarmatriculados);//activo
+	$("#basistencia1").click(mostrarasistenciaactual);//activo
+	$("#basistencia2").click(mostrarasistenciacompletar);// activo
+	$("#bsilabus1").click(mostrarsilabus);//activo
+	$("#bsilabus2").click(mostrarsilabusconfigurar);//activo
+	$("#bplanactividad").click(mostrarplanactividad);
+	$("#bcrearnotas").click(crearnotas);//activo
+	$("#breporteasistencia1").click(reporteasistencia);
+	$("#breportenotas").click(reportenotas);//activo
+	$("#breportenotasg").click(reportenotasg);
+	$("#breporterecordacademico").click(reporterecordacademico);
+	$("#bnotassustitorio").click(notassustitorio);
+	$("#bnotassustitoriocurso").click(notassustitoriocurso);
+	$("#bnotasaplazados").click(notasaplazados);
+	$("#bsubirfoto").click(subirfoto);
+	$("#bdatospersonal").click(datospersonales);
+	$("#bverpassword").click(verpassword);
+	$("#bsubirhojadevida").click(subirhojadevida);
+	$("#brespuestaencuesta").click(respuestaencuesta);
+	$("#bvermensaje").click(vermensaje);
+}
  
  function mostrarhorario() //activado
  { var n1=$("#n1").val();
@@ -87,21 +88,24 @@ function mostrarmatriculados()  //activado
 	
 }
 function mostrarasistenciacompletar()//Activado
- { var n1=$("#n1").val();
-   var bbuscar=$("#bbuscar").val();
-     $.ajax({
-		url:"docente/completarasistencia",
-	success:function(result){
-	//alert(result);
-	$("#micontenido").html(result);
-	 },
-	data:{
-		 n1:n1,
-		 bbuscar:bbuscar
-	  },
+{ 
+	//var n1=$("#n1").val();
+    //var bbuscar=$("#bbuscar").val();
+    $("#cargando").show();
+    $.ajax({
+		url:"vercargahoraria",
+		success:function(result)
+		{
+			$("#micontenido").html(result);
+			$("#cargando").hide();
+		}/*,
+		data:
+		{
+			n1:n1,
+			bbuscar:bbuscar
+	  	}*/,
 		type:"GET"   
-	 } );
-	
+	});	
 }
 function mostrarsilabus() //activado
  { var n1=$("#n1").val();

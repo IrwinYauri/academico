@@ -107,7 +107,8 @@ $listahora = $mihoras->vercargahoraria($coddocentex, 20212);
 
 <script>
     function pruebaDivAPdf() {
-        var pdf = new jsPDF('l', 'pt', 'A4');
+       // var pdf = new jsPDF('l', 'pt', 'A4');//horzizontal
+        var pdf = new jsPDF("p", "pt", "a4");//vertical
         source = $('#imprimir')[0];
 
         specialElementHandlers = {

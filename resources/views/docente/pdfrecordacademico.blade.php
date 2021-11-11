@@ -22,36 +22,35 @@ foreach ($verdocente as $vdocente) {
 }
 
 @endphp
+<style>
+      .table-condensed {
+        font-size: 10px;
+        color: black;
+    }
+</style>
 <button onclick="back()">Volver</button>
-<div id="imprimir" class="container">
-    <div class="row">
+<div id="imprimir" >
+    <div class="container">
         <!-- Border Left Utilities -->
-        <div> Record Académico </div>
+        <div > Record Académico </div>
         <div> 
         @foreach ($docentex as $profe)
-            <table>
-                <tr>
-                    <td>
+           
                         @php
                             echo 'DOCENTE:' . $profe->doc_vcPaterno . ' ' . $profe->doc_vcMaterno . ' ' . $profe->doc_vcNombre;
                             echo '<br>DNI:' . $profe->doc_vcDocumento;
                         @endphp
 
-                    </td>
-
-                    <td>
+                 
                         <!--   fotodocente($dni,6); //-->
-                    </td>
-
-                </tr>
-            </table>
+                   
         @endforeach
+       </div>
     </div>
-    </div>
 
 
 
-    <div class="row">
+    <div class="container">
 
         @foreach ($semestre as $sem)
             <div class="card-header">
@@ -59,9 +58,9 @@ foreach ($verdocente as $vdocente) {
             </div>
             <div class="card-body">
                 
-                    <table class="table" cellspacing="0" id="dataTable">
+                    <table class="table table-condensed">
                         <thead>
-                            <tr style='background-color:navy;color:white;'>
+                            <tr style='background-color:navy;color:white;  height: 40px;'>
                                 <td>#</td>
                                 <td>codigo</td>
                                 <td>curso</td>
@@ -75,7 +74,7 @@ foreach ($verdocente as $vdocente) {
                             @endphp
                             @foreach ($listacur as $cursos)
                                 @if ($cursos->sem_iCodigo == $sem->sem_iCodigo)
-                                    <tr>
+                                    <tr  ng-repeat="row in data">
                                         <td>{{ $n++ }}</td>
                                         <td>{{ $cursos->cur_vcCodigo }}</td>
                                         <td>{{ $cursos->cur_vcNombre }}</td>
@@ -106,6 +105,10 @@ foreach ($verdocente as $vdocente) {
     <script src="{{ asset('jspdf/jspdf.min.js') }}"></script>
     <script>
         function pruebaDivAPdf() {
+//
+
+
+            //
             var pdf = new jsPDF('l', 'pt', 'A4');
             source = $('#imprimir')[0];
     

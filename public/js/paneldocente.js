@@ -89,25 +89,6 @@ function mostrarmatriculados()  //activado
 	
 }
 function mostrarasistenciacompletar()//Activado
-<<<<<<< HEAD
- { var n1=$("#n1").val();
-   var bbuscar=$("#bbuscar").val();
-
-   $("#micontenido").load("docente/cargando" );
-   $("#cargando").show();
-
-     $.ajax({
-		url:"docente/completarasistencia",
-	success:function(result){
-	//alert(result);
-	$("#micontenido").html(result);
-	$("#cargando").hide();
-	 },
-	data:{
-		 n1:n1,
-		 bbuscar:bbuscar
-	  },
-=======
 { 
 	//var n1=$("#n1").val();
     //var bbuscar=$("#bbuscar").val();
@@ -124,7 +105,6 @@ function mostrarasistenciacompletar()//Activado
 			n1:n1,
 			bbuscar:bbuscar
 	  	}*/,
->>>>>>> b04e08dba1f940c51b39e75a80d864461acee128
 		type:"GET"   
 	});	
 }

@@ -94,7 +94,7 @@ color: white;
                             <h6 class="collapse-header">Gestion Academica:</h6>
                           
                             <a class="collapse-item" href="#" id="blistasemestre">
-                                <i class="fas fa-clock"></i> Calendario Academico</a>
+                                <i class="fas fa-clock"></i> Mod. Semestre</a>
                             <a class="collapse-item" href="#" id="bcreardocente">Carga Academica<br>de Docentes</a>
                             <a class="collapse-item" href="#" id="bhorario">
                                 <i class="fas fa-check"></i> Cursos y Horarios</a>

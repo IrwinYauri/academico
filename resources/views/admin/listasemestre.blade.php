@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @php
 function versemestre()
 {$sql="select * from semestre";
@@ -7,14 +6,8 @@ return $data;
 
 }
 $listasemestre=versemestre();
-=======
-<?php
-use App\Http\Controllers\AdminController; 
-$listasemestres=new AdminController();
-$listasemestre=$listasemestres->versemestre();
->>>>>>> fdf0582619c698cd2f07d96e3aab0e349bb3be96
 
-?>
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>

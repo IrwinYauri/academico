@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @php
 function versemestre()
 {$sql="select * from semestre";
@@ -6,15 +7,21 @@ return $data;
 
 }
 $listasemestre=versemestre();
+=======
+<?php
+use App\Http\Controllers\AdminController; 
+$listasemestres=new AdminController();
+$listasemestre=$listasemestres->versemestre();
+>>>>>>> fdf0582619c698cd2f07d96e3aab0e349bb3be96
 
-@endphp
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Mod. Semestre</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.0/datatables.min.css"/>
@@ -26,21 +33,29 @@ $listasemestre=versemestre();
   <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.0/datatables.min.js"></script>
   
   <style>
-        .table-condensed{
+    .table-condensed
+    {
       font-size: 12px;
-      color: black;
-      
-      }
-      .micolor
-      {color:black;}
-      .tamletra
-      {color:navy;
-        font-size: 10px;
-        font-weight: bold;
-       }
-       .xfondo 
-       {background-color: silver;}
-      </style>
+      color: black;        
+    }
+
+    .micolor
+    {
+      color:black;
+    }
+    
+    .tamletra
+    {
+      color:navy;
+      font-size: 10px;
+      font-weight: bold;
+    }
+    
+    .xfondo 
+    {
+      background-color: silver;
+    }
+  </style>
     
     
    @php
@@ -78,6 +93,8 @@ $listasemestre=versemestre();
     const  fecMatExt_fin= [];
     @php
     $n=-1;
+
+
     foreach ($listasemestre as $sem)
     { $n++;     
     echo "semestre[".$n."]=".$sem->sem_iCodigo.";";
@@ -108,6 +125,10 @@ $listasemestre=versemestre();
 
     echo "sem_dAplazadoInicio[".$n."]='".left($sem->sem_dAplazadoInicio,10)."';";
     echo "sem_dAplazadoFinal[".$n."]='".left($sem->sem_dAplazadoFinal,10)."';";
+    
+    echo "sem_dSustiInicio[".$n."]='".left($sem->sem_dSustituInicio,10)."';";
+    echo "sem_dSustiFinal[".$n."]='".left($sem->sem_dSustituFin,10)."';";
+
     echo "fecMatReg_ini[".$n."]='".left($sem->fecMatReg_ini,10)."';";
     echo "fecMatReg_fin[".$n."]='".left($sem->fecMatReg_fin,10)."';";
     echo "fecMatExt_ini[".$n."]='".left($sem->fecMatExt_ini,10)."';";
@@ -118,27 +139,24 @@ $listasemestre=versemestre();
 
 
 <div class="container table-condensed">
-  <h1 class="h3 mb-0 text-gray-600"><i class="fas fa-clock"></i> CALENDARIO ACADÉMICO</h1><br>
+  <h1 class="h3 mb-0 text-gray-600"><i class="fas fa-clock"></i> MOD. SEMESTRE</h1><br>
   <div class="card shadow mb-4">        
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         
     
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item m-0 font-weight-bold text-primary" role="presentation">
-            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true" onclick="listasemestre()">
-              Lista de Semestres</button>
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"><i class="fa fa-bars" aria-hidden="true"></i> Lista de Semestres</button>
         </li>
         <!--li class="nav-item" role="presentation">
             <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
               Nuevo cuenta de Sistema</button>
         </li-->
         <li class="nav-item m-0 font-weight-bold text-primary" role="presentation">
-          <button class="nav-link" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestrefecha" type="button" role="tab" aria-controls="semestrefecha" aria-selected="false">
-            <i class="fas fa-calendar-alt"></i>
-            Modificar Fechas</button>
+          <button class="nav-link" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestrefecha" type="button" role="tab" aria-controls="semestrefecha" aria-selected="false"><i class="fas fa-calendar-alt"></i> Calendario Académico</button>
         </li>
         <li class="nav-item m-0 font-weight-bold text-primary" role="presentation">
-          <button class="nav-link" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestre" type="button" role="tab" aria-controls="semestre" aria-selected="false">APERTURA/SEMESTRE</button>
+          <button class="nav-link" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestre" type="button" role="tab" aria-controls="semestre" aria-selected="false"><i class="fa fa-toggle-on" aria-hidden="true"></i> Apertura/Cierre Semestre</button>
         </li>
       </ul>
     </div>  
@@ -190,8 +208,8 @@ $listasemestre=versemestre();
                     <td style="text-align: center;">{{$sem->sem_dEncuestaFinal}}</td>
                     <td style="text-align: center;">
                       <a href="javascript:void(0)" onclick="activarsemestre('{{$sem->sem_iCodigo}}'); " class="btn btn-success btn-sm table-condensed"> ACTIVAR</a>
-                      <!--a href="javascript:void(0)" onclick="editarAnimal('.$animales->id.')" class="btn btn-info btn-sm table-condensed"> Editar </a>
-                        &nbsp;&nbsp;<button type="button" name="delete" id="'.$animales->id.'" class="delete btn btn-danger btn-sm table-condensed"> Eliminar </button-->
+                      <a href="javascript:void(0)" onclick="$('#editarSemestre').modal('show');" class="btn btn-info btn-sm table-condensed"> Editar </a>
+                        <!--&nbsp;&nbsp;<button type="button" name="delete" id="'.$animales->id.'" class="delete btn btn-danger btn-sm table-condensed"> Eliminar </button-->
                     </td>
                   </tr>
                 @endforeach  
@@ -324,17 +342,26 @@ $listasemestre=versemestre();
             <input type="date" class="form-control" placeholder="sem_dAplazadoFinal" aria-label="sem_dAplazadoFinal" id="sem_dAplazadoFinal" style="font-size:12px;">
           </div>
           <div class="col-sm">
-            <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO REGISTRO MATRICULA</label>
-            <input type="date" class="form-control" placeholder="fecMatReg_ini" aria-label="fecMatReg_ini" id="fecMatReg_ini" style="font-size:12px;">
+            <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO SUSTITUTORIO</label>
+            <input type="date" class="form-control" placeholder="sem_dSustiInicio" aria-label="sem_dSustiInicio" id="sem_dSustiInicio" style="font-size:12px;">
           </div>
     
           <div class="col-sm">
-            <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE REGISTRO MATRICULA</label>
-            <input type="date" class="form-control" placeholder="fecMatReg_fin" aria-label="fecMatReg_fin" id="fecMatReg_fin" style="font-size:12px;">
+            <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE SUSTITUTORIO</label>
+            <input type="date" class="form-control" placeholder="sem_dSustiFinal" aria-label="sem_dSustiFinal" id="sem_dSustiFinal" style="font-size:12px;">
           </div>
         </div>
     
         <div class="row g-4">
+          <div class="col-sm-3">
+            <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO REGISTRO MATRICULA</label>
+            <input type="date" class="form-control" placeholder="fecMatReg_ini" aria-label="fecMatReg_ini" id="fecMatReg_ini" style="font-size:12px;">
+          </div>
+    
+          <div class="col-sm-3">
+            <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE REGISTRO MATRICULA</label>
+            <input type="date" class="form-control" placeholder="fecMatReg_fin" aria-label="fecMatReg_fin" id="fecMatReg_fin" style="font-size:12px;">
+          </div>
           <div class="col-sm-3">
             <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO  MATRICULA EXTEMPORANEA</label>
               <input type="date" class="form-control" placeholder="fecMatExt_ini" aria-label="fecMatExt_ini" id="fecMatExt_ini" style="font-size:12px;">
@@ -345,10 +372,10 @@ $listasemestre=versemestre();
           </div>
         </div>
         <br>
-        <div class="row g-4" align="center">                  
+        <!--div class="row g-4" align="center">                  
           <button type="button" class="btn btn-primary" onclick="modificarfechasemetre();revisarestadofecha();">
           <i class="fas fa-save"></i> GUARDAR CAMBIOS</button>                   
-        </div>
+        </div-->
       </div>  
 
       <div class="tab-pane fade" id="semestre" role="tabpanel" aria-labelledby="semestre-tab">
@@ -449,8 +476,29 @@ $listasemestre=versemestre();
     </div>
   </div>
 
-</div><!-- //fin container //-->
+  <!-- Editar semestre -->
+  <div class="modal fade" id="editarSemestre" tabindex="-1" role="dialog" aria-labelledby="modalEditarSemestre" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalEditarSemestre">Editar Semestre</h5>
+          <button type="button" class="close"  data-dismiss="modal" aria-label="Close" onclick="$('#editarSemestre').modal('hide');">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#editarSemestre').modal('hide');">Cancelar</button>
+          <button type="button" class="btn btn-danger" name="btnEditSemestre" id="btnEditSemestre">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
+</div><!-- //fin container //-->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script>
   $('#registro-animal').submit(function(e)
   {
@@ -525,173 +573,172 @@ $listasemestre=versemestre();
 </script>
 
 <script>
-    $(document).ready(function() {
-   
-   //$('#tabla-semestre').DataTable();
-} );
+  $(document).ready(function() {   
+     //$('#tabla-semestre').DataTable();
+  } );
  
   function vercalendario(element)
-  { /* const semestre = [];
-     const sem_iMatriculaInicio = [];
-     const sem_iMatriculaFinal = [];
-     const sem_dEncuestaInicio = [];
-     const sem_dEncuestaFinal = [];
-     const sem_dInicioClases = [];
-     const sem_iSemanas = [];
-     const sem_dActaInicio = [];
-     const  sem_dActaFinal = [];
-     const sem_iToleranciaInicio = [];
-     const sem_iToleranciaFinal = [];
-     const fech_ent1_ini = [];
-     const  fech_ent1_fin = [];*/
-    // alert("x");
+  { 
     var t1={{$n}};
     var sem1=element.value;
    // alert(sem1)
     for(x=0;x<=t1;x++)
-     {if(semestre[x]==sem1)
-          { console.log(sem_iMatriculaInicio[x]);
-       //   alert(fecMatReg_ini[x]);
-          $("#sem_iMatriculaInicio").val(sem_iMatriculaInicio[x]);
-          $("#sem_iMatriculaFinal").val(sem_iMatriculaFinal[x]);
-          $("#sem_dEncuestaInicio").val(sem_dEncuestaInicio[x]);
-          $("#sem_dEncuestaFinal").val(sem_dEncuestaFinal[x]);
-          $("#sem_dInicioClases").val(sem_dInicioClases[x]);
-          $("#sem_iSemanas").val(sem_iSemanas[x]);
-          $("#sem_dActaInicio").val(sem_dActaInicio[x]);
-          $("#sem_dActaFinal").val(sem_dActaFinal[x]);
-          $("#sem_iToleranciaInicio").val(sem_iToleranciaInicio[x]);
-          $("#sem_iToleranciaFinal").val(sem_iToleranciaFinal[x]);
-          $("#fech_ent1_ini").val(fech_ent1_ini[x]);
-          $("#fech_ent1_fin").val(fech_ent1_fin[x]);
-          $("#fech_ent2_ini").val(fech_ent2_ini[x]);
-          $("#fech_ent2_fin").val(fech_ent2_fin[x]);
-          $("#fech_ent3_ini").val(fech_ent3_ini[x]);
-          $("#fech_ent3_fin").val(fech_ent3_fin[x]);
-          $("#fech_ent4_ini").val(fech_ent4_ini[x]);
-          $("#fech_ent4_fin").val(fech_ent4_fin[x]);
-          $("#fech_ent5_ini").val(fech_ent5_ini[x]);
-          $("#fech_ent5_fin").val(fech_ent5_fin[x]);
-          $("#sem_dAplazadoInicio").val(sem_dAplazadoInicio[x]);
-          $("#sem_dAplazadoFinal").val(sem_dAplazadoFinal[x]);
-          $("#fecMatReg_ini").val(fecMatReg_ini[x]);
-          $("#fecMatReg_fin").val(fecMatReg_fin[x]);
-          $("#fecMatExt_ini").val(fecMatExt_ini[x]);
-          $("#fecMatExt_fin").val(fecMatExt_fin[x]);
-          }
+    {
+      if(semestre[x]==sem1)
+      { 
+        //console.log(sem_iMatriculaInicio[x]);
+        //alert(fecMatReg_ini[x]);
+        $("#sem_iMatriculaInicio").val(sem_iMatriculaInicio[x]);
+        $("#sem_iMatriculaFinal").val(sem_iMatriculaFinal[x]);
+        $("#sem_dEncuestaInicio").val(sem_dEncuestaInicio[x]);
+        $("#sem_dEncuestaFinal").val(sem_dEncuestaFinal[x]);
+        $("#sem_dInicioClases").val(sem_dInicioClases[x]);
+        $("#sem_iSemanas").val(sem_iSemanas[x]);
+        $("#sem_dActaInicio").val(sem_dActaInicio[x]);
+        $("#sem_dActaFinal").val(sem_dActaFinal[x]);
+        $("#sem_iToleranciaInicio").val(sem_iToleranciaInicio[x]);
+        $("#sem_iToleranciaFinal").val(sem_iToleranciaFinal[x]);
+        $("#fech_ent1_ini").val(fech_ent1_ini[x]);
+        $("#fech_ent1_fin").val(fech_ent1_fin[x]);
+        $("#fech_ent2_ini").val(fech_ent2_ini[x]);
+        $("#fech_ent2_fin").val(fech_ent2_fin[x]);
+        $("#fech_ent3_ini").val(fech_ent3_ini[x]);
+        $("#fech_ent3_fin").val(fech_ent3_fin[x]);
+        $("#fech_ent4_ini").val(fech_ent4_ini[x]);
+        $("#fech_ent4_fin").val(fech_ent4_fin[x]);
+        $("#fech_ent5_ini").val(fech_ent5_ini[x]);
+        $("#fech_ent5_fin").val(fech_ent5_fin[x]);
+        $("#sem_dAplazadoInicio").val(sem_dAplazadoInicio[x]);
+        $("#sem_dAplazadoFinal").val(sem_dAplazadoFinal[x]);
+        $("#sem_dSustiInicio").val(sem_dSustiInicio[x]);
+        $("#sem_dSustiFinal").val(sem_dSustiFinal[x]);
+        $("#fecMatReg_ini").val(fecMatReg_ini[x]);
+        $("#fecMatReg_fin").val(fecMatReg_fin[x]);
+        $("#fecMatExt_ini").val(fecMatExt_ini[x]);
+        $("#fecMatExt_fin").val(fecMatExt_fin[x]);
       }
-
+    }
   }
-function revisarestadofecha()
-{         //inicio de cambio de color
-          $("#sem_iMatriculaInicio").css('background-color', 'white');
-          $("#sem_iMatriculaFinal").css('background-color', 'white');
-          $("#sem_dEncuestaInicio").css('background-color', 'white');
-          $("#sem_dEncuestaFinal").css('background-color', 'white');
-          $("#sem_dInicioClases").css('background-color', 'white');
-          $("#sem_iSemanas").css('background-color', 'white');
-          $("#sem_dActaInicio").css('background-color', 'white');
-          $("#sem_dActaFinal").css('background-color', 'white');
-          $("#sem_iToleranciaInicio").css('background-color', 'white');
-          $("#sem_iToleranciaFinal").css('background-color', 'white');
-          $("#fech_ent1_ini").css('background-color', 'white');
-          $("#fech_ent1_fin").css('background-color', 'white');
-          $("#fech_ent2_ini").css('background-color', 'white');
-          $("#fech_ent2_fin").css('background-color', 'white');
-          $("#fech_ent3_ini").css('background-color', 'white');
-          $("#fech_ent3_fin").css('background-color', 'white');
-          $("#fech_ent4_ini").css('background-color', 'white');
-          $("#fech_ent4_fin").css('background-color', 'white');
-          $("#fech_ent5_ini").css('background-color', 'white');
-          $("#fech_ent5_fin").css('background-color', 'white');
-          $("#sem_dAplazadoInicio").css('background-color', 'white');
-          $("#sem_dAplazadoFinal").css('background-color', 'white');
-          $("#fecMatReg_ini").css('background-color', 'white');
-          $("#fecMatReg_fin").css('background-color', 'white');
-          $("#fecMatExt_ini").css('background-color', 'white');
-          $("#fecMatExt_fin").css('background-color', 'white'); 
-  ///fin cambio de color   
-  if($("#sem_iMatriculaInicio").val()=="")
-  $("#sem_iMatriculaInicio").css('background-color', 'lightyellow');
 
-  if($("#sem_iMatriculaFinal").val()=="")
-  $("#sem_iMatriculaFinal").css('background-color', 'lightyellow');
+  function revisarestadofecha()
+  { 
+    //inicio de cambio de color
+    $("#sem_iMatriculaInicio").css('background-color', 'white');
+    $("#sem_iMatriculaFinal").css('background-color', 'white');
+    $("#sem_dEncuestaInicio").css('background-color', 'white');
+    $("#sem_dEncuestaFinal").css('background-color', 'white');
+    $("#sem_dInicioClases").css('background-color', 'white');
+    $("#sem_iSemanas").css('background-color', 'white');
+    $("#sem_dActaInicio").css('background-color', 'white');
+    $("#sem_dActaFinal").css('background-color', 'white');
+    $("#sem_iToleranciaInicio").css('background-color', 'white');
+    $("#sem_iToleranciaFinal").css('background-color', 'white');
+    $("#fech_ent1_ini").css('background-color', 'white');
+    $("#fech_ent1_fin").css('background-color', 'white');
+    $("#fech_ent2_ini").css('background-color', 'white');
+    $("#fech_ent2_fin").css('background-color', 'white');
+    $("#fech_ent3_ini").css('background-color', 'white');
+    $("#fech_ent3_fin").css('background-color', 'white');
+    $("#fech_ent4_ini").css('background-color', 'white');
+    $("#fech_ent4_fin").css('background-color', 'white');
+    $("#fech_ent5_ini").css('background-color', 'white');
+    $("#fech_ent5_fin").css('background-color', 'white');
+    $("#sem_dAplazadoInicio").css('background-color', 'white');
+    $("#sem_dAplazadoFinal").css('background-color', 'white');
+    $("#sem_dSustiInicio").css('background-color', 'white');
+    $("#sem_dSustiFinal").css('background-color', 'white');
+    $("#fecMatReg_ini").css('background-color', 'white');
+    $("#fecMatReg_fin").css('background-color', 'white');
+    $("#fecMatExt_ini").css('background-color', 'white');
+    $("#fecMatExt_fin").css('background-color', 'white'); 
+    ///fin cambio de color   
+    if($("#sem_iMatriculaInicio").val()=="")
+    $("#sem_iMatriculaInicio").css('background-color', 'lightyellow');
 
-         if($("#sem_dEncuestaInicio").val()=="")
-         $("#sem_dEncuestaInicio").css('background-color', 'lightyellow');
+    if($("#sem_iMatriculaFinal").val()=="")
+    $("#sem_iMatriculaFinal").css('background-color', 'lightyellow');
 
-          if($("#sem_dEncuestaFinal").val()=="")
-          $("#sem_dEncuestaFinal").css('background-color', 'lightyellow');
+    if($("#sem_dEncuestaInicio").val()=="")
+    $("#sem_dEncuestaInicio").css('background-color', 'lightyellow');
 
-         if($("#sem_dInicioClases").val()=="")
-         $("#sem_dInicioClases").css('background-color', 'lightyellow');
+    if($("#sem_dEncuestaFinal").val()=="")
+    $("#sem_dEncuestaFinal").css('background-color', 'lightyellow');
 
-          if($("#sem_iSemanas").val()=="")
-          $("#sem_iSemanas").css('background-color', 'lightyellow');
+    if($("#sem_dInicioClases").val()=="")
+    $("#sem_dInicioClases").css('background-color', 'lightyellow');
 
-          if($("#sem_dActaInicio").val()=="")
-          $("#sem_dActaInicio").css('background-color', 'lightyellow');
+    if($("#sem_iSemanas").val()=="")
+    $("#sem_iSemanas").css('background-color', 'lightyellow');
 
-          if($("#sem_dActaFinal").val()=="")
-          $("#sem_dActaFinal").css('background-color', 'lightyellow');
+    if($("#sem_dActaInicio").val()=="")
+    $("#sem_dActaInicio").css('background-color', 'lightyellow');
 
-          if($("#sem_iToleranciaInicio").val()=="")
-          $("#sem_iToleranciaInicio").css('background-color', 'lightyellow');
+    if($("#sem_dActaFinal").val()=="")
+    $("#sem_dActaFinal").css('background-color', 'lightyellow');
 
-          if($("#sem_iToleranciaFinal").val()=="")
-          $("#sem_iToleranciaFinal").css('background-color', 'lightyellow');
+    if($("#sem_iToleranciaInicio").val()=="")
+    $("#sem_iToleranciaInicio").css('background-color', 'lightyellow');
 
-          if($("#fech_ent1_ini").val()=="")
-          $("#fech_ent1_ini").css('background-color', 'lightyellow');
+    if($("#sem_iToleranciaFinal").val()=="")
+    $("#sem_iToleranciaFinal").css('background-color', 'lightyellow');
 
-          if($("#fech_ent1_fin").val()=="")
-          $("#fech_ent1_fin").css('background-color', 'lightyellow');
+    if($("#fech_ent1_ini").val()=="")
+    $("#fech_ent1_ini").css('background-color', 'lightyellow');
 
-          if($("#fech_ent2_ini").val()=="")
-          $("#fech_ent2_ini").css('background-color', 'lightyellow');
+    if($("#fech_ent1_fin").val()=="")
+    $("#fech_ent1_fin").css('background-color', 'lightyellow');
 
-          if($("#fech_ent2_fin").val()=="")
-          $("#fech_ent2_fin").css('background-color', 'lightyellow');
+    if($("#fech_ent2_ini").val()=="")
+    $("#fech_ent2_ini").css('background-color', 'lightyellow');
 
-          if($("#fech_ent3_ini").val()=="")
-          $("#fech_ent2_fin").css('background-color', 'lightyellow');
+    if($("#fech_ent2_fin").val()=="")
+    $("#fech_ent2_fin").css('background-color', 'lightyellow');
 
-          if($("#fech_ent3_fin").val()=="")
-          $("#fech_ent3_ini").css('background-color', 'lightyellow');
+    if($("#fech_ent3_ini").val()=="")
+    $("#fech_ent2_fin").css('background-color', 'lightyellow');
 
-          if($("#fech_ent4_ini").val()=="")
-          $("#fech_ent4_ini").css('background-color', 'lightyellow');
+    if($("#fech_ent3_fin").val()=="")
+    $("#fech_ent3_ini").css('background-color', 'lightyellow');
 
-          if($("#fech_ent4_fin").val()=="")
-          $("#fech_ent4_fin").css('background-color', 'lightyellow');
+    if($("#fech_ent4_ini").val()=="")
+    $("#fech_ent4_ini").css('background-color', 'lightyellow');
 
-          if($("#fech_ent5_ini").val()=="")
-          $("#fech_ent5_ini").css('background-color', 'lightyellow');
+    if($("#fech_ent4_fin").val()=="")
+    $("#fech_ent4_fin").css('background-color', 'lightyellow');
 
-          if($("#fech_ent5_fin").val()=="")
-          $("#fech_ent5_fin").css('background-color', 'lightyellow');
+    if($("#fech_ent5_ini").val()=="")
+    $("#fech_ent5_ini").css('background-color', 'lightyellow');
 
-          if($("#sem_dAplazadoInicio").val()=="")
-          $("#sem_dAplazadoInicio").css('background-color', 'lightyellow');
+    if($("#fech_ent5_fin").val()=="")
+    $("#fech_ent5_fin").css('background-color', 'lightyellow');
 
-          if($("#sem_dAplazadoFinal").val()=="")
-          $("#sem_dAplazadoFinal").css('background-color', 'lightyellow');
+    if($("#sem_dAplazadoInicio").val()=="")
+    $("#sem_dAplazadoInicio").css('background-color', 'lightyellow');
 
-          if($("#fecMatReg_ini").val()=="")
-          $("#fecMatReg_ini").css('background-color', 'lightyellow');
+    if($("#sem_dAplazadoFinal").val()=="")
+    $("#sem_dAplazadoFinal").css('background-color', 'lightyellow');
 
-          if($("#fecMatReg_fin").val()=="")
-          $("#fecMatReg_fin").css('background-color', 'lightyellow');
+    if($("#sem_dSustiInicio").val()=="")
+    $("#sem_dSustiInicio").css('background-color', 'lightyellow');
 
-          if($("#fecMatExt_ini").val()=="")
-          $("#fecMatExt_ini").css('background-color', 'lightyellow');
+    if($("#sem_dSustiFinal").val()=="")
+    $("#sem_dSustiFinal").css('background-color', 'lightyellow');
 
-          if($("#fecMatExt_fin").val()=="")
-          $("#fecMatExt_fin").css('background-color', 'lightyellow');
- 
-       
-}
-  
+    if($("#fecMatReg_ini").val()=="")
+    $("#fecMatReg_ini").css('background-color', 'lightyellow');
+
+    if($("#fecMatReg_fin").val()=="")
+    $("#fecMatReg_fin").css('background-color', 'lightyellow');
+
+    if($("#fecMatExt_ini").val()=="")
+    $("#fecMatExt_ini").css('background-color', 'lightyellow');
+
+    if($("#fecMatExt_fin").val()=="")
+    $("#fecMatExt_fin").css('background-color', 'lightyellow');
+   
+         
+  }
+    
 </script>
 
 <div id="mimensajex">GRABANDO</div>

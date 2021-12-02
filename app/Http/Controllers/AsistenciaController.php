@@ -73,33 +73,34 @@ and sh.dia_vcCodigo like '".$dia."%'
  }
 
  public function verasistenciacurso($codcurso,$semestre,$dia,$semana)
-  {$sql="SELECT 
-   `seccion`.`sem_iCodigo`,
-   `seccion_horario`.`sec_iCodigo`,
-   `seccion_horarioasistencia`.`sechor_iCodigo`,
-   `seccion`.`cur_iCodigo`,
-   `curso`.`cur_vcNombre`,
-   `seccion`.`tur_cCodigo`,
-   `seccion_horarioasistencia`.`sechorasi_iHoraFinal`,
-   `seccion_horarioasistencia`.`sechorasi_iHoraInicio`,
-   `seccion_horarioasistencia`.`dia_vcCodigo`,
-   `seccion_horarioasistencia`.`sechorasi_iCodigo`,
-   `seccion_horarioasistencia`.`sechorasi_iSemana`,
-   `seccion_horarioasistencia`.`sechorasi_dFecha`
- FROM
-   `seccion_horario`
-   INNER JOIN `seccion_horarioasistencia` ON (`seccion_horario`.`sechor_iCodigo` = `seccion_horarioasistencia`.`sechor_iCodigo`)
-   INNER JOIN `seccion` ON (`seccion_horario`.`sec_iCodigo` = `seccion`.`sec_iCodigo`)
-   INNER JOIN `curso` ON (`seccion`.`cur_iCodigo` = `curso`.`cur_iCodigo`)
- WHERE
-   `seccion`.`cur_iCodigo` = $codcurso AND 
-   `seccion`.`sem_iCodigo` = $semestre AND 
-   `seccion_horarioasistencia`.`dia_vcCodigo` = '$dia' AND 
-   `seccion_horarioasistencia`.`sechorasi_iSemana` = $semana ";
- 
- $data1=DB::select($sql);    
- return $data1;
+  {
+    $sql="SELECT 
+      `seccion`.`sem_iCodigo`,
+      `seccion_horario`.`sec_iCodigo`,
+      `seccion_horarioasistencia`.`sechor_iCodigo`,
+      `seccion`.`cur_iCodigo`,
+      `curso`.`cur_vcNombre`,
+      `seccion`.`tur_cCodigo`,
+      `seccion_horarioasistencia`.`sechorasi_iHoraFinal`,
+      `seccion_horarioasistencia`.`sechorasi_iHoraInicio`,
+      `seccion_horarioasistencia`.`dia_vcCodigo`,
+      `seccion_horarioasistencia`.`sechorasi_iCodigo`,
+      `seccion_horarioasistencia`.`sechorasi_iSemana`,
+      `seccion_horarioasistencia`.`sechorasi_dFecha`
+      FROM
+      `seccion_horario`
+      INNER JOIN `seccion_horarioasistencia` ON (`seccion_horario`.`sechor_iCodigo` = `seccion_horarioasistencia`.`sechor_iCodigo`)
+      INNER JOIN `seccion` ON (`seccion_horario`.`sec_iCodigo` = `seccion`.`sec_iCodigo`)
+      INNER JOIN `curso` ON (`seccion`.`cur_iCodigo` = `curso`.`cur_iCodigo`)
+      WHERE
+      `seccion`.`cur_iCodigo` = $codcurso AND 
+      `seccion`.`sem_iCodigo` = $semestre AND 
+      `seccion_horarioasistencia`.`dia_vcCodigo` = '$dia' AND 
+      `seccion_horarioasistencia`.`sechorasi_iSemana` = $semana ";
 
+    $data1=DB::select($sql);    
+    
+    return $data1;
   }
    public function contarasistenciacurso($codhora)
    {$sql="SELECT count(*) as total FROM `seccion_horarioalumno` WHERE `sechorasi_iCodigo`=$codhora

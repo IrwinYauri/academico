@@ -1,18 +1,124 @@
 @php
-    session_start(); 
+session_start();
 
-    $nombrealumno ="Sin registro";
-if(isset($_SESSION['alumnox'])){
- //   echo $nombredoc;
-  //  return $nombredoc;
-  $nombrealumno =$_SESSION['alumnox'];
-}else {
+$nombrealumno = 'Sin registro';
+$codalumno = '';
+
+if (isset($_SESSION['alumnox'])) {
+    //   echo $nombredoc;
+    //  return $nombredoc;
+    $nombrealumno = $_SESSION['alumnox'];
+    $codalumno = $_SESSION['codalumnox'];
+} else {
     echo "CERRANDO SISTEMA<br>
 <script>
-    location.href='alumno/loginalumno';
+    location.href = 'alumno/loginalumno';
 </script>
 ";
 }
+function nrodias($semestre,$codcurso)
+{$sql="SELECT
+count(seccion.cur_iCodigo) as dias
+FROM
+seccion
+INNER JOIN seccion_horario ON seccion_horario.sec_iCodigo = seccion.sec_iCodigo
+INNER JOIN seccion_horarioasistencia ON seccion_horarioasistencia.sechor_iCodigo = seccion_horario.sechor_iCodigo
+WHERE
+seccion.sem_iCodigo = '$semestre' AND
+seccion.cur_iCodigo = '$codcurso' 
+group by  seccion.cur_iCodigo,
+seccion.sem_iCodigo";
+$data=DB::select($sql);
+return $data[0]->dias;
+}
+
+function vercreditos($codalumno)
+{
+    $sql = "SELECT
+alumno.alu_iCodigo,
+alumno.escpla_iCreditos as micredito,
+alumno.escpla_iPuntaje,
+escuelaplan.escpla_vcRR,
+escuelaplan.escpla_iCreditos as credito
+FROM
+alumno
+INNER JOIN escuelaplan ON alumno.escpla_iCodigo = escuelaplan.escpla_iCodigo
+where alumno.alu_iCodigo='$codalumno'";
+    $data = DB::select($sql);
+    return $data;
+}
+function verturnocurso($semestre, $codalu)
+{
+    $sql = "SELECT
+
+curso.cur_vcCodigo,
+seccion_horario.sectip_cCodigo
+FROM
+matricula
+INNER JOIN matriculadetalle ON matriculadetalle.mat_iCodigo = matricula.mat_iCodigo
+INNER JOIN seccion ON matriculadetalle.sec_iCodigo = seccion.sec_iCodigo
+INNER JOIN seccion_horario ON seccion_horario.sec_iCodigo = seccion.sec_iCodigo
+INNER JOIN curso ON seccion.cur_iCodigo = curso.cur_iCodigo
+WHERE matricula.alu_iCodigo='$codalu' AND
+seccion.sem_iCodigo='$semestre'";
+    $data1 = DB::select($sql);
+    return $data1;
+}
+function sqlvercursosalu($semestre, $codalu)
+{
+    $sql = "SELECT
+matricula.alu_iCodigo,
+matriculadetalle.sec_iCodigo,
+seccion.cur_iCodigo,
+curso.cur_vcCodigo,
+curso.cur_vcNombre,
+curso.cur_fCredito,
+seccion.sem_iCodigo
+FROM
+matricula
+INNER JOIN matriculadetalle ON matriculadetalle.mat_iCodigo = matricula.mat_iCodigo
+INNER JOIN seccion ON matriculadetalle.sec_iCodigo = seccion.sec_iCodigo
+INNER JOIN curso ON seccion.cur_iCodigo = curso.cur_iCodigo
+WHERE matricula.alu_iCodigo='$codalu' AND
+seccion.sem_iCodigo='$semestre'";
+    $data1 = DB::select($sql);
+    return $data1;
+}
+$semestreactual = semestreactual();
+$miscursosgrupo = sqlvercursosalu($semestreactual, $codalumno);
+$tipodic = verturnocurso($semestreactual, $codalumno);
+
+//dd($micredito);
+foreach ($tipodic as $data) {
+    if ($data->sectip_cCodigo == 'P') {
+        $regtipo["$data->cur_vcCodigo"]["$data->sectip_cCodigo"] = 'PRACTICO';
+    }
+    if ($data->sectip_cCodigo == 'T') {
+        $regtipo["$data->cur_vcCodigo"]["$data->sectip_cCodigo"] = 'TEORICO';
+    }
+}
+
+function contarasis($semestre, $codalumno, $codcurso, $dia)
+{
+    $sql = "SELECT
+count(
+seccion_horarioalumno.sechoralu_bPresente
+) as total
+FROM
+seccion
+INNER JOIN seccion_horario ON seccion_horario.sec_iCodigo = seccion.sec_iCodigo
+INNER JOIN seccion_horarioasistencia ON seccion_horarioasistencia.sechor_iCodigo = seccion_horario.sechor_iCodigo
+INNER JOIN seccion_horarioalumno ON seccion_horarioalumno.sechorasi_iCodigo = seccion_horarioasistencia.sechorasi_iCodigo
+where seccion_horarioalumno.alu_iCodigo='$codalumno'
+and seccion.sem_iCodigo='$semestre'
+and seccion.cur_iCodigo='$codcurso'
+and seccion_horario.dia_vcCodigo like '$dia%'
+and left(seccion_horarioalumno.sechoralu_bPresente,1)='P' or left(seccion_horarioalumno.sechoralu_bPresente,1)='J'";
+    $data = DB::select($sql);
+    return $data[0]->total;
+}
+
+$color = ['bg-success', 'bg-info', 'bg-warning', 'bg-danger', 'bg-primary', 'bg-dark'];
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -27,154 +133,158 @@ if(isset($_SESSION['alumnox'])){
 
     <title>SISACADEMICO-ALUMNO</title>
 
-   <!-- Custom fonts for this template-->
-   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href=" {{ asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-    <link
+    <!-- Custom fonts for this template-->
+    <link rel="icon" href=" {{ asset('img/escudo.png') }}" type="image/png" />
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href=" {{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <!--  <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+        rel="stylesheet"> -->
 
     <!-- Custom styles for this template-->
     <!--  <link href="css/sb-admin-2.min.css" rel="stylesheet"> -->
-    <link href=" {{ asset('css/sb-admin-2.min.css')}}"  rel="stylesheet">
-<style>
-.miizquierda{
-color: white;
-}
-</style>
+    <link href=" {{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <style>
+        .miizquierda {
+            color: white;
+        }
+
+    </style>
 </head>
 
-<body id="page-top"  >
+<body id="page-top">
 
     <!-- Page Wrapper -->
-    <div id="wrapper" >
-        <div class="miizquierda">
-        <!-- Sidebar -->
+    <div id="wrapper">
+        <div class="miizquierda" id="miizquierda">
+            <!-- Sidebar -->
 
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-            <div class="miizquierda">
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="alumno">
-                <div class="sidebar-brand-icon rotate-n-1">
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">UNAAT<sup>2021</sup></div>
-            </a>
+            <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
+                <div class="miizquierda">
+                    <!-- Sidebar - Brand -->
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="alumno">
+                        <div class="sidebar-brand-icon rotate-n-1">
+                            <img src="{{ asset('img/escudo2.png') }}" style="width: 40px;">
+                        </div>
+                        <div class="sidebar-brand-text mx-3">UNAAT<sup>2021</sup></div>
+                    </a>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+                    <!-- Divider -->
+                    <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="alumno">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>PANEL DE CONTROL</span></a>
-            </li>
+                    <!-- Nav Item - Dashboard -->
+                    <li class="nav-item active">
+                        <a class="nav-link" href="alumno">
+                            <i class="fas fa-fw fa-tachometer-alt"></i>
+                            <span>PANEL DE CONTROL</span></a>
+                    </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+                    <!-- Divider -->
+                    <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-               Constancias
-            </div>
+                    <!-- Heading -->
+                    <div class="sidebar-heading">
+                        Constancias
+                    </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Matricula</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="#" >Imprimir Constancias</h6>
-                        <a class="collapse-item" href="#" id="bcrearmatricula">Matricula Online</a>
-                        <a class="collapse-item" href="#" id="bmatriculaconstancia">Constancia de Matricula</a>
-                        <a class="collapse-item" href="#" id="bverhorario1">Ver Horario</a>
-                        <a class="collapse-item" href="#" id="bsilabus">Silabus</a>
+                    <!-- Nav Item - Pages Collapse Menu -->
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                            aria-expanded="true" aria-controls="collapseTwo">
+                            <i class="fas fa-fw fa-cog"></i>
+                            <span>Matricula</span>
+                        </a>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                            data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h4 class="collapse-header">Imprimir Constancias</h4>
+                                <a class="collapse-item" href="#" id="bcrearmatricula">Matricula Online</a>
+                                <a class="collapse-item" href="#" id="bmatriculaconstancia">Constancia de Matricula</a>
+                                <a class="collapse-item" href="#" id="bverhorario1">Ver Horario</a>
+                                <a class="collapse-item" href="#" id="bsilabus">Silabus</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- Nav Item - Utilities Collapse Menu -->
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                            aria-expanded="true" aria-controls="collapseUtilities">
+                            <i class="fas fa-fw fa-wrench"></i>
+                            <span>CONSULTAS</span>
+                        </a>
+                        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                            data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">Ver Informe de:</h6>
+                                <a class="collapse-item" href="#" id="bvernotas">Ver Notas</a>
+                                <a class="collapse-item" href="#" id="bboletanotas">Boleta de Notas</a>
+                                <a class="collapse-item" href="#" id="bverasistencia">Asistencia</a>
+                                <a class="collapse-item" href="#" id="brecordacademico">Record Academico</a>
+                                <a class="collapse-item" href="#" id="bpromedioponderado">Promedio Ponderado</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- Divider -->
+                    <hr class="sidebar-divider">
+
+                    <!-- Heading -->
+                    <div class="sidebar-heading">
+                        Datos del Estudiante
+                    </div>
+
+                    <!-- Nav Item - Pages Collapse Menu -->
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                            aria-expanded="true" aria-controls="collapsePages">
+                            <i class="fas fa-fw fa-folder"></i>
+                            <span>Configurar datos</span>
+                        </a>
+                        <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
+                            data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">Configurar:</h6>
+                                <a class="collapse-item" href="#" id="bsubirfoto">Subir Foto</a>
+                                <a class="collapse-item" href="#" id="bdatospersonales">Datos Personales</a>
+                                <a class="collapse-item" href="#" id="bpassword">Cambiar Contraseña</a>
+                                <div class="collapse-divider"></div>
+
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- Nav Item - Charts -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="bcrearencuesta">
+                            <i class="fas fa-fw fa-chart-area"></i>
+                            <span>ENCUESTA</span></a>
+                    </li>
+
+                    <!-- Nav Item - Tables -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="bvermensaje">
+                            <i class="fas fa-fw fa-table"></i>
+                            <span>MENSAJES</span></a>
+                    </li>
+
+                    <!-- Divider -->
+                    <hr class="sidebar-divider d-none d-md-block">
+
+                    <!-- Sidebar Toggler (Sidebar) -->
+                    <div class="text-center d-none d-md-inline">
+                        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                    </div>
+
+                    <!-- Sidebar Message -->
+                    <div class="sidebar-card d-none d-lg-flex">
+                        <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
+                        <p class="text-center mb-2"><strong>SISACADEMICO</strong> Dejanos tus comentarios</p>
+                        <a class="btn btn-success btn-sm" href="#">Comentar</a>
                     </div>
                 </div>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>CONSULTAS</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Ver Informe de:</h6>
-                        <a class="collapse-item" href="#" id="bvernotas">Ver Notas</a>
-                        <a class="collapse-item" href="#" id="bboletanotas">Boleta de Notas</a>
-                        <a class="collapse-item" href="#" id="bverasistencia">Asistencia</a>
-                        <a class="collapse-item" href="#" id="brecordacademico">Record Academico</a>
-                        <a class="collapse-item" href="#" id="bpromedioponderado">Promedio Ponderado</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Datos del Estudiante
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Configurar datos</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Configurar:</h6>
-                        <a class="collapse-item" href="#" id="bsubirfoto">Subir Foto</a>
-                        <a class="collapse-item" href="#" id="bdatospersonales">Datos Personales</a>
-                        <a class="collapse-item" href="#" id="bpassword">Cambiar Contraseña</a>
-                        <div class="collapse-divider"></div>
-                     
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="#" id="bcrearencuesta">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>ENCUESTA</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="#" id="bvermensaje">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>MENSAJES</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-            <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
-                <p class="text-center mb-2"><strong>SISACADEMICO</strong> Dejanos tus comentarios</p>
-                <a class="btn btn-success btn-sm" href="#">Comentar</a>
-            </div>
-</div>
-        </ul>
-    </div>
+            </ul>
+        </div>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -195,8 +305,8 @@ color: white;
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Datos a buscar..."
-                                aria-label="Search" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control bg-light border-0 small"
+                                placeholder="Datos a buscar..." aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
                                     <i class="fas fa-search fa-sm"></i>
@@ -295,12 +405,11 @@ color: white;
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="messagesDropdown">
                                 <h6 class="dropdown-header">
-                                   Mensajes
+                                    Mensajes
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
@@ -310,8 +419,7 @@ color: white;
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_2.svg" alt="...">
                                         <div class="status-indicator"></div>
                                     </div>
                                     <div>
@@ -321,8 +429,7 @@ color: white;
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_3.svg" alt="...">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
                                     <div>
@@ -352,10 +459,9 @@ color: white;
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                    {{    $nombrealumno }}
+                                    {{ $nombrealumno }}
                                 </span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -405,7 +511,7 @@ color: white;
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                               Estado de matricula</div>
+                                                Estado de matricula</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">Completado</div>
                                         </div>
                                         <div class="col-auto">
@@ -440,11 +546,13 @@ color: white;
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Proceso de Encuesta
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Proceso
+                                                de Encuesta
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Pendiente 0% </div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Pendiente
+                                                        0% </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
@@ -493,173 +601,179 @@ color: white;
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Asignaturas Matriculados</h6>
-                                    
+
                                 </div>
                                 <!-- Card Body -->
                                 <div class="row">
-                                    <div class="col-lg-6 mb-4">
-                                        <div class="card bg-primary text-white shadow">
-                                            <div class="card-body">
-                                               Matematica Basica
-                                                <div class="text-white-50 small">Teorico</div>
+                                    @php
+                                        $n = 0;
+                                        
+                                    @endphp
+
+                                    @foreach ($miscursosgrupo as $listacurso)
+                                        <div class="col-lg-6 mb-4 animated zoomInup">
+                                            <div class="card {{ $color[$n++] }} text-white shadow">
+                                                <div class="card-body ">
+                                                    {{ left($listacurso->cur_vcCodigo, 2) }} ::
+                                                    {{ $listacurso->cur_vcNombre }}
+                                                    <div class="text-dark-80 small">
+                                                        @php
+                                                            if (isset($regtipo["$listacurso->cur_vcCodigo"]['P']) && isset($regtipo["$listacurso->cur_vcCodigo"]['T'])) {
+                                                                echo $regtipo["$listacurso->cur_vcCodigo"]['T'] . '/' . $regtipo["$listacurso->cur_vcCodigo"]['P'];
+                                                            } else {
+                                                                if (isset($regtipo["$listacurso->cur_vcCodigo"]['P'])) {
+                                                                    echo $regtipo["$listacurso->cur_vcCodigo"]['P'];
+                                                                }
+                                                                if (isset($regtipo["$listacurso->cur_vcCodigo"]['T'])) {
+                                                                    echo $regtipo["$listacurso->cur_vcCodigo"]['T'];
+                                                                }
+                                                            }
+                                                            
+                                                        @endphp
+
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-4">
-                                        <div class="card bg-success text-white shadow">
-                                            <div class="card-body">
-                                                Estadistica
-                                                <div class="text-white-50 small">Teorico/Practico</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-4">
-                                        <div class="card bg-info text-white shadow">
-                                            <div class="card-body">
-                                                Aritmetica
-                                                <div class="text-white-50 small">Teorico</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-4">
-                                        <div class="card bg-warning text-white shadow">
-                                            <div class="card-body">
-                                                Fisica
-                                                <div class="text-white-50 small">Teorico/Practico</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-4">
-                                        <div class="card bg-danger text-white shadow">
-                                            <div class="card-body">
-                                               Logica y Funciones 
-                                                <div class="text-white-50 small">Teorico</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-4" style="display:none; ">
-                                        <div class="card bg-secondary text-white shadow">
-                                            <div class="card-body">
-                                                Secondary
-                                                <div class="text-white-50 small">Teorico/Practico</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-4" style="display:none; ">
-                                        <div class="card bg-light text-black shadow">
-                                            <div class="card-body">
-                                                Light
-                                                <div class="text-black-50 small">#f8f9fc</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-4" style="display:none; ">
-                                        <div class="card bg-dark text-white shadow">
-                                            <div class="card-body">
-                                                Dark
-                                                <div class="text-white-50 small">#5a5c69</div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        @php
+                                            if ($n > 5) {
+                                                $n = 0;
+                                            }
+                                        @endphp
+                                    @endforeach
                                 </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="card-body">
+                                   PORCENTANJE DE ASISTENCIAS
+                                    @foreach ($miscursosgrupo as $listacurso)
+
+                                        @php
+                                            $asis=contarasis($semestreactual,$codalumno,$listacurso->cur_iCodigo,"");
+                                            $tcla=nrodias($semestreactual,$listacurso->cur_iCodigo);
+                                            $porcent=round($asis*100/$tcla,2);
+                                        @endphp
+
+                                        <h4 class="small font-weight-bold">
+                                            {{ left($listacurso->cur_vcCodigo, 2) }} ::
+                                            {{ $listacurso->cur_vcNombre }} <span
+                                                class="float-right">{{$porcent}}%</span></h4>
+                                                <div class="progress mb-4">
+                                        <div class="progress-bar {{ $color[$n++] }}" role="progressbar"
+                                            style="width: {{$porcent}}%" aria-valuenow="20" aria-valuemin="0"
+                                            aria-valuemax="100">
+
+                                        </div>
+                                    </div>
+                                            @php
+                                            if ($n > 5) {
+                                                $n = 0;
+                                            }
+                                        @endphp
+                                      @endforeach
+
+                                 </div>
                             </div>
                         </div>
+                       
 
                         <!-- Pie Chart -->
                         <div class="col-xl-4 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
-                                
+
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Creditos Acumulados</h6>
-                                  
-                                </div>   
+
+                                </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                <div class="card-body">
+                                    <div class="card-body">
+                                        @php
+                                            
+                                            $micreditos = vercreditos($codalumno);
+                                            // echo $codalumno;
+                                            
+                                            $micre = 0;
+                                            $credd = 0;
+                                            foreach ($micreditos as $data) {
+                                                $micre = $data->micredito;
+                                            
+                                                $credd = $data->credito;
+                                            
+                                                //     echo  "-".$credd;
+                                            }
+                                            // dd($micreditos);
+                                        @endphp
+
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <a href="#" class="btn btn-danger ">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-check"></i>
+                                                        </span>
+                                                        <span class="text"></span>
+                                                    </a>
+                                                    Pendientes:
+
+                                                </td>
+                                                <td>{{ $credd - $micre }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a href="#" class="btn btn-primary ">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-check"></i>
+                                                        </span>
+                                                        <span class="text"></span>
+                                                    </a>
+
+                                                    Acumulados:
+                                                </td>
+                                                <td>{{ $micre }}</td>
+                                            </tr>
+
+                                        </table>
+                                        <hr>
                                         <div class="chart-pie pt-4">
                                             <canvas id="myPieChart"></canvas>
-                                        </div>
-                                        <hr>
-                                        <table>
-                                       <tr> <td>
-                                       <a href="#" class="btn btn-primary ">
-                                        <span class="icon text-white-50" >
-                                            <i class="fas fa-check"></i>
-                                        </span>
-                                        <span class="text"></span>
-                                        </a>
-                                             Acumulados:</td><td>15</td> </tr>
-                                       <tr> <td> 
-                                       <a href="#" class="btn btn-danger ">
-                                        <span class="icon text-white-50" >
-                                            <i class="fas fa-check"></i>
-                                        </span>
-                                        <span class="text"></span>
-                                        </a>    
-                                       Pendientes:</td><td>145</td> </tr>
-                                        </table>
-                                    </div>
-                                    <div class="card-body">
-                                        <h4 class="small font-weight-bold">Matematica Basica <span
-                                                class="float-right">20%</span></h4>
-                                        <div class="progress mb-4">
-                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
-                                                aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <h4 class="small font-weight-bold">Estadistica <span
-                                                class="float-right">40%</span></h4>
-                                        <div class="progress mb-4">
-                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                                                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <h4 class="small font-weight-bold">Aritmetica <span
-                                                class="float-right">60%</span></h4>
-                                        <div class="progress mb-4">
-                                            <div class="progress-bar" role="progressbar" style="width: 60%"
-                                                aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <h4 class="small font-weight-bold">Fisica <span
-                                                class="float-right">80%</span></h4>
-                                        <div class="progress mb-4">
-                                            <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                                                aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <h4 class="small font-weight-bold">Logica y Funciones <span
-                                                class="float-right">Complete!</span></h4>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                                                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
                                     
                                 </div>
+                                           
+                              
                             </div>
+
                         </div>
                     </div>
-
-                    <!-- Content Row -->
-                    
-
                 </div>
-                <!-- /.container-fluid -->
-
             </div>
-            <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; UNAAT 2021</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
+            <!-- Content Row -->
+
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; UNAAT {{ left($semestreactual, 4) }}</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
@@ -675,7 +789,7 @@ color: white;
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">SISTEMA</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -689,31 +803,72 @@ color: white;
         </div>
     </div>
 
-   <!-- Bootstrap core JavaScript-->
-   <script src="{{ asset('vendor/jquery/jquery.min.js')}}"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="{{ asset('js/sb-admin-2.min.js')}}"></script>
+    <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
 
     <!-- Page level plugins -->
-    <script src="{{ asset('vendor/chart.js/Chart.min.js')}}"></script>
+    <script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{ asset('js/demo/chart-area-demo.js')}}"></script>
-    <script src="{{ asset('js/demo/chart-pie-demo.js')}}"></script>
-    
-<script>
-$('.miizquierda').css('background-color','DarkSlateGray'); 
 
-//$('.d-none').css("background-image", "url(img/login2.jpg)");  
-//$("#mibloque").css("background-image", "url(img/logo1.jpg)");  
-</script>
-<script src="{{ asset('js/panelalumno.js')}}"></script>
 
+
+    <script>
+        $('.miizquierda').css('background-color', 'DarkSlateGray');
+        $('.miizquierda').css('background-image', 'url({{ asset('img/lateral2.jpg') }})');
+        //$('.d-none').css("background-image", "url(img/login2.jpg)");  
+        //$("#mibloque").css("background-image", "url(img/logo1.jpg)");  
+    </script>
+    <script src="{{ asset('js/panelalumno.js') }}"></script>
+    ///---
+    <script>
+        // Set new default font family and font color to mimic Bootstrap's default styling
+        Chart.defaults.global.defaultFontFamily = 'Nunito',
+            '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#858796';
+        // $credd -$micre 
+        // Pie Chart Example
+        var ctx = document.getElementById("myPieChart");
+        var myPieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ["Acumulados:", "Pendientes"],
+                datasets: [{
+                    data: [{{ $micre }},
+                        {{ $credd - $micre }}
+                    ],
+                    backgroundColor: ['blue', 'brown', '#36b9cc'],
+                    hoverBackgroundColor: ['navy', 'coral', '#2c9faf'],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    caretPadding: 10,
+                },
+                legend: {
+                    display: false
+                },
+                cutoutPercentage: 80,
+            },
+        });
+    </script>
+    //---torta
 
 
 </body>

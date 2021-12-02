@@ -24,6 +24,53 @@ $dni="";
 foreach ($verdocente as $vdocente) {
     $dni=$vdocente->doc_vcDocumento;
 }
+$semestreactual=semestreactual();
+function sqlvercursos($semestre, $coddocente)
+{
+    $sql =
+        'SELECT 
+        seccion_horario.doc_iCodigo,
+seccion.cur_iCodigo,
+seccion.sem_iCodigo,
+curso.cur_vcNombre,
+curso.cur_iSemestre,
+curso.cur_vcCodigo,
+seccion.sec_iNumero,
+curso.escpla_iCodigo,
+escuelaplan.escpla_vcCodigo,
+seccion.sec_iCodigo,
+escuela.esc_vcNombre
+     FROM
+     seccion_horario
+INNER JOIN seccion ON (seccion_horario.sec_iCodigo = seccion.sec_iCodigo)
+INNER JOIN curso ON (seccion.cur_iCodigo = curso.cur_iCodigo)
+INNER JOIN escuelaplan ON (curso.escpla_iCodigo = escuelaplan.escpla_iCodigo)
+INNER JOIN escuela ON escuelaplan.esc_vcCodigo = escuela.esc_vcCodigo
+     WHERE
+  `seccion`.`sem_iCodigo` = "' .
+        $semestre .
+        '" AND 
+  `seccion_horario`.`doc_iCodigo` ="' .
+        $coddocente .
+        '"
+  GROUP BY
+  seccion_horario.doc_iCodigo,
+seccion.cur_iCodigo,
+seccion.sem_iCodigo,
+curso.cur_vcNombre,
+curso.cur_iSemestre,
+curso.cur_vcCodigo,
+seccion.sec_iNumero,
+curso.escpla_iCodigo,
+escuelaplan.escpla_vcCodigo,
+seccion.sec_iCodigo,
+escuela.esc_vcNombre
+
+  order by curso.cur_vcCodigo,curso.cur_iCodigo
+  ';
+    $data1 = DB::select($sql);
+    return $data1;
+}
 @endphp
 
 <!DOCTYPE html>
@@ -42,19 +89,21 @@ foreach ($verdocente as $vdocente) {
     <!-- Custom fonts for this template-->
     <link  rel="icon"   href=" {{ asset('img/escudo.png')}}" type="image/png" />
     <link href=" {{ asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-   
+   <!--
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
+    -->
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
     <link href="{{ asset('css/seleccion.css')}}" rel="stylesheet" type="text/css">
 
     <link href="{{ asset('css/seleccion.css')}}" rel="stylesheet" type="text/css">
-
-    <link href="{{ asset('wow/css/libs/animate.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('wow/css/site.css')}}" rel="stylesheet" type="text/css">
+<!--
+    <link href="{ asset('wow/css/libs/animate.css')}}" rel="stylesheet" type="text/css">
+    <link href="{ asset('wow/css/site.css')}}" rel="stylesheet" type="text/css">
+    -->
 
 <style>
 .miizquierda{
@@ -73,12 +122,12 @@ color: white;
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <div class="miizquierda">
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="docente">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="docente" >
                 <div class="sidebar-brand-icon rotate-n-1">
-                    <i class="fas fa-user-tie"></i>
+                    <img src="{{asset('img/escudo2.png')}}" style="width: 40px;">
                 </div>
                 <div class="sidebar-brand-text mx-3">UNAAT<sup>
-                {{  semestreactual() }}
+                {{  $semestreactual }}
                  
                 </sup></div>
             </a>
@@ -88,7 +137,7 @@ color: white;
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="docente">
+                <a class="nav-link" href="docente" >
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>PANEL DE CONTROL</span></a>
             </li>
@@ -140,19 +189,24 @@ color: white;
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Ver Informe de:</h6>
-                        <a class="collapse-item" href="#" id="bcrearnotas">
-                            <i class="fas fa-table"></i> REGISTRO de Notas<br> por Unidad</a>
+                       
                         <a class="collapse-item" href="#" id="breporteasistencia1">
-                            <i class="fas fa-calendar-alt"></i>Reporte de Asistencia</a>
+                            <i class="fas fa-print"></i> Reporte de Asistencia</a>
+
                         <a class="collapse-item" href="#" id="breportenotas">
-                            <i class="fas fa-file-alt"></i>   Reporte de Registro<br> de Notas</a>
-                        <a class="collapse-item" href="#" id="breporterecordacademico">
-                            <i class="fas fa-briefcase"></i>Record Academico</a>
+                            <i class="fas fa-print"></i>   Reporte de Registro<br> de Notas</a>
+
+                       
+
+                            <a class="collapse-item" href="#" id="bcrearnotas">
+                                <i class="fas fa-pencil-alt"></i> REGISTRO de Notas<br> por Unidad</a>
                         <a class="collapse-item" href="#" id="bnotassustitorio">
-                            <i class="fas fa-pen-square"></i>Notas Sustitorio</a>
+                            <i class="fas fa-pencil-alt"></i> Notas Sustitorio</a>
                         <a class="collapse-item" href="#" id="bnotasaplazados">
-                            <i class="fas fa-pencil-alt"></i>Notas Aplazados</a>
+                            <i class="fas fa-pencil-alt"></i> Notas Aplazados</a>
                         
+                            <a class="collapse-item" href="#" id="breporterecordacademico">
+                                <i class="fas fa-briefcase"></i> Record Academico</a>
                     </div>
                 </div>
             </li>
@@ -586,8 +640,9 @@ color: white;
 
                     @php
                                     
-                      $miasistencia=new DocenteController(); 
-                      $miscursosgrupo=$miasistencia->vercursosagrupado(semestreactual(),$coddocentex);
+                    //  $miasistencia=new DocenteController(); 
+                  //    $miscursosgrupo=$miasistencia->vercursosagrupado(semestreactual(),$coddocentex);
+                  $miscursosgrupo= sqlvercursos($semestreactual, $coddocentex);
 
             function buscarturno($coddoc,$semestre)
             {  $miasistencia=new DocenteController(); 
@@ -629,8 +684,8 @@ color: white;
                                 <div class="col-lg-6 mb-4 animated zoomInup">
                                     <div class="card {{ $color[$n++] }} text-white shadow">
                                         <div class="card-body ">
-                                            {{  left($listacurso["cur_vcCodigo"],2)  }} :: {{  $listacurso["cur_vcNombre"] }}
-                                            <div class="text-dark-80 small">{{buscarturno(51,semestreactual())}}</div>
+                                            {{  left($listacurso->cur_vcCodigo,2)  }} :: {{  $listacurso->cur_vcNombre }}
+                                            <div class="text-dark-80 small">{{buscarturno($coddocentex,$semestreactual)}}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -668,7 +723,7 @@ color: white;
                                 <div class="card-body">
                                   
                                  @foreach ($miscursosgrupo as $listacurso)
-                                    <h4 class="small font-weight-bold">{{  left($listacurso["cur_vcCodigo"],2)  }} :: {{  $listacurso["cur_vcNombre"]  }} </h4>
+                                    <h4 class="small font-weight-bold">{{  left($listacurso->cur_vcCodigo,2)  }} :: {{  $listacurso->cur_vcNombre  }} </h4>
                                     <span  class="float-right" style="color: navy">APROB:70% - <span style="color: red">DESAPRO:20%</span></span>
                                     <br>
                                     <div class="progress mb-4">
@@ -705,7 +760,7 @@ color: white;
                         </div>
                        
                         <div id="row">
-                            $miscursosgrupo=$miasistencia->vercursosagrupado(semestreactual(),$coddocentex);
+                       <!-- LIBRE PARA AGREGAR MODULOS    $miscursosgrupo=$miasistencia->vercursosagrupado(semestreactual(),$coddocentex); //-->
                         </div>
                     </div>
                     
@@ -791,6 +846,7 @@ color: white;
 <script>
 $('.miizquierda').css('background-color','#02075d'); 
 $('.collapse-header').css('color','navy'); 
+$('.miizquierda').css('background-image', 'url({{ asset("img/lateral.jpg")}})');
 
 //$('.d-none').css("background-image", "url(img/login2.jpg)");  
 //$("#mibloque").css("background-image", "url(img/logo1.jpg)");  
@@ -846,6 +902,7 @@ function macarSalida(hora)
 	$("#ini_mar_b").removeAttr("class");
 	$("#ini_mar_b").attr("class","d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm");
 }
+
 </script>
 <script src="{{ asset('js/paneldocente.js')}}"></script>
 

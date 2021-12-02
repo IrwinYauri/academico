@@ -25,7 +25,7 @@
  <link href="{{ asset('css/seleccion.css')}}" rel="stylesheet" type="text/css">
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient-dark">
 
     <div class="container">
 
@@ -105,7 +105,7 @@
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('js/sb-admin-2.min.js')}}"></script>
 <script>
-$('.d-none').css('background-color','black'); 
+//$('.d-none').css('background-color','black'); 
 $('.d-none').css("background-image", "url({{ asset('img/loginadmin.jpg')}})");  
 //$("#mibloque").css("background-image", "url(img/logo1.jpg)");  
 </script>

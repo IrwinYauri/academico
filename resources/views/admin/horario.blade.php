@@ -1,62 +1,76 @@
-<div class="card shadow mb-8" style="overflow: scroll;">
-  <div class="card-header py-8">
-    <h6 class="m-0 font-weight-bold text-primary">
-      CARRERA:<select>
-        <option>ENFERMERIA</option>
-        <option>INGERIA AGROINDUSTRIAL</option>
-        </select><br>
-        CICLO:<select>
-          <option>I</option>
-          <option>II</option>
-          <option>III</option>
-          <option>IV</option>
-          </select><br>
-      <i class="fa fa-table fa-2x " ></i> HORARIO - SEMANAL
-      <button class="btn btn-success btn-sm">IMPRIMIR</button>
-    </h6>
+@php
+
+function verescuela()
+  {$sql="SELECT
+escuela.esc_vcCodigo,esc_vcNombre
+FROM
+escuela where esc_cActivo='S'";
+$data=DB::select($sql);
+return $data;
+  }
+
+  $escuela=verescuela();
+  $semestreactual=semestreactual();
+@endphp
+<style>
+  .table{
+    color:black;
+  }
+</style>
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">HORARIOS</a>
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">CREAR HORARIOS</a>
+  
   </div>
-  <div class="card-body">  
-    <table class='table table-striped table-hover table-responsive-md' width='80%'>
-      <thead >
-        <tr style='background-color:navy;color:white;'>
-          <th>Hora</th>
-          <th>LUNES</th>
-          <th>MARTES</th>
-          <th>MIERCOLES</th>
-          <th>JUEVES</th>
-          <th>VIERNES</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for($x=1;$x<8;$x++)
-        <tr>
-          <td>0{{$x}}-</td>
-          @for($n=1;$n<6;$n++)
-          <td>
-            <select>
-              <option>Curso</option>
-              <option>FISICA</option>
-              <option>MATEMATICA</option>
-              <option>BIOLOGIA</option>
-              <option>LENGUAJE I</option>
-            </select><br>
-            <select>
-              <option>DOCENTE</option>
-              <option>POCOY</option>
-              <option>LAMAYA</option>
-              <option>PEREZ</option>
-              <option>POZO</option>
-            </select>
-            <select>
-              <option>DICTADO</option>
-              <option>TEORIA</option>
-              <option>PRACTICA</option>
-            </select>
-          </td>
-          @endfor
-        </tr>
-        @endfor
-      </tbody>
-    </table>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    ESCUELA PROFESIONAL:<select id="escuelax" name="escuelax" onchange="verhorario()">
+      @foreach ($escuela as $data)
+      <option value="{{$data->esc_vcCodigo}}">{{$data->esc_vcNombre}}</option>
+      @endforeach
+     </select>  <a href="#" class="btn btn-primary" onclick="printDiv('listahorario')"> IMPRIMIR</a>
+    <div id="listahorario">
+    include('admin.horariolista')  
+    </div>
   </div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+    @include('admin.horariocrear')  
+  </div>
+ 
 </div>
+<script>
+  function verhorario()
+  { var escuela=$("#escuelax").val();
+    var semestre='{{$semestreactual}}'
+    $("#listahorario").html("<img src='img/carga01.gif'>");
+    $.ajax({
+        url: "admin/horariolista",
+        success: function(result) {
+           $("#listahorario").html(result);
+          },
+        data: {
+          semestre:semestre,
+          escuela:escuela
+        },
+        type: "GET"
+    });
+
+  }
+  verhorario()
+
+  
+</script>
+<script>
+  function printDiv(divName) {
+   var printContents = document.getElementById(divName).innerHTML;
+   var originalContents = document.body.innerHTML;
+
+   document.body.innerHTML = printContents;
+
+   window.print();
+
+ //  document.body.innerHTML = originalContents;
+}
+</script>

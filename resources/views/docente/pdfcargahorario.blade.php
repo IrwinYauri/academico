@@ -11,15 +11,10 @@ if (isset($_SESSION['coddocentex'])) {
 use App\Http\Controllers\DocenteController;
 $mihoras = new DocenteController();
 //$listahora= $mihoras->vercargahoraria(51,20212)
-$listahora = $mihoras->vercargahoraria($coddocentex, 20212);
+$listahora = $mihoras->verhorario($coddocentex, semestreactual());
+
 @endphp
 
-<head>
-    <title>Horarios</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-</head>
 <style>
     .table-condensed {
         font-size: 10px;
@@ -27,26 +22,17 @@ $listahora = $mihoras->vercargahoraria($coddocentex, 20212);
     }
 
 </style>
+<link rel="icon" href=" {{ asset('img/escudo.png') }}" type="image/png" />
+<link href=" {{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
+
+
+    <button onclick="back()">Volver</button>
 <div id="imprimir">
-    <link rel="icon" href=" {{ asset('img/escudo.png') }}" type="image/png" />
-    <link href=" {{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+  
+  
 
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
-
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-    <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
-
-    <script src="{{ asset('jspdf/jspdf.min.js') }}"></script>
-
-
+  <div class="container">
     <div class=" table-condensed">
         <!-- <img src='asset('img/escudo.png')'  width='50' height='68' /> //-->
         <!--  <img src="img/escudo.png" alt="" width='50' height='68'> //-->
@@ -54,9 +40,12 @@ $listahora = $mihoras->vercargahoraria($coddocentex, 20212);
         <i class="fa fa-calendar fa-2x"></i> CARGA HORARIA
 
     </div>
-    <div>
-        <h3>DOCENTE:{{ $nombredoc }}</h3>
-        <table class=' table-condensed something'>
+    <div class=" table-condensed">DOCENTE:{{ $nombredoc }}</div>
+  </div>
+ 
+    <div class="container">
+      
+        <table class=' table-condensed '>
             <thead>
                 <tr style='background-color:royalblue;color:white;'>
                     <th>Nro</th>
@@ -77,6 +66,7 @@ $listahora = $mihoras->vercargahoraria($coddocentex, 20212);
                     @endphp
                 </tr>
             </thead>
+           
             @foreach ($listahora as $horario)
                 @php
                     $n++;
@@ -105,10 +95,18 @@ $listahora = $mihoras->vercargahoraria($coddocentex, 20212);
     </div>
 </div>
 
+<link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+
+    <script src="{{ asset('jspdf/jspdf.min.js') }}"></script>
 <script>
     function pruebaDivAPdf() {
-       // var pdf = new jsPDF('l', 'pt', 'A4');//horzizontal
-        var pdf = new jsPDF("p", "pt", "a4");//vertical
+        var pdf = new jsPDF('l', 'pt', 'A4');//horzizontal
+       // var pdf = new jsPDF("p", "pt", "a4");//vertical
         source = $('#imprimir')[0];
 
         specialElementHandlers = {
@@ -148,5 +146,6 @@ $listahora = $mihoras->vercargahoraria($coddocentex, 20212);
     history.back();
   }
 </script>
-
-<button onclick="back()">Volver</button>
+<div style="display:none">
+{{dd($listahora)}}
+</div>

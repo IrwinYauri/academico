@@ -30,7 +30,7 @@ function listadocente() //activo
 		$("#cargando").hide();
 	},
 	complete: function () {
-		$('#tabla-docente1').DataTable();
+	//	$('#tabla-docente1').DataTable();
 	},
 	data:{
 		codhora:n1,
@@ -106,9 +106,9 @@ function listasemestre() //activo
 	url:"admin/listasemestre",
 	//url:"{{ route('asistencia.updateasisalumno') }}",
 	success:function(result)
-	{
+	{$("#cargando").hide();
 		$("#micontenido").html(result);
-		$("#cargando").hide();
+		
 	},
 	data:
 	{
@@ -357,7 +357,9 @@ function activarsemestre(semestre) //activo
 	//alert(result);
 	$("#micontenidoxx").html(result);
 	listasemestre();
+	
 	$('#tabla-semestre').DataTable();
+
 
 	 },
 	data:{

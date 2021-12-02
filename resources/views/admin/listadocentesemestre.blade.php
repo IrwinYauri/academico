@@ -1,68 +1,55 @@
 @php
-use App\Http\Controllers\AdminController; 
-use App\Http\Controllers\DocenteController; 
-$listadocente=new AdminController();
-$semestre=0;
-if(isset($_REQUEST["semestre"]))
-$semestre=$_REQUEST["semestre"];
 
-$listadocentes=$listadocente->listadocentesemestre(semestreactual());
+
+
+
 //dd($listadocentes);
+ function sqllistadocentesemestre($semestre)
+        {$sql="SELECT
+          seccion.sem_iCodigo,
+          docente.doc_vcDocumento,
+          docente.doc_vcPaterno,
+          docente.doc_vcMaterno,
+          docente.doc_vcNombre,
+          docente.doc_iCodigo
+          FROM
+          seccion
+          INNER JOIN seccion_horario ON seccion.sec_iCodigo = seccion_horario.sec_iCodigo
+          INNER JOIN docente ON seccion_horario.doc_iCodigo = docente.doc_iCodigo
+          where seccion.sem_iCodigo='$semestre' group by seccion.sem_iCodigo,docente.doc_vcDocumento,
+          docente.doc_vcPaterno,
+          docente.doc_vcMaterno,
+          docente.doc_vcNombre,
+          docente.doc_iCodigo
+          ";
+          $r=DB::select($sql);
+          return $r;
+          //  return back();
+            }
 
+ 
 
 //inicio funcion
-function vermiscursos($semestre,$coddocente)
-     {
-        $miasistencia=new DocenteController();  
-        $miscursosgrupo=$miasistencia->vercursosagrupado($semestre,$coddocente);
 
- echo '
- 
-  <table>
-      ';
-
-
-
-$nn=0;
-//    dd($miscursos);
-//$milistadata
-//foreach($miscursos as $listacur)
-
-    foreach($miscursosgrupo as $listacur)
-    {
-        $nn++;
-    
-      echo '  <tr>
-        <td><button type="button"  class="btn btn-primary" href="#"
-        onclick="mostrarobjeto(\''.$nn.'\')">Configurar Fechas 
-        </button> 
-        '.$listacur["cur_vcCodigo"].'::
-        '.$listacur["cur_vcNombre"].' ::
-        '.$listacur["sec_iNumero"].'</td>
-        <td>'. $listacur["escpla_vcCodigo"].'
-            '.left($listacur["cur_vcCodigo"],2).'</td>
-       
-        </tr>
-        <tr style="display:none" id="tn'.$nn.'">
-        <td colspan="6"> ';
-        
-        // veralumnomatriculados($listacur["cur_iCodigo"],semestreactual(),$nn);
-        // vercursonotas($coddocentex,semestreactual(),$listacur["cur_iCodigo"],$nn,$listacur["cur_vcNombre"],left($listacur["cur_vcCodigo"],2));
-        
-        echo '</td>
-           </tr>';
-    }
-        echo "
-        </table>
-        ";
-    }
 //fin funcion
+
+
+$listadocentes= sqllistadocentesemestre(semestreactual());//$listadocente->listadocentesemestre(semestreactual());
 @endphp
+
+<script>
+	$(document).ready(function() {
+    $('#tabla-docentesemestre').DataTable( {
+        "pagingType": "full_numbers"
+    } );
+} );
+	</script>
 
 
 <h3>Lista de docentes del semestre actual</h3>
-<table id="tabla-docentesemestre" class="table  table-condensed">
+<table id="tabla-docentesemestre" width="800px">
 <thead>
+  <td>OP</td>
     <td>nro</td>
     <td>DNI</td>
     <td>PATERNO</td>
@@ -76,7 +63,9 @@ $nn=0;
  
 @foreach ($listadocentes as $salon)
 
-<tr>
+<tr><td><a href="#openModalcursos" 
+  onclick="versilabuscursos('{{$salon->doc_vcPaterno}} {{$salon->doc_vcMaterno}} {{$salon->doc_vcNombre}} ','{{$salon->doc_iCodigo}}','{{semestreactual()}}') "
+   class="btn btn-primary">ver cursos</a></td>
     <td>{{ $n++ }}</td>
     <td>{{ $salon->doc_vcDocumento }}</td>
     <td>{{ $salon->doc_vcPaterno }}</td>
@@ -84,48 +73,22 @@ $nn=0;
     <td>{{$salon->doc_vcNombre}}</td>
   
    </tr>
-   <tr >
-<td colspan="5">
 
-    {{vermiscursos(semestreactual(),$salon->doc_iCodigo);}} 
-</td>
-   </tr>
 @endforeach  
 </tbody>
 </table>
 
-<script>
-    $(document).ready(function() {
-   
-   $('#tabla-docentesemestre').DataTable();
-} );
- 
-  
-</script>
 
 
-//-----
 @php
-session_start();
- $coddocentex="";
- if(isset($_SESSION['coddocentex'])){
-  $coddocentex=$_SESSION['coddocentex'];
- }
-
- 
-
- 
- $notas=new DocenteController();  
-  $vernotas=$notas->verregistronotas($coddocentex,semestreactual(),2);
-
-  $miasistencia=new DocenteController();  
-// $miscursos=$miasistencia->vercursos(20212,$coddocentex);
-$miscursos=$miasistencia->vercursos(semestreactual(),$coddocentex);
+/*
 
 //dd($miscursosgrupo);
+*/
 
  @endphp
  <style>
+
     .table-condensed{
   font-size: 10px;
   color: black;
@@ -134,10 +97,10 @@ $miscursos=$miasistencia->vercursos(semestreactual(),$coddocentex);
   
   </style>
   @php
-    use App\Http\Controllers\SilabusemestreController;   
+   
 
   @endphp
-       @include('docente.formulasnotas')
+ 
   @php
      // vercursonotas($coddocentex,semestreactual(),2)
 
@@ -146,20 +109,31 @@ $miscursos=$miasistencia->vercursos(semestreactual(),$coddocentex);
             @endphp
 
 
-<script>
-    function mostrarobjeto(id)
-    {if(document.getElementById(id).style.display == "block")
-    document.getElementById(id).style.display = "none";
-    else
-      document.getElementById(id).style.display = "block";
-     }
-  </script>
+
  
 
  @php
      
 
-vermiscursos(semestreactual(),51);
+//vermiscursos(semestreactual(),51);
 @endphp
        
 
+
+
+<script src="{{ asset('datatable/js/jquery-1.12.4.js')}}"></script>
+
+
+<link rel="stylesheet" href="{{ asset('datatable/css/jquery.dataTables.min.css')}}"> 
+<script src="{{ asset('datatable/js/jquery.dataTables.min.js')}}"></script>
+
+
+
+<script>
+ /* function mostrarobjeto(id)
+  {if(document.getElementById(id).style.display == "block")
+  document.getElementById(id).style.display = "none";
+  else
+    document.getElementById(id).style.display = "block";
+   }*/
+</script>

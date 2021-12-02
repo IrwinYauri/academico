@@ -1,3 +1,4 @@
+<img src='img/cargax.gif'>
 @php
 use App\Http\Controllers\DocenteController; 
    
@@ -11,7 +12,7 @@ $docentex="";
 $xuser="";
 $xpassword="";
 //if()
-echo $password."<br>" ;
+//echo $password."<br>" ;
 foreach ($rpt as $data) {
 $docentex=  $data->doc_vcPaterno." ".$data->doc_vcMaterno." ".$data->doc_vcNombre;
 $xuser=$data->doc_vcDocumento;
@@ -35,6 +36,6 @@ if(($user==$xuser) && (strtoupper(sha1($password))==$xpassword))
 }
 echo strtoupper(sha1($password));
 echo "<br>";
-echo $xpassword;
+//echo $xpassword;
 //dd($rpt);
 @endphp

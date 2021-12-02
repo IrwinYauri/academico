@@ -20,10 +20,11 @@ function ini()
 	//url:"{{ route('asistencia.updateasisalumno') }}",
 	success:function(result){
 	
-	
-	alertagrabar('Grabado Asistencia');
+		men="GRABANDO:"+estado.toString()+"";
+        alertagrabarx(men,"#301934");
+	//alertagrabar('Grabado Asistencia');
 	//toastr.success('asistencia editada','Actualizado',{timeOut:3000});
-	$("#micontenidowww").html(result);
+	//$("#micontenidowww").html(result);
 	 },
 	data:{
 		codhora:n1,
@@ -35,7 +36,7 @@ function ini()
 	 } );
 	
 }
-function crearsemanaasis(codcur,semana,dia,boton1,urlx)
+function crearsemanaasis(codcur,semana,dia,boton1,urlx)//para verificar
  { //var n1=$("#codpro").val();
 	/*var n1="";
 	var n2="";
@@ -66,6 +67,38 @@ function crearsemanaasis(codcur,semana,dia,boton1,urlx)
 		 type:"GET"   
 	  } );
 }
+function crearsemanaasisfinal(codcur,semestre,horax,tema)
+ { //var n1=$("#codpro").val();
+	/*var n1="";
+	var n2="";
+	var n3="";*/
+	//var bbuscar=$("#bbuscar").val();
+	//alert(urlx);
+	  $.ajax({
+	// url:"asistencia/updateasisalumno",
+	 //url:"../asistencia/crearsemana2",
+	//--- url:"asistencia/crearsemana02",
+	
+	url:"asistencia/crearsemana22",
+	// url:"asistencia/updateasisalumno",
+	 //url:"{{ route('asistencia.updateasisalumno') }}",
+	 success:function(result){
+	//	document.getElementById(boton1).style.display = "none";  //ocultarbotonasissemana
+	//	alert("::SISTEMA:: \n SEMANA CREADA")
+	alertagrabarx('Semana Creada');
+	//alert(result);
+	// $("#micontenidowww").html(result);
+	  },
+	 data:{
+		codcurso:codcur,
+		semestre:semestre,
+		horax:horax,
+		tema:tema
+		 //, bbuscar:bbuscar
+	   },
+		 type:"GET"   
+	  } );
+}
 function crearsemanaactual(codcur,semana,dia)
  { //var n1=$("#codpro").val();
 	/*var n1="";
@@ -78,7 +111,7 @@ function crearsemanaactual(codcur,semana,dia)
 	 //url:"../asistencia/crearsemana2",
 	//--- url:"asistencia/crearsemana02",
 	
-	url:"asistencia/crearsemana2",
+	url:"asistencia/crearsemana3",
 	// url:"asistencia/updateasisalumno",
 	 //url:"{{ route('asistencia.updateasisalumno') }}",
 	 success:function(result){
@@ -93,6 +126,38 @@ function crearsemanaactual(codcur,semana,dia)
 		codcur:codcur,
 		semana:semana,
 		dia:dia
+		 //, bbuscar:bbuscar
+	   },
+		 type:"GET"   
+	  } );
+}
+function editartemaserver(tema,horax)
+ { //var n1=$("#codpro").val();
+	/*var n1="";
+	var n2="";
+	var n3="";*/
+	//var bbuscar=$("#bbuscar").val();
+	//alert(dia);
+	  $.ajax({
+	// url:"asistencia/updateasisalumno",
+	 //url:"../asistencia/crearsemana2",
+	//--- url:"asistencia/crearsemana02",
+	
+	url:"asistencia/crearsemana3",
+	// url:"asistencia/updateasisalumno",
+	 //url:"{{ route('asistencia.updateasisalumno') }}",
+	 success:function(result){
+	//	document.getElementById(boton1).style.display = "none";  //ocultarbotonasissemana
+		//alert(result)
+	//alertagrabar('Semana Creada');
+	alertagrabarx("TEMA ACTUALIZADO","NAVY");
+	 //alert(result);
+	// $("#micontenidowww").html(result);
+	  },
+	 data:{
+		tema:tema,
+		horax:horax
+	
 		 //, bbuscar:bbuscar
 	   },
 		 type:"GET"   

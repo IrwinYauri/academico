@@ -21,7 +21,7 @@ $adminxx="";
 $xuser="";
 $xpassword="";
 //if()
-echo $password."<br>" ;
+//echo $password."<br>" ;
 foreach ($rpt as $data) {
 $adminxx=  $data->usr_vcNombre." ".$data->usu_vcApellido;
 $xuser=$data->usu_vcUsuario;
@@ -51,6 +51,6 @@ echo "<br>".$xuser;
 echo strtoupper(sha1($password));
 //echo $password;
 echo "<br>";
-echo $xpassword;
+//echo $xpassword;
 //dd($rpt);
 @endphp

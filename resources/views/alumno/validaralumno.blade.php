@@ -11,7 +11,7 @@ $alumnox="";
 $xuser="";
 $xpassword="";
 //if()
-echo $password."<br>" ;
+//echo $password."<br>" ;
 foreach ($rpt as $data) {
 $alumnox=  $data->alu_vcPaterno." ".$data->alu_vcMaterno." ".$data->alu_vcNombre;
 $xuser=$data->alu_vcDocumento;
@@ -35,6 +35,6 @@ if(($user==$xuser) && (strtoupper(sha1($password))==$xpassword))
 }
 echo strtoupper(sha1($password));
 echo "<br>";
-echo $xpassword;
+//echo $xpassword;
 //dd($rpt);
 @endphp

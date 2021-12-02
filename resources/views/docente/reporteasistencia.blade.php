@@ -1,180 +1,186 @@
 @php
 session_start();
- $coddocentex="";
- if(isset($_SESSION['coddocentex'])){
-  $coddocentex=$_SESSION['coddocentex'];
- }
+$coddocentex = '';
+if (isset($_SESSION['coddocentex'])) {
+    $coddocentex = $_SESSION['coddocentex'];
+} else {
+    echo 'No tiene permiso';
+    return 0;
+}
+$semestreactual = semestreactual();
+///-----------
+function sqlvercursos($semestre, $coddocente)
+{
+    $sql =
+        'SELECT 
+        seccion_horario.doc_iCodigo,
+seccion.cur_iCodigo,
+seccion.sem_iCodigo,
+curso.cur_vcNombre,
+curso.cur_iSemestre,
+curso.cur_vcCodigo,
+seccion.sec_iNumero,
+curso.escpla_iCodigo,
+escuelaplan.escpla_vcCodigo,
+seccion.sec_iCodigo,
+escuela.esc_vcNombre
+     FROM
+     seccion_horario
+INNER JOIN seccion ON (seccion_horario.sec_iCodigo = seccion.sec_iCodigo)
+INNER JOIN curso ON (seccion.cur_iCodigo = curso.cur_iCodigo)
+INNER JOIN escuelaplan ON (curso.escpla_iCodigo = escuelaplan.escpla_iCodigo)
+INNER JOIN escuela ON escuelaplan.esc_vcCodigo = escuela.esc_vcCodigo
+     WHERE
+  `seccion`.`sem_iCodigo` = "' .
+        $semestre .
+        '" AND 
+  `seccion_horario`.`doc_iCodigo` ="' .
+        $coddocente .
+        '"
+  GROUP BY
+  seccion_horario.doc_iCodigo,
+seccion.cur_iCodigo,
+seccion.sem_iCodigo,
+curso.cur_vcNombre,
+curso.cur_iSemestre,
+curso.cur_vcCodigo,
+seccion.sec_iNumero,
+curso.escpla_iCodigo,
+escuelaplan.escpla_vcCodigo,
+seccion.sec_iCodigo,
+escuela.esc_vcNombre
 
- 
+  order by curso.cur_vcCodigo,curso.cur_iCodigo
+  ';
+    $data1 = DB::select($sql);
+    return $data1;
+}
+function totalalumno($semestre, $seccion)
+{
+    $sql =
+        'SELECT
+count(
+matricula.alu_iCodigo) as total
+FROM
+seccion
+INNER JOIN matriculadetalle ON matriculadetalle.sec_iCodigo = seccion.sec_iCodigo
+INNER JOIN matricula ON matriculadetalle.mat_iCodigo = matricula.mat_iCodigo
+where seccion.sem_iCodigo="' .
+        $semestre .
+        '" and seccion.sec_iCodigo="' .
+        $seccion .
+        '"
+';
+    $data1 = DB::select($sql);
+    //  return $data1;
+    return $data1[0]->total;
+}
+$miscursosgrupo = sqlvercursos($semestreactual, $coddocentex);
 
- use App\Http\Controllers\DocenteController; 
- $notas=new DocenteController();  
-  $vernotas=$notas->verregistronotas($coddocentex,semestreactual(),2);
-
-  $miasistencia=new DocenteController();  
-// $miscursos=$miasistencia->vercursos(20212,$coddocentex);
-$miscursos=$miasistencia->vercursos(semestreactual(),$coddocentex);
-$miscursosgrupo=$miasistencia->vercursosagrupado(semestreactual(),$coddocentex);
-//dd($miscursosgrupo);
-
- @endphp
- <style>
-    .table-condensed{
-  font-size: 11px;
-  color: black;
-  }
-  
-  </style>
-   <link  rel="icon"   href=" {{ asset('img/escudo.png')}}" type="image/png" />
-   <link href=" {{ asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-  
-   <link
-       href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-       rel="stylesheet">
-
-   <!-- Custom styles for this template-->
-   <link href="{{ asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
-   <link href="{{ asset('css/seleccion.css')}}" rel="stylesheet" type="text/css">
-  @php
-    use App\Http\Controllers\SilabusemestreController;   
-
-    function versilabuscriterio($sem,$codcurso,$unidad)
-    {
-        $silabos=new SilabusemestreController();
-        $rptsilabo=$silabos->buscarcriteriosilabo($sem,$codcurso);
-        $tx=count($rptsilabo); 
-      //  dd($rptsilabo);
-        // if($tx>0)
-        $u1="";
-        $u2="";
-        $u3="";
-        $u4="";
-        $u5="";
-         foreach ($rptsilabo as $versilaboc) {
-       
-            $u1=$versilaboc->tipoPU1;
-              $u2=$versilaboc->tipoPU2;
-               $u3=$versilaboc->tipoPU3;
-                $u4=$versilaboc->tipoPU4;
-                $u5=$versilaboc->tipoPU5;
-      
-             }
-          
-        if($unidad==1)
-          { return $u1;}
-        if($unidad==2)
-          { return $u2;}
-        if($unidad==3)
-          { return $u3;}
-        if($unidad==4)
-          { return $u4;}
-        if($unidad==5)
-          { return $u5;}
-        
-    }
-  @endphp
-      
-@php
-    function vercursonotas($coddocentex,$sem,$codcurso,$nro,$curso,$escuela)
-{ $notas=new DocenteController();  
-   $vernotas=$notas->verregistronotas($coddocentex,$sem,$codcurso,$curso);
-   $n=0;
-      foreach ($vernotas as $nota)
-           { $n++;
-                  }
-                       
-           echo "
-             <script>
-              document.getElementById('nlista$nro').innerHTML = '$n ';
-            </script>";
-     } 
 @endphp
+<style>
+    .table-condensed {
+        font-size: 10px;
+        color: black;
+    }
+
+</style>
+
+<! --include('docente.formulasnotas') //-->
 
 
-<script>
-    function mostrarobjeto(id)
-    {if(document.getElementById(id).style.display == "block")
-    document.getElementById(id).style.display = "none";
-    else
-      document.getElementById(id).style.display = "block";
-     }
-  </script>
-  <head>
+
+
+
+<head>
     <title>Cursos Matriculados</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-  </head>
-  <h5 style="color:rgb(4, 99, 11)"> <i class="fas fa-file-excel"> </i> REPORTES DE ASISTENCIA - EXCEL</h5>
-  <table class="table table-striped table-bordered table-sm  table-condensed">
-<tr style="background-color: navy;color:white" >
-<td>CODIGO</td>
-<td>CURSO</td>
-<td>SECCCION</td>
-<td>PLAN ES</td>
-<td>ALUMNO</td>
+
+</head>
+<h5 style="color:Navy">REPORTE DE ASISTENCIA</h5>
+<table class="table table-striped">
+    <tr style="background-color: navy;color:white">
+        <td></td>
+        <td>COD-CURSO</td>
+        <td>CURSO</td>
+        <td>SECCION</td>
+        <td>PLAN </td>
+        <td> ES</td>
+
+        <td>ALUMNOS</td>
     </tr>
 
 
-@php
-$nn=0;
-//    dd($miscursos);
-//$milistadata
-//foreach($miscursos as $listacur)
-@endphp
-@foreach($miscursosgrupo as $listacur)
-@php
-$nn++;
-@endphp
-<tr class="table-condensed">
-<td> 
-{{ $listacur["cur_vcCodigo"] }} </td><td>
-{{ $listacur["cur_vcNombre"] }} </td><td>
-{{ $listacur["sec_iNumero"] }}</td>
-<td>{{ $listacur["escpla_vcCodigo"] }}
-{{ left($listacur["cur_vcCodigo"],2) }}</td>
-<td id="nlista{{$nn}}">0</td>
-<td><a   class="btn btn-secondary" href="asistencia/asistenciacursoxls?xcod=2"
- style="background-color: green;color:white" target="_blank">
-    <i class="fas fa-file-excel"> </i> EXCEL 
-       
-    </a></td>
-</tr>
-<tr style="display:none" id="tn{{$nn}}">
-<td colspan="6"> 
-@php
-  // veralumnomatriculados($listacur["cur_iCodigo"],semestreactual(),$nn);
-  vercursonotas($coddocentex,semestreactual(),$listacur["cur_iCodigo"],$nn,$listacur["cur_vcNombre"],left($listacur["cur_vcCodigo"],2));
-    
-@endphp
-</td>
-</tr>
-@endforeach
+    @php
+        $nn = 0;
+        //    dd($miscursos);
+        //$milistadata
+        //foreach($miscursos as $listacur)
+    @endphp
+    @foreach ($miscursosgrupo as $listacur)
+        @php
+            $nn++;
+        @endphp
+        <tr>
+            <td><button type="button" class="btn btn-success" 
+            onclick="registroasis('{{ $listacur->cur_iCodigo }}')">
+                         <i class="fas fa-file-excel"> </i> VER
+                </button>
+            </td>
+            <td> {{ $listacur->cur_vcCodigo }} </td>
+            <td> {{ $listacur->cur_vcNombre }} </td>
+            <td> {{ $listacur->sec_iNumero }}</td>
+            <td>{{ $listacur->escpla_vcCodigo }}</td>
+            <td>{{ left($listacur->cur_vcCodigo, 2) }}</td>
+            <td>{{ totalalumno($semestreactual, $listacur->sec_iCodigo) }}</td>
+
+        </tr>
+
+
+        </td>
+        </tr>
+    @endforeach
 
 </table>
 </div>
 </div>
-<div id="mimensajex">GRABANDO</div>
+
 
 <script>
-    function grabarnotas(idnota,idcurso,idalumno)
-    {//alert(id.value);
-        if(idnota.value>=0 && idnota.value<=20)
-        {men="GRABANDO:"+idnota.value.toString()+"";
-        alertagrabarx(men,"#301934");
-       //editarnotasjs(semestre,codcurso,codalumno,nota)
-       editarnotasjs(20212,idcurso,idalumno,idnota.value);
-    }
-        else
-        {men="Error solo notas entre 0 a 20";
-        alertagrabarx(men,"red");
-        id.value="";
-        }
+    function registroasis(coddocente) {
+     //alert(4)
+     //$("#micontenido").load('docente/registronotascurso2');
+     $("#micontenido").html(
+       "<img src='img/carga01.gif'>"
+     );
+      $.ajax({
+            url: "asistencia/asistenciacursoxls",
+            success: function(result) {
+             //   alert(result)
+                // $("#modaleditar").modal('show');
+                 $("#micontenido").html(result);
 
+            },
+            data: {
+              xcod:coddocente
+      
+            },
+            type: "GET"
+        });
+
+   /*   $coddocentex = 51;
+$sem = 20212;
+$codcurso = 2;
+$escuela = 'AN';
+$curso = 'mate';
+
+$vernotas = sqlverregistronotas($coddocentex, $sem, $codcurso, $curso);*/
     }
-  //  alertagrabarx("COMPLETANDO","blue")
-  
 </script>
-<script src="{{ asset('vendor/jquery/jquery.min.js')}}"></script>
-<script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-<script src="{{ asset('js/panelnotas.js')}}"></script>
+<link rel="stylesheet" href="{{ asset('datatable/css/jquery.dataTables.min.css') }}">
+<script src="{{ asset('datatable/js/jquery.dataTables.min.js') }}"></script>
+
+
+<link rel="stylesheet" href="{{ asset('bootstrap5/css/bootstrap.min.css') }}">
+<script src="{{ asset('bootstrap5/js/bootstrap.js') }}"></script>

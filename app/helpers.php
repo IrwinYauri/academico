@@ -1,5 +1,6 @@
 <?php
-use App\Http\Controllers\SemestreController;
+//use App\Http\Controllers\SemestreController;
+use App\Models\Semestre;
 function saludo($n,$dia,$hora)
 {
   //  $array = array('apellido', 'email', 'teléfono');
@@ -72,11 +73,16 @@ function verdiaactualsemana()
   }
 
 }
+function modalidadclase()
+{return "No Presencial";
 
+}
 function semestreactual()
 {$sem1="0";
-  $sem=new SemestreController();
-  $rpt=$sem->semestreactivo();
+  //$sem=new SemestreController();
+  $rpt=Semestre::where('sem_cActivo','S')->get();
+  //$rpt=$sem->semestreactivo();
+ // $sem1={{$sem}};
   foreach($rpt as $data)
   {$sem1=$data->sem_iCodigo;
   }
@@ -174,6 +180,21 @@ function fotodocente($dni,$t=1,$forma="no")
           }
    
      }
+     function fotoalumno($dni,$t=1,$forma="no")
+     {   $bloq=asset('storage/fotos/')."/".$dni.'.jpg';
+      $nombre_fichero=$bloq;
+       //if (!File::exists('public/fotosdocen/'.$dni.'.jpg'))
+       if(url_exists($nombre_fichero)) {
+        $dise="";
+        if($forma=="si")
+        $dise='class="img-profile rounded-circle"';
+        $bloq=asset('storage/fotosdocen/')."/1_".$dni.'.jpg';
+        echo "<img src='$bloq' alt='foto' width=90 $dise>";
+          } else {
+            echo  '<i class="fas fa-user-tie fa-'.$t.'x"></i>';
+          }
+   
+     }
 
      function hojadevida($dni)
      {   $bloq=asset('storage/hojavida/')."/".$dni.'.pdf';
@@ -240,23 +261,6 @@ function fotodocente($dni,$t=1,$forma="no")
       setTimeout(function(){ x.className = x.className.replace("show", ""); }, tiem);
       }///mstar
 
-      function activarwow()
-    { wow = new WOW(
-        {
-            animateClass: 'animated',
-            offset:       100,
-            callback:     function(box) {
-            console.log("WOW: animating <" + box.tagName.toLowerCase() + ">")
-            }
-        }
-        );
-        wow.init();
-        document.getElementById('moar').onclick = function() {
-        var section = document.createElement('section');
-        section.className = 'section--purple wow fadeInDown';
-        this.parentNode.insertBefore(section, this);
-        };
-    }
   </script>
   <style>
     

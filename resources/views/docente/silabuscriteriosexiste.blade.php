@@ -19,7 +19,7 @@ function versilabuscriterio($sem,$codcurso)
    $cantunidad=$versilaboc->unidades;
  }
 return $cantunidad; //finalizar busqueda
-dd($rptsilabo);
+//dd($rptsilabo);
 }
 @endphp
 

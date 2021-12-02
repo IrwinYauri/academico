@@ -7,8 +7,8 @@ session_start();
 
  use App\Http\Controllers\DocenteController; 
  $miasistencia=new DocenteController();  
-// $miscursos=$miasistencia->vercursos(20212,$coddocentex);
-$miscursos=$miasistencia->vercursos(semestreactual(),$coddocentex);
+$miscursos=$miasistencia->vercursos(20212,$coddocentex);
+//$miscursos=$miasistencia->vercursos(semestreactual(),$coddocentex);
 function veralumnomatriculados($codcur,$semestre,$fila)
  {$miasistencia=new DocenteController(); 
 
@@ -148,3 +148,6 @@ if($t>0)
 </div>
 </div>
 
+<div style="display:none">
+  {{dd($miscursos)}}
+  </div>

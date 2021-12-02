@@ -10,6 +10,13 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB; //uso base datos
 use Illuminate\Http\Request;//capturar datos
 
+use App\Models\Encuesta_categoria;
+use App\Models\Encuesta;
+use App\Models\Encuesta_pregunta;
+//use Illuminate\Database\Eloquent\Model;
+
+
+
 use DataTables;
 
 class AdminController extends Controller
@@ -19,7 +26,7 @@ class AdminController extends Controller
     return view('admin.index');
    }
    public function show($mivistas)
-   {return view("admin.".$mivistas."");
+   {return view("admin.".$mivistas);
     
    }
    public function validaradmin(Request $request)
@@ -31,6 +38,16 @@ class AdminController extends Controller
    public function verdocente()
    {
        $sql='Select * from docente order by doc_vcPaterno';
+       $data1=DB::select($sql);    
+       return $data1;
+     //  return response()->json($docente);
+
+       return view('admin.listadocente');
+    }
+    public function verdocentebase()
+   {
+       $sql='Select doc_iCodigo,
+       doc_vcDocumento,doc_vcPaterno,doc_vcMaterno from docente order by doc_vcPaterno';
        $data1=DB::select($sql);    
        return $data1;
      //  return response()->json($docente);
@@ -93,8 +110,8 @@ class AdminController extends Controller
           $sql='Select * from encuesta_categoria';
           $data1=DB::select($sql);    
           return $data1;
-       
        }
+      
        public function verlistaencuestapreguntasemestre($semestre)
       {
           $sql='SELECT 
@@ -157,23 +174,107 @@ public function cambiarclavedocente($cod,$clave){
     //  return back();
       }
 
-   public function registrardocente(Request $request){
-    // llamar procedimiento
-   $animal=DB::select('call spcre_animal(?,?,?)',
-   [$request->nombre,$request->especie,$request->genero]);
-    return back();
-    }
+      public function registrarencuestacategoria(Request $request){
+        // llamar procedimiento
+          if(isset($request->encuetacategoriadet))
+        {   $rep=Encuesta_categoria::create(['enccat_vcNombre' => $request->encuetacategoriadet]);
+          echo "Categoria de encuesta registrada";}
+          else
+          {echo "No se envio ningun dato";
+            }
+          return 0;
+        }
+        public function eliminarencuestacategoria(Request $request){
+          // llamar procedimiento
+          if(isset($request->enccat_iCodigo))
+       {   $rep=Encuesta_categoria::where('enccat_iCodigo',$request->enccat_iCodigo)->delete();
+          echo "Categoria de encuesta registradaEliminada";}
+          else
+          {echo "No se envio ningun dato";
+            }
+          return "";
+          }
+
+          public function nuevaencuesta(Request $request){
+            // llamar procedimiento
+           // echo "prueba";
+               if(isset($request->sem_iCodigo))
+                {   $rep=Encuesta::create($request->all());
+                  echo "Encuesta registrada";}
+                  else
+                  {echo "No se envio ningun dato";
+                    }
+                  return 0;
+            }
+
+            public function activarencuesta(Request $request){
+              // llamar procedimiento
+             // echo "prueba";
+                 if(isset($request->sem_iCodigo))
+                  { 
+                   $rep1=Encuesta::where('sem_iCodigo', '=', $request->sem_iCodigo)->get();
+                    echo count($rep1);
+                    if(count($rep1)>=1){
+                      $sql="
+                      update encuesta
+                      set enc_cActivo='N'
+                      ";
+                      $r=DB::select($sql);
+                      $sql="
+                      update encuesta
+                      set enc_cActivo='S'
+                      where sem_iCodigo='$request->sem_iCodigo'";
+                      $r=DB::select($sql);
+                                  
+                    echo "ENCUESTA ACTIVA";}
+                    else
+                    {echo "No se envio ningun dato";
+                      }
+                  }
+                    return 0;
+              }
+            public function eliminarencuesta(Request $request)
+            {   if(isset($request->sem_iCodigo)) 
+                    { $rep=Encuesta::where('sem_iCodigo',$request->sem_iCodigo)->delete();
+                      echo "Encuesta eliminada";
+                    }
+                    else{echo "No se envio ningun dato";
+                    }
+              return 0;
+             }
+             public function  registrarpreguntaencuesta(Request $request)
+             { $t=Encuesta_pregunta::where('enc_iCodigo','=',$request->enc_iCodigo)
+              ->where('encpre_iNumero','=',$request->encpre_iNumero)->count();
+              //dd($t);
+             
+              if($t*1<1 )
+               {if(isset($request->enc_iCodigo)) 
+                  {$rep=Encuesta_pregunta::create($request->all());
+                     }
+                  else{echo "No se envio ningun dato";
+                  } 
+                }  else
+                  {echo "<script>
+                  document.getElementById('resultado1').innerHTML='$t'
+                  </script> ";}
+                  //echo "Prueba de envio";
+                  return $t;
+
+            }
+
+            public function eliminarencuestapreguntas(Request $request)
+            {   if(isset($request->encpre_iCodigo)) 
+                    { $rep=Encuesta_pregunta::where('encpre_iCodigo','=',$request->encpre_iCodigo)->delete();
+                      echo "pregunta eliminada";
+                    }
+                    else{echo "No se envio ningun dato";
+                    }
+              return 0;
+             }
     
-    public function eliminardocente($id){
-        $animal=DB::select('call spdel_animal(?)',[$id]);
-        return back();
-        }
-        public function editardocente($id){
-           $animal=DB::select('call spseledit_animal(?)',[$id]);
-            return response()->json($animal);
-        }
+   
         
-        public function actualizardocente(Request $request){
+        public function xxxactualizardocente(Request $request){
             $animal=DB::select('call spupd_animal(?,?,?,?)',
             [$request->id,$request->nombre,$request->especie,$request->genero]);
             return back();

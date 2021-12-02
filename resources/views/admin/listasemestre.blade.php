@@ -1,7 +1,11 @@
 @php
-use App\Http\Controllers\AdminController; 
-$listasemestres=new AdminController();
-$listasemestre=$listasemestres->versemestre();
+function versemestre()
+{$sql="select * from semestre";
+$data=DB::select($sql);
+return $data;
+
+}
+$listasemestre=versemestre();
 
 @endphp
 <!DOCTYPE html>

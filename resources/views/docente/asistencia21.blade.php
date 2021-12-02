@@ -4,18 +4,227 @@
  if(isset($_SESSION['coddocentex'])){
   $coddocentex=$_SESSION['coddocentex'];
  }
-  
- use App\Http\Controllers\DocenteController; 
- use App\Http\Controllers\AsistenciaController; 
- $miasistencia=new DocenteController();  
- $listahora= $miasistencia->vercargahoraria($coddocentex,semestreactual());
+ function crearsemanaasis($codcurso,$semestre,$horax)
+ {$sql = "insert into seccion_horarioalumno(sechorasi_iCodigo,alu_iCodigo)
+SELECT
+'$horax' as horax,matricula.alu_iCodigo
+FROM
+seccion
+INNER JOIN matriculadetalle ON matriculadetalle.sec_iCodigo = seccion.sec_iCodigo
+INNER JOIN matricula ON matriculadetalle.mat_iCodigo = matricula.mat_iCodigo
+WHERE seccion.cur_iCodigo='$codcurso' and seccion.sem_iCodigo='$semestre'";
+    $data1 = DB::select($sql);
+
+ }
+ function  vercursosalumnos($codcurso,$semestre)
+  { 
+      $sql='SELECT 
+      concat(alumno.alu_vcPaterno," ",
+      alumno.alu_vcMaterno," ",
+      alumno.alu_vcNombre) as alumno,
+      curso.cur_vcNombre,
+      curso.cur_vcCodigo,
+      curso.cur_iCodigo,
+      seccion.sem_iCodigo,
+      seccion.sec_iCodigo,
+      matriculadetalle.mat_iCodigo,
+      matriculadetalle.matdet_iCodigo,
+      matricula.alu_iCodigo,
+      matricula.sem_iCodigo,
+  alumno.alu_vcEmail,
+   alumno.alu_vcCodigo
+    FROM
+      alumno
+      INNER JOIN matricula ON (alumno.alu_iCodigo = matricula.alu_iCodigo)
+      INNER JOIN matriculadetalle ON (matricula.mat_iCodigo = matriculadetalle.mat_iCodigo)
+      INNER JOIN seccion ON (seccion.sec_iCodigo = matriculadetalle.sec_iCodigo)
+      INNER JOIN curso ON (curso.cur_iCodigo = seccion.cur_iCodigo)
+    WHERE
+      curso.cur_iCodigo = "'.$codcurso.'" AND 
+      seccion.sem_iCodigo = "'.$semestre.'"
+      order by alumno.alu_vcPaterno';
+  $data1=DB::select($sql);
+ return $data1;
+ }
+ function vercargahoraria($coddocente,$semestre)
+  { 
+
+    //session_start();
+
+   // $coddocentex=$_SESSION['coddocentex'];
+   // $semestre=semestreactual();
+
+    $sql='
+      SELECT
+      seccion_horario.sec_iCodigo,
+      seccion_horario.dia_vcCodigo,
+      seccion_horario.sechor_iHoraInicio,
+      seccion_horario.sechor_iHoraFinal,
+      seccion_horario.sectip_cCodigo,
+      docente.doc_vcDocumento,
+      docente.doc_vcPaterno,
+      docente.doc_vcMaterno,
+      docente.doc_vcNombre,
+      seccion.sem_iCodigo,
+      seccion.cur_iCodigo,
+      curso.cur_vcNombre,
+      seccion.tur_cCodigo,
+      seccion_horario.doc_iCodigo,
+      seccion_horario.sechor_iCodigo,
+      curso.escpla_iCodigo,
+      escuela.esc_vcNombre,
+      escuela.esc_vcCodigo,
+      curso.cur_iSemestre,
+      seccion.sec_iNumero,
+      cursotipodictado.curdic_vcNombre AS tipodictado,
+      seccion.sec_iCodigo,
+      seccion_horario.aul_iCodigo,
+      aula.loc_iCodigo,
+      aula.aul_vcCodigo,
+      `local`.loc_vcNombre,
+      curso.cur_vcCodigo,
+      cursohoras.curhor_iHoras,
+      docentedepaca.depaca_vcNombre,
+      docente.cateDocente,
+      concat(docente.doc_vcPaterno," ",
+      docente.doc_vcMaterno," ",
+      docente.doc_vcNombre) as docente
+      FROM
+      seccion_horario
+      INNER JOIN docente ON (seccion_horario.doc_iCodigo = docente.doc_iCodigo)
+      INNER JOIN seccion ON (seccion_horario.sec_iCodigo = seccion.sec_iCodigo)
+      INNER JOIN curso ON (seccion.cur_iCodigo = curso.cur_iCodigo)
+      INNER JOIN escuelaplan ON (curso.escpla_iCodigo = escuelaplan.escpla_iCodigo)
+      INNER JOIN escuela ON (escuelaplan.esc_vcCodigo = escuela.esc_vcCodigo)
+      INNER JOIN cursotipodictado ON (seccion_horario.sectip_cCodigo = cursotipodictado.curdic_cCodigo)
+      INNER JOIN aula ON (seccion_horario.aul_iCodigo = aula.aul_iCodigo)
+      INNER JOIN `local` ON (aula.loc_iCodigo = `local`.loc_iCodigo)
+      INNER JOIN cursohoras ON cursohoras.cur_iCodigo = curso.cur_iCodigo AND cursohoras.curdic_cCodigo = cursotipodictado.curdic_cCodigo
+      INNER JOIN docentedepaca ON docente.depaca_iCodigo = docentedepaca.depaca_iCodigo
+      WHERE
+      seccion.sem_iCodigo = "'.$semestre.'" AND 
+      seccion_horario.doc_iCodigo = "'.$coddocente.'"
+      ORDER BY
+      curso.cur_vcCodigo,  
+      seccion_horario.dia_vcCodigo';
+    
+    $listahora=DB::select($sql);
+    return $listahora;
+   // return view("docente.completarasistencia", compact('listahora','coddocentex')); 
+ }
+
+ //use App\Http\Controllers\DocenteController; 
+ //use App\Http\Controllers\AsistenciaController; 
+ //$miasistencia=new DocenteController();  
+// $listahora= $miasistencia->vercargahoraria($coddocentex,semestreactual());
+$listahora= vercargahoraria($coddocentex,semestreactual());
+ //dd($listahora);
  $dia=verdiaactualsemana();
 
  //asistenciaalumnodia($codcurso,$codalumno,$fecha,$tipo)
+ function asistenciaalumnodia($codcurso,$codalumno,$fecha,$tipo)
+   {$sql="SELECT 
+    `seccion`.`sem_iCodigo`,
+    `seccion`.`cur_iCodigo`,
+    `seccion_horarioasistencia`.`dia_iNumero`,
+    `seccion_horarioasistencia`.`dia_vcCodigo`,
+    `seccion_horarioasistencia`.`sechorasi_iSemana`,
+    `seccion_horarioalumno`.`alu_iCodigo`,
+    `curso`.`cur_vcNombre`,
+    `alumno`.`alu_vcPaterno`,
+    `alumno`.`alu_vcMaterno`,
+    `alumno`.`alu_vcNombre`,
+    `alumno`.`alu_icodigo`,
+    `seccion`.`tur_cCodigo`,
+    `seccion_horario`.`sectip_cCodigo`,
+    `seccion_horario`.`sec_iCodigo`,
+    `seccion_horarioasistencia`.`sechorasi_dFecha`,
+    `seccion_horarioalumno`.`sechoralu_bPresente`, 
+    `seccion_horarioasistencia`.`sechorasi_iCodigo`
+  FROM
+    `seccion`
+    INNER JOIN `seccion_horario` ON (`seccion`.`sec_iCodigo` = `seccion_horario`.`sec_iCodigo`)
+    INNER JOIN `seccion_horarioasistencia` ON (`seccion_horarioasistencia`.`sechor_iCodigo` = `seccion_horario`.`sechor_iCodigo`)
+    INNER JOIN `seccion_horarioalumno` ON (`seccion_horarioalumno`.`sechorasi_iCodigo` = `seccion_horarioasistencia`.`sechorasi_iCodigo`)
+    INNER JOIN `curso` ON (`seccion`.`cur_iCodigo` = `curso`.`cur_iCodigo`)
+    INNER JOIN `alumno` ON (`seccion_horarioalumno`.`alu_iCodigo` = `alumno`.`alu_iCodigo`)
+  WHERE
+    `seccion`.`cur_iCodigo` = '$codcurso' AND 
+    `alumno`.`alu_icodigo` ='$codalumno' AND 
+    `seccion_horario`.`sectip_cCodigo` LIKE '$tipo%' AND 
+    `seccion_horarioasistencia`.`sechorasi_dFecha` = '$fecha'";
+    $data1=DB::select($sql);    
+     return $data1;
+   }
+///recalculando dias
+function geneasistenciaalumnodia($codcurso,$fecha,$tipo)
+   {$sql="SELECT 
+   `seccion_horarioalumno`.`alu_iCodigo`,    
+    `seccion_horarioalumno`.`sechoralu_bPresente`
+  FROM
+    `seccion`
+    INNER JOIN `seccion_horario` ON (`seccion`.`sec_iCodigo` = `seccion_horario`.`sec_iCodigo`)
+    INNER JOIN `seccion_horarioasistencia` ON (`seccion_horarioasistencia`.`sechor_iCodigo` = `seccion_horario`.`sechor_iCodigo`)
+    INNER JOIN `seccion_horarioalumno` ON (`seccion_horarioalumno`.`sechorasi_iCodigo` = `seccion_horarioasistencia`.`sechorasi_iCodigo`)
+    INNER JOIN `curso` ON (`seccion`.`cur_iCodigo` = `curso`.`cur_iCodigo`)
+    INNER JOIN `alumno` ON (`seccion_horarioalumno`.`alu_iCodigo` = `alumno`.`alu_iCodigo`)
+  WHERE
+    `seccion`.`cur_iCodigo` = '$codcurso' AND 
+    `seccion_horario`.`sectip_cCodigo` LIKE '$tipo%' AND 
+    `seccion_horarioasistencia`.`sechorasi_dFecha` = '$fecha'";
+    $data1=DB::select($sql);    
+     return $data1;
+   }
+//fin recalculo asis
+
+   function nrosemanaasistencia($codcurso,$fecha,$tipo)
+   {$sql="SELECT 
+    `seccion`.`sem_iCodigo`,
+    `seccion`.`cur_iCodigo`,
+    `seccion_horarioasistencia`.`dia_iNumero`,
+    `seccion_horarioasistencia`.`dia_vcCodigo`,
+    `seccion_horarioasistencia`.`sechorasi_iSemana`,
+    `curso`.`cur_vcNombre`,
+    `seccion`.`tur_cCodigo`,
+    `seccion_horario`.`sectip_cCodigo`,
+    `seccion_horario`.`sec_iCodigo`,
+    `seccion_horarioasistencia`.`sechorasi_dFecha`,
+    `seccion_horarioasistencia`.`sechorasi_iCodigo`
+  FROM
+    `seccion`
+    INNER JOIN `seccion_horario` ON (`seccion`.`sec_iCodigo` = `seccion_horario`.`sec_iCodigo`)
+    INNER JOIN `seccion_horarioasistencia` ON (`seccion_horarioasistencia`.`sechor_iCodigo` = `seccion_horario`.`sechor_iCodigo`)
+    INNER JOIN `curso` ON (`seccion`.`cur_iCodigo` = `curso`.`cur_iCodigo`)
+  WHERE
+    `seccion`.`cur_iCodigo` = '$codcurso' AND 
+    `seccion_horario`.`sectip_cCodigo` LIKE '$tipo%' AND 
+    `seccion_horarioasistencia`.`sechorasi_dFecha` = '$fecha'";
+    $data1=DB::select($sql);    
+     return $data1;
+   }
+   function totalasisdia($codcurso,$codalumno,$fecha,$tipo)
+   {$sql="SELECT 
+    count(*) as total
+  FROM
+    `seccion`
+    INNER JOIN `seccion_horario` ON (`seccion`.`sec_iCodigo` = `seccion_horario`.`sec_iCodigo`)
+    INNER JOIN `seccion_horarioasistencia` ON (`seccion_horarioasistencia`.`sechor_iCodigo` = `seccion_horario`.`sechor_iCodigo`)
+    INNER JOIN `seccion_horarioalumno` ON (`seccion_horarioalumno`.`sechorasi_iCodigo` = `seccion_horarioasistencia`.`sechorasi_iCodigo`)
+    INNER JOIN `curso` ON (`seccion`.`cur_iCodigo` = `curso`.`cur_iCodigo`)
+    INNER JOIN `alumno` ON (`seccion_horarioalumno`.`alu_iCodigo` = `alumno`.`alu_iCodigo`)
+  WHERE
+    `seccion`.`cur_iCodigo` = '$codcurso' AND 
+   
+    `seccion_horario`.`sectip_cCodigo` LIKE '$tipo%' AND 
+    `seccion_horarioasistencia`.`sechorasi_dFecha` = '$fecha'";
+    $data1=DB::select($sql);    
+     return $data1;
+   }
  function verdiaasis($codcurso,$codalumno,$fecha,$tipo)
     { $estado="";
-        $diasis=new AsistenciaController();
-    $rdiasis=$diasis->asistenciaalumnodia($codcurso,$codalumno,$fecha,$tipo);
+    //   $diasis=new AsistenciaController();
+  //  $rdiasis=$diasis->asistenciaalumnodia($codcurso,$codalumno,$fecha,$tipo);
+    $rdiasis=asistenciaalumnodia($codcurso,$codalumno,$fecha,$tipo);
         foreach ($rdiasis as $asis) {
             $estado= $asis->sechoralu_bPresente;
         }
@@ -23,8 +232,9 @@
     }
     function verdiahoracod($codcurso,$codalumno,$fecha,$tipo)
     { $estado="";
-      $diasis=new AsistenciaController();
-      $rdiasis=$diasis->asistenciaalumnodia($codcurso,$codalumno,$fecha,$tipo);
+    //  $diasis=new AsistenciaController();
+     // $rdiasis=$diasis->asistenciaalumnodia($codcurso,$codalumno,$fecha,$tipo);
+     $rdiasis=asistenciaalumnodia($codcurso,$codalumno,$fecha,$tipo);
     //dd($rdiasis);
         foreach ($rdiasis as $asis) {
             $estado= $asis->sechorasi_iCodigo;
@@ -32,11 +242,32 @@
    
     return $estado;
     }
+    function gverdiahoracod($fecha,$tipo,$mihoraseccion)
+    { $sql="SELECT
+seccion_horarioasistencia.sechorasi_iCodigo
+
+FROM
+seccion_horario
+INNER JOIN seccion_horarioasistencia ON (seccion_horarioasistencia.sechor_iCodigo = seccion_horario.sechor_iCodigo)
+INNER JOIN seccion ON seccion_horario.sec_iCodigo = seccion.sec_iCodigo
+WHERE
+seccion_horario.sectip_cCodigo LIKE '$tipo%' 
+AND seccion_horarioasistencia.sechorasi_dFecha = '$fecha'
+and seccion_horario.sechor_iCodigo='$mihoraseccion'
+order by seccion_horarioasistencia.sechorasi_dFecha";
+$data1=DB::select($sql);    
+if(count($data1)>0)
+    return $data1[0]->sechorasi_iCodigo;
+    else {
+        return "";
+    }
+ }
     function verdianrosemana($codcurso,$fecha,$tipo)
     {  $estado="";
-       $diasis=new AsistenciaController();
+      // $diasis=new AsistenciaController();
        //nrosemanaasistencia($codcurso,$fecha,$tipo)
-      $rdiasis=$diasis->nrosemanaasistencia($codcurso,$fecha,$tipo);
+    //  $rdiasis=$diasis->nrosemanaasistencia($codcurso,$fecha,$tipo);
+      $rdiasis=nrosemanaasistencia($codcurso,$fecha,$tipo);
       //dd($rdiasis);
        $semana="";
         foreach ($rdiasis as $asis) {
@@ -47,9 +278,10 @@
     }
     function verdianrodia($codcurso,$fecha,$tipo)
     {  $estado="";
-       $diasis=new AsistenciaController();
+     //  $diasis=new AsistenciaController();
        //nrosemanaasistencia($codcurso,$fecha,$tipo)
-      $rdiasis=$diasis->nrosemanaasistencia($codcurso,$fecha,$tipo);
+   //   $rdiasis=$diasis->nrosemanaasistencia($codcurso,$fecha,$tipo);
+      $rdiasis=nrosemanaasistencia($codcurso,$fecha,$tipo);
       //dd($rdiasis);
        $semana="";
         foreach ($rdiasis as $asis) {
@@ -61,8 +293,9 @@
 
     function cantidadasis($codcurso,$codalumno,$fecha,$tipo)
     { $estado="";
-        $diasis=new AsistenciaController();
-    $rdiasis=$diasis->totalasisdia($codcurso,$codalumno,$fecha,$tipo);
+       // $diasis=new AsistenciaController();
+    //$rdiasis=$diasis->totalasisdia($codcurso,$codalumno,$fecha,$tipo);
+    $rdiasis=totalasisdia($codcurso,$codalumno,$fecha,$tipo);
     //dd($rdiasis);
         foreach ($rdiasis as $asis) {
             $estado= $asis->total;
@@ -74,8 +307,8 @@
     
  
  //verdiaasis(2,447,'2021-09-01','');
- function veralumnomatriculados($codcur,$semestre,$teoria,$fecha)
- {$miasistencia=new DocenteController(); 
+ function veralumnomatriculados($codcur,$semestre,$teoria,$fecha,$mihoraseccion)
+ {//$miasistencia=new DocenteController(); 
 
    echo "<table class='table table-striped table-hover'>
     <thead>
@@ -85,17 +318,50 @@
   <thead>
     <tbody>
   ";
-   $misalumnos=$miasistencia->vercursosalumnos($codcur,$semestre);
-   $rcodhora="";
+ /* echo "<br>".$codcur;
+   echo "<br>".$semestre;
+   echo "<br>".$teoria;
+   echo "<br>".$fecha; */
+   //$misalumnos=$miasistencia->vercursosalumnos($codcur,$semestre);
+   $rcodhora=gverdiahoracod($fecha,$teoria,$mihoraseccion);
+   //gverdiahoracod($fecha,$tipo,$mihoraseccion)
+  // dd($rcodhora);
+  //---echo $rcodhora;   creando asistencia
+  $asistenciaalu=geneasistenciaalumnodia($codcur,$fecha,$teoria);
+   
+  //dd($asistenciaalu);
+//  echo count($asistenciaalu);
+ // dd($asistenciaalu);
+ // echo "<br>".count($asistenciaalu);
+if(count($asistenciaalu)<1)
+{echo "CREANDO DIA DE ASISTENCIA";
+crearsemanaasis($codcur,$semestre,$rcodhora);
+$asistenciaalu=geneasistenciaalumnodia($codcur,$fecha,$teoria);
+//return ""; 
+}
+
+
+  
+foreach($asistenciaalu as $bbasistencia) {
+    $ccod=$bbasistencia->alu_iCodigo;
+    $nx["$ccod"]=$bbasistencia->sechoralu_bPresente;
+    //$nx[""]=$bbasistencia->sechoralu_bPresente;
+   }
+   $misalumnos=vercursosalumnos($codcur,$semestre);
+ //  $rcodhora="";
     $nro=0;
     //dd($misalumnos);
-    foreach ($misalumnos as $alumno) {
+   // gverdiahoracod($codcurso,$fecha,$tipo)
+    //$rcodhora=verdiahoracod($codcur,$cod1,$fecha,$teoria);
+   
+
+    foreach($misalumnos as $alumno) {
       $nro++;
       $cod=$alumno->alu_vcCodigo;
       $cod1=$alumno->alu_iCodigo;
       $estudiante=$alumno->alumno;
-      $email=$alumno->alu_vcEmail;
-      $rcodhora=verdiahoracod($codcur,$cod1,$fecha,$teoria);
+     // $email=$alumno->alu_vcEmail;
+     // $rcodhora=verdiahoracod($codcur,$cod1,$fecha,$teoria);
      echo "<tr style='color:black'>
           <td>$nro</td>
           <td>$cod</td>
@@ -113,7 +379,10 @@
                                     </button>
             </td>
             <td id='tnx$nro'>";
-                $miestado=strtoupper(left(verdiaasis($codcur,$cod1,$fecha,$teoria),1));//captura estad p O f
+               echo '<span class="badge badge-pill badge-info" style="font-size: 14px;">'; 
+              
+                $miestadox= $nx["$cod1"];
+                $miestado=strtoupper(left($miestadox,1));//captura estad p O f
               //  echo  $miestado;
                 if($miestado=="P" or $miestado=="")
                 echo "PRESENTE";
@@ -129,6 +398,7 @@
              //   echo"   <select name='".$rcodestado."' id='".$rcodestado."' value='".$verasis->estado."' onchange='editarasis(this,\"".$rcodhora."\",\"".$xcodalu."\",\"".$rcodestado."\")'  ".$ocultar."><option value='P'>P</option><option value='F'>F</option><option value='J'>J</option></select>
              //<input type='hidden' name='".$rcodhora."' id='".$rcodhora."'  value='".$verasis->sechorasi_iCodigo."'>
              //<input type='hidden' name='".$rcodalu."' id='".$rcodalu."'  value='".$verasis->alu_iCodigo."'>
+            echo "</span>";
                echo  "</td>
         </tr>";
     }
@@ -171,6 +441,7 @@ $minutoc=right(left($hora,5),2);
 $horacc=$horac.$minutoc;
 $teoria="";
 $micodcurso="";
+$mihoraseccion="";
 //echo "<br>".$fecha;
 //    echo "$hora<br>sss";
 
@@ -206,11 +477,13 @@ foreach($listahora as $listacur)
        echo "--</pre>"; */
        $teoria=$listacur->tipodictado;
        $micodcurso= $listacur->cur_iCodigo;
+       $ttipodic=$listacur->tipodictado;
+       $mihoraseccion=$listacur->sechor_iCodigo;
        echo "<script>
         document.getElementById('micurso').innerHTML='$listacur->cur_vcNombre';
         document.getElementById('mihoracurso').innerHTML='".($listacur->curhor_iHoras*16)." HORAS';
         document.getElementById('mientrada').innerHTML='".$listacur->sechor_iHoraInicio."-".$listacur->sechor_iHoraFinal."';
-        document.getElementById('miteoria').innerHTML='".$listacur->tipodictado."';
+        document.getElementById('miteoria').innerHTML='".$ttipodic."';
         document.getElementById('miescuela').innerHTML='".$listacur->esc_vcNombre."';
         document.getElementById('midocente').innerHTML='".$listacur->docente." - ".$listacur->cateDocente."';
         document.getElementById('midepartamento').innerHTML='".$listacur->depaca_vcNombre."';
@@ -331,7 +604,7 @@ echo "00000<br>" ;*/
                                                 TEMA</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 <input type="text" class="form-control bg-light border-0 small" placeholder="Ingresar tema..."
-                                                aria-label="Search" aria-describedby="basic-addon2">
+                                                aria-label="Search" aria-describedby="basic-addon2" id="temax",name="temax" onkeyup="editartema(this)">
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -369,31 +642,32 @@ echo "00000<br>" ;*/
 <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 <script src="{{ asset('js/panelasistencia.js')}}"></script>
 @php
-$xsemana="";
+/*$xsemana="";
 $xdia="";
- $rcantidad=cantidadasis($micodcurso,"",$fecha,'t');
- $xsemana=verdianrosemana($micodcurso,$fecha,'t');
- $xdia= verdianrodia($micodcurso,$fecha,'t');
- if($rcantidad==0)
-   {echo "<h5>CREANDO ASISTENCIA DEL DIA</h5>";
-   echo "
+ $rcantidad=cantidadasis($micodcurso,"",$fecha,left($ttipodic,1));
+ $xsemana=verdianrosemana($micodcurso,$fecha,left($ttipodic,1));
+ $xdia= verdianrodia($micodcurso,$fecha,left($ttipodic,1));*/
+ //if($rcantidad==0)
+  // {echo "<h5>CREANDO ASISTENCIA DEL DIA</h5>";
+   /*echo "
     <script>
    //     alert(5)
      crearsemanaactual('$micodcurso', '$xsemana','$xdia')
      
-    </script>";    
-}
+    </script>";    */
+//}
 
    //     dd($r);
   // echo $rcantidad;   
-
+ 
 @endphp
 
 
             <div class="row">
                 @php
                     //veralumnomatriculados(22,semestreactual(),left($teoria,1),$fecha);
-                    veralumnomatriculados( $micodcurso,semestreactual(),left($teoria,1),$fecha);
+                    veralumnomatriculados( $micodcurso,semestreactual(),left($teoria,1),$fecha,$mihoraseccion);
+                    $rcodhora=gverdiahoracod($fecha,left($teoria,1),$mihoraseccion);
                 @endphp
             </div>
            
@@ -423,5 +697,10 @@ $xdia="";
                   x.className = "show";
                   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
                 }///mstar
+                function editartema(elemet){
+                  xtema=elemet.value;
+                  xhora="{{$rcodhora}}";
+                  editartemaserver(xtema,xhora);
+                }
                 </script>
           

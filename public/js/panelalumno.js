@@ -6,7 +6,7 @@ $("#bmatriculaconstancia").click(vermatriculaconstancia);//acticvo
 $("#bboletanotas").click(verboletanotas);
 $("#bsilabus").click(versilabus);//activo
 $("#bvernotas").click(vernotas);
-$("#bverasistencia").click(verasistencia);
+$("#bverasistencia").click(verasistencia);//activo
 $("#brecordacademico").click(verrecordacademico);
 $("#bpromedioponderado").click(verpromedioponderado);
 $("#bsubirfoto").click(subirfoto);
@@ -17,7 +17,10 @@ $("#bcrearencuesta").click(crearencuesta);
   }
 
  function mostrarhorario()
- { var n1=$("#n1").val();
+ {  $("#micontenido").html(
+	"<img src='img/cargar.gif'>"
+  );
+	 var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
      $.ajax({
 		url:"alumno/horario",
@@ -34,7 +37,10 @@ $("#bcrearencuesta").click(crearencuesta);
 	
 }
 function crearmatricula()
- { var n1=$("#n1").val();
+ { $("#micontenido").html(
+	"<img src='img/cargar.gif'>"
+  );
+	 var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
      $.ajax({
 		url:"alumno/crearmatricula",
@@ -51,7 +57,10 @@ function crearmatricula()
 	
 }
  function vermatriculaconstancia()
- { var n1=$("#n1").val();
+ { $("#micontenido").html(
+	"<img src='img/cargar.gif'>"
+  );
+	 var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
      $.ajax({
 		url:"alumno/matriculaconstancia",
@@ -67,28 +76,12 @@ function crearmatricula()
 	 } );
 	
 }
-function verhorario()
- { var n1=$("#n1").val();
-   var bbuscar=$("#bbuscar").val();
-     $.ajax({
-		url:"horario.html",
-	success:function(result){
-	//alert(result);
-	$("#micontenido").html(result);
-	 },
-	data:{
-		 n1:n1,
-		 bbuscar:bbuscar
-	  },
-		type:"GET"   
-	 } );
-	
-}
+
 function verboletanotas()
  { var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
      $.ajax({
-		url:"boletanotas.php",
+		url:"alumno/boletanotas",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
@@ -103,7 +96,10 @@ function verboletanotas()
 }
 
 function versilabus()
- { var n1=$("#n1").val();
+ { $("#micontenido").html(
+	"<img src='img/cargar.gif'>"
+  );
+	 var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
      $.ajax({
 		url:"alumno/silabus",
@@ -121,7 +117,10 @@ function versilabus()
 }
 
 function vernotas()
- { var n1=$("#n1").val();
+ {  $("#micontenido").html(
+	"<img src='img/cargar.gif'>"
+  );
+	 var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
      $.ajax({
 		url:"alumno/notascurso",
@@ -163,7 +162,10 @@ function vernotasdetalle(n1,semestre,codcurso,codalumno) //usar dentro blade
 	
 }
 function verasistencia()
- { var n1=$("#n1").val();
+ {  $("#micontenido").html(
+	"<img src='img/cargar.gif'>"  );
+	 
+	var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
      $.ajax({
 		url:"alumno/verasistencia",
@@ -180,10 +182,12 @@ function verasistencia()
 	
 }
 function verrecordacademico()
- { var n1=$("#n1").val();
+ { $("#micontenido").html(
+	"<img src='img/cargar.gif'>"  );
+	 var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
      $.ajax({
-		url:"recordacademico.php",
+		url:"alumno/recordacademico",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
@@ -198,10 +202,12 @@ function verrecordacademico()
 }
 
 function verpromedioponderado()
- { var n1=$("#n1").val();
+ { $("#micontenido").html(
+	"<img src='img/cargar.gif'>"  );
+	 var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
      $.ajax({
-		url:"promedioponderado.php",
+		url:"alumno/promedioponderado",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
@@ -233,10 +239,12 @@ function subirfoto()
 	
 }
 function datospersonales()
- { var n1=$("#n1").val();
+ { $("#micontenido").html(
+	"<img src='img/cargar.gif'>"  );
+	 var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
      $.ajax({
-		url:"datospersonales.php",
+		url:"alumno/datospersonales",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
@@ -250,10 +258,12 @@ function datospersonales()
 	
 }
 function cambiarpassword()
- { var n1=$("#n1").val();
+ { $("#micontenido").html(
+	"<img src='img/cargar.gif'>"  );
+	 var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
      $.ajax({
-		url:"password.php",
+		url:"alumno/password",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
@@ -288,7 +298,7 @@ function crearencuesta()
  { var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
      $.ajax({
-		url:"crearencuesta.php",
+		url:"alumno/crearencuesta",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);

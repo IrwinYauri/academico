@@ -3,6 +3,9 @@
  $coddocentex="";
  if(isset($_SESSION['coddocentex'])){
   $coddocentex=$_SESSION['coddocentex'];
+ }else {
+   echo "NO esta autorizado";
+   return "no identificado";
  }
   
  use App\Http\Controllers\DocenteController; 

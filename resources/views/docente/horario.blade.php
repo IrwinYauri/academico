@@ -7,7 +7,7 @@
   use App\Http\Controllers\DocenteController; 
     $mihoras=new DocenteController();
     //$listahora= $mihoras->vercargahoraria(51,20212)
-    $listahora= $mihoras->vercargahoraria($coddocentex,20212)
+     $listahora= $mihoras->verhorario($coddocentex,semestreactual())
 @endphp
 <head>
   <title>Horarios</title>
@@ -56,7 +56,9 @@ color: black;
         @endphp
 </tr>
 </thead>
+
         @foreach($listahora as $horario)
+
        @php
             $n++;
            
@@ -139,3 +141,6 @@ $nombre = $misareas2;
 
 @endphp
 
+<div style="display:none">
+  {{dd($listahora)}}
+  </div>

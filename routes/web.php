@@ -13,6 +13,8 @@ use App\Http\Controllers\AsistenciaController;
 use App\Http\Controllers\NotasController;
 use App\Http\Controllers\PlanactividadController;
 use App\Http\Controllers\HojavidaController;
+use App\Http\Controllers\CrudController;
+use App\Http\Controllers\ActasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,13 +39,26 @@ Route::get('admin/editardocente/{id}',[AdminController::class,'editar'])->name('
 Route::post('admin/actualizardocente',[AdminController::class,'actualizar'])->name('admin.actualizardocente');
 Route::post('admin/login',[AdminController::class,'login'])->name('admin.loginadmin');
 Route::post('admin/validaradmin',[AdminController::class,'validaradmin'])->name('admin.validaradmin');
+
+Route::get('encuesta/registrarcategoriaencuesta',[AdminController::class,'registrarencuestacategoria'])->name('admin.registrarencuestacategoria');
+Route::get('encuesta/eliminarcategoriaencuesta',[AdminController::class,'eliminarencuestacategoria'])->name('admin.eliminarencuestacategoria');
+Route::get('encuesta/nuevaencuesta',[AdminController::class,'nuevaencuesta'])->name('admin.nuevaencuesta');
+Route::get('encuesta/eliminarencuesta',[AdminController::class,'eliminarencuesta'])->name('admin.eliminarencuesta');
+Route::get('encuesta/registrarpreguntaencuesta',[AdminController::class,'registrarpreguntaencuesta'])->name('admin.registrarpreguntaencuesta');
+Route::get('encuesta/eliminarencuestapreguntas',[AdminController::class,'eliminarencuestapreguntas'])->name('admin.eliminarencuestapreguntas');
+Route::get('encuesta/activarencuesta',[AdminController::class,'activarencuesta'])->name('admin.activarencuesta');
+
 //Route::post('docente/login',[DocenteController::class,'login'])->name('docente.login');
+Route::resource('actas',ActasController::class);
+Route::get('actasxls/registro',[ActasController::class,'notasxls'])->name('actas.notasxls');
 
 Route::resource('notas',NotasController::class);
 
 Route::resource('asistencia',AsistenciaController::class);
 
 Route::resource('hojavida',HojavidaController::class);
+
+Route::resource('crud',CrudController::class);
 
 Route::get('docente/rptmatriculados',[DocenteController::class,'rptmatriculados'])->name('rptmatriculados');
 Route::get('docente/rptcargahorario',[DocenteController::class,'rptcargahorario'])->name('rptcargahorario');
@@ -65,6 +80,10 @@ Route::post('silabusemestre/{arch}', [SilabusemestreController::class,'destroy']
 
 
 Route::resource('planactividad',PlanactividadController::class);
+
+
+Route::post('recordalumno',[ReportepdfController::class,'recordalumno'])->name('recordalumno');
+Route::post('boletaalumno',[ReportepdfController::class,'boletaalumno'])->name('boletaalumno');
 //---Route::post('silabusemestre/{nomfile}',[SilabusemestreController::class,'destroy'])->name('destroy');
 //Route::post('docente/validardocentes',[DocenteController::class,'validardocentes'])->name('docente.validardocentes');
 //Route::get('alumno/reportepdf',[AlumnoController::class,'reportepdf'])->name('alumno.reportepdf');

@@ -97,7 +97,7 @@ color: white;
                                 <i class="fas fa-clock"></i> Calendario Academico</a>
                             <a class="collapse-item" href="#" id="bcreardocente">Carga Academica<br>de Docentes</a>
                             <a class="collapse-item" href="#" id="bhorario">
-                                <i class="fas fa-check"></i> Cursos y Horarios</a>
+                                <i class="fa fa-table  " ></i>  Cursos y Horarios</a>
 
                                 <a class="collapse-item" href="#" id="bordenmerito">
                                     <i class="fas fa-desktop"></i> ORDEN DE MERITO</a>
@@ -106,7 +106,7 @@ color: white;
                             <a class="collapse-item" href="#" id="basistencia2">Gestion de Notas</a>
                             <a class="collapse-item" href="#" id="basistencia2">Auditoria de Notas</a>
                             <a class="collapse-item" href="#" id="bencuesta">
-                                <i class="fa fa-question-circle"></i> Configuracion <br>de Encuesta</a>
+                                <i class="fa fa-tasks"></i> Configuracion <br>de Encuesta</a>
                             <a class="collapse-item" href="#" id="blistausuario">
                                 <i class="fas fa-check"></i> Crear Cuentas <br>de Sistema</a>
                                 
@@ -776,16 +776,12 @@ color: white;
  <script src="{{ asset('js/sb-admin-2.min.js')}}"></script>
 
  <!-- Page level plugins -->
- <script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
-    
 
- <!-- Page level custom scripts -->
-  <script src="{{ asset('js/demo/chart-area-demo.js')}}"></script> 
- <script src="{{ asset('js/demo/chart-pie-demo.js')}}"></script>
     <script src="{{ asset('js/paneladmin.js')}}"></script>
 
 <script>
 $('.miizquierda').css('background-color','black'); 
+$('.miizquierda').css('background-image', 'url({{ asset("img/lateral3.jpg")}})');
 
 //$('.d-none').css("background-image", "url(img/login2.jpg)");  
 //$("#mibloque").css("background-image", "url(img/logo1.jpg)");  

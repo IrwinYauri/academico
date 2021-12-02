@@ -1,10 +1,12 @@
-
+<button class='btn btn-primary' onclick="$('#micontenido').load('docente/reporteasistencia')"> 
+    ver cursos</button> <br>
 @php
-use App\Http\Controllers\AsistenciaController; 
-use App\Http\Controllers\DocenteController; 
+//use App\Http\Controllers\AsistenciaController; 
+//use App\Http\Controllers\DocenteController; 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+$semestreactual=semestreactual();
 $gcodcurso="0";
 if(isset($_REQUEST["xcod"]))
 {$gcodcurso=$_REQUEST["xcod"];}
@@ -12,55 +14,205 @@ else {
     return 0;
 }
 //preparando lista
-function veralumnomatriculados($codcur,$semestre)
- {$miasistencia=new DocenteController(); 
-  echo "<h5 style='backgroundcolor:navy'>ALUMNOS REGISTRADOS CON ASISTENCIAS</h5>";
-   echo "<table class='table table-striped'>
-       <tr style='background-color:black;color:white;'>
-    <td>Nro</td> <td>Codigo</td> <td>Nombre</td><td>Email</td>
-  </tr>";
-   $misalumnos=$miasistencia->vercursosalumnos(trim($codcur),$semestre);
-//dd($codcur);
-$nro=0;
-    foreach ($misalumnos as $alumno) {
-      $nro++;
-      $cod=$alumno->alu_vcCodigo;
-      $estudiante=$alumno->alumno;
-      $email=$alumno->alu_vcEmail;
-     echo "<tr style='color:black' class='table-condensed'>
-          <td>$nro</td>
-          <td>$cod</td>
-         <td>$estudiante</td>
-         <td>$email</td>
-        </tr>";
-    }
-echo "</table>";
 
 
-}  
+function  vercursosalumnos($codcurso,$semestre)
+  { 
+      $sql='SELECT 
+      concat(alumno.alu_vcPaterno," ",
+      alumno.alu_vcMaterno," ",
+      alumno.alu_vcNombre) as alumno,
+      curso.cur_vcNombre,
+      curso.cur_vcCodigo,
+      curso.cur_iCodigo,
+      seccion.sem_iCodigo,
+      seccion.sec_iCodigo,
+      matriculadetalle.mat_iCodigo,
+      matriculadetalle.matdet_iCodigo,
+      matricula.alu_iCodigo,
+      matricula.sem_iCodigo,
+  alumno.alu_vcEmail,
+   alumno.alu_vcCodigo
+    FROM
+      alumno
+      INNER JOIN matricula ON (alumno.alu_iCodigo = matricula.alu_iCodigo)
+      INNER JOIN matriculadetalle ON (matricula.mat_iCodigo = matriculadetalle.mat_iCodigo)
+      INNER JOIN seccion ON (seccion.sec_iCodigo = matriculadetalle.sec_iCodigo)
+      INNER JOIN curso ON (curso.cur_iCodigo = seccion.cur_iCodigo)
+    WHERE
+      curso.cur_iCodigo = "'.$codcurso.'" AND 
+      seccion.sem_iCodigo = "'.$semestre.'"
+      order by alumno.alu_vcPaterno';
+  $data1=DB::select($sql);
+ return $data1;
+ }
 
 function veralumnomatriculadostotal($codcur,$semestre)
- {$miasistencia=new DocenteController(); 
-  $misalumnos=$miasistencia->vercursosalumnos(trim($codcur),$semestre);
-  //dd($codcur);
-  $nro=0;
-    foreach ($misalumnos as $alumno) {
-      $nro++;
-    }
-return $nro;
-}  
+ {$sql =
+        "SELECT
+count(matricula.alu_iCodigo) as total
+FROM
+seccion
+INNER JOIN matriculadetalle ON matriculadetalle.sec_iCodigo = seccion.sec_iCodigo
+INNER JOIN matricula ON matriculadetalle.mat_iCodigo = matricula.mat_iCodigo
+WHERE seccion.cur_iCodigo='$codcur' and seccion.sem_iCodigo='$semestre'";
+    $data1 = DB::select($sql);
+    //  return $data1;
+    return $data1[0]->total;
+} 
+function extraeasistencia($codcurso,$semestre)
+{$sql="SELECT
+matricula.alu_iCodigo,
+seccion_horarioasistencia.sechorasi_dFecha,
+seccion.sem_iCodigo,
+seccion_horario.sec_iCodigo,
+seccion_horarioasistencia.sechor_iCodigo,
+seccion_horarioasistencia.dia_vcCodigo,
+seccion_horarioasistencia.sechorasi_iCodigo,
+seccion_horarioasistencia.sechorasi_iSemana,
 
- function verestadoasis($semestre,$codcurso,$fecha,$codalumno){
-    $miasistencia=new AsistenciaController(); 
+seccion_horario.sectip_cCodigo,
+matriculadetalle.mat_iCodigo,
+
+(
+SELECT
+     sechoralu_bPresente
+FROM
+seccion_horarioalumno
+WHERE
+        seccion_horarioalumno.sechorasi_iCodigo=seccion_horarioasistencia.sechorasi_iCodigo
+
+
+     and seccion_horarioalumno.alu_iCodigo=matricula.alu_iCodigo
+) AS estado
+FROM
+seccion_horario
+INNER JOIN seccion_horarioasistencia ON (seccion_horario.sechor_iCodigo = seccion_horarioasistencia.sechor_iCodigo)
+INNER JOIN seccion ON (seccion_horario.sec_iCodigo = seccion.sec_iCodigo)
+INNER JOIN matriculadetalle ON matriculadetalle.sec_iCodigo = seccion.sec_iCodigo
+INNER JOIN matricula ON matriculadetalle.mat_iCodigo = matricula.mat_iCodigo
+WHERE
+            seccion.cur_iCodigo = '$codcurso' AND
+            seccion.sem_iCodigo = '$semestre' 
+					
+ORDER BY
+            seccion_horarioasistencia.sechorasi_dFecha ASC";
+
+            $data1=DB::select($sql);  
+            return $data1;
+}
+
+
+$listaasis=extraeasistencia($gcodcurso,$semestreactual);
+foreach ($listaasis as $nasis) {
+  //////////
+///
+///////
+///
+///
+//preparamos las asistencias
+
+$miasis["$nasis->alu_iCodigo"]["$nasis->sechorasi_dFecha"] =$nasis->estado;
+///
+  
+}
+
+/////------------------------- 
+function buscarasistenciafecha($semestre,$codcurso,$fecha,$codalumno){
+     $sql="SELECT
+     sechoralu_bPresente
+FROM
+seccion_horario
+INNER JOIN seccion_horarioasistencia ON (seccion_horario.sechor_iCodigo = seccion_horarioasistencia.sechor_iCodigo)
+INNER JOIN seccion ON (seccion_horario.sec_iCodigo = seccion.sec_iCodigo)
+INNER JOIN seccion_horarioalumno ON seccion_horarioalumno.sechorasi_iCodigo = seccion_horarioasistencia.sechorasi_iCodigo
+WHERE
+     seccion.cur_iCodigo = '$codcurso' AND
+     seccion.sem_iCodigo = '$semestre' 
+     and seccion_horarioasistencia.sechorasi_dFecha='$fecha'
+     and seccion_horarioalumno.alu_iCodigo='$codalumno'
+     ";
+      $data1=DB::select($sql);  
+      if(count($data1)<1)
+      return "";
+      else
+      return $data1[0]->sechoralu_bPresente;
+   }
+   function fechacursoasistencia($codcurso,$semestre)
+           {/*$semana=$cur->sechorasi_iSemana;
+    $fecha1=$cur->sechorasi_dFecha;
+    $xtipo=$cur->sectip_cCodigo;
+    if($semana==1)
+    {  $ndia1++;
+        if($ndia1==1)
+      { $worksheet->getCell('K13')->setValue($fecha1);
+        $worksheet->getCell('K16')->setValue($xtipo);
+       }*/
+               
+            $sql="SELECT
+            seccion.sem_iCodigo,
+            seccion_horario.sec_iCodigo,
+            seccion_horarioasistencia.sechor_iCodigo,
+            seccion_horarioasistencia.dia_vcCodigo,
+            seccion_horarioasistencia.sechorasi_iCodigo,
+            seccion_horarioasistencia.sechorasi_iSemana,
+            seccion_horarioasistencia.sechorasi_dFecha,
+            seccion_horario.sectip_cCodigo
+FROM
+seccion_horario
+INNER JOIN seccion_horarioasistencia ON (seccion_horario.sechor_iCodigo = seccion_horarioasistencia.sechor_iCodigo)
+INNER JOIN seccion ON (seccion_horario.sec_iCodigo = seccion.sec_iCodigo)
+WHERE
+            seccion.cur_iCodigo = '$codcurso' AND
+            seccion.sem_iCodigo = '$semestre'
+ORDER BY
+            seccion_horarioasistencia.sechorasi_dFecha ASC";
+                $data1=DB::select($sql); 
+                return $data1;
+
+           }
+
+           function buscarcursoescuela($codcurso,$semestre)
+   {$sql="SELECT
+    seccion.sem_iCodigo,
+    seccion.cur_iCodigo,
+    curso.cur_vcNombre,
+    seccion.tur_cCodigo,
+    docente.doc_vcDocumento,
+    docente.doc_vcPaterno,
+    docente.doc_vcMaterno,
+    docente.doc_vcNombre,
+    curso.cur_vcCodigo,
+    escuelaplan.escpla_iCodigo,
+    curso.cur_iSemestre,
+    (SELECT `escuela`.`esc_vcNombre` FROM `escuela` where `escuela`.`esc_vcCodigo`=left(curso.cur_vcCodigo,2)) AS escuela,
+    turno.tur_vcNombre
+    FROM
+    seccion
+    INNER JOIN curso ON (seccion.cur_iCodigo = curso.cur_iCodigo)
+    INNER JOIN docente ON seccion.doc_iCodigo = docente.doc_iCodigo
+    INNER JOIN escuelaplan ON curso.escpla_iCodigo = escuelaplan.escpla_iCodigo
+    INNER JOIN turno ON seccion.tur_cCodigo = turno.tur_cCodigo
+    WHERE
+        seccion.cur_iCodigo = '$codcurso' AND
+        seccion.sem_iCodigo = '$semestre'";
+     $data1=DB::select($sql);    
+     return $data1;
+
+   }
+//-----------------------------------
+/* function verestadoasis($semestre,$codcurso,$fecha,$codalumno){
+   // $miasistencia=new AsistenciaController(); 
     //buscarasistenciafecha($semestre,$codcurso,$fecha,$codalumno)
     $estado="";
-    $asis1=$miasistencia->buscarasistenciafecha($semestre,$codcurso,$fecha,$codalumno);
+ //   $asis1=$miasistencia->buscarasistenciafecha($semestre,$codcurso,$fecha,$codalumno);
+ $asis1=buscarasistenciafecha($semestre,$codcurso,$fecha,$codalumno);
    // dd($asis1);
     foreach ($asis1 as $asis) {
         $estado=$asis->sechoralu_bPresente;
     }
     return $estado;
-  }
+  } */
 
 ////capturar datos del curso
 $xcurso="";
@@ -68,8 +220,8 @@ $xescuela="";
 $xdocente="";
 $xciclo="";
 $xturno="";
-$miasistencia=new AsistenciaController(); 
-$micursox=$miasistencia->buscarcursoescuela($gcodcurso,semestreactual());
+//$miasistencia=new AsistenciaController(); 
+$micursox=buscarcursoescuela($gcodcurso,$semestreactual);
 
 foreach ($micursox as $micurso) {
     $xcurso=$micurso->cur_vcNombre;
@@ -79,10 +231,15 @@ foreach ($micursox as $micurso) {
     $xturno=$micurso->tur_vcNombre;
 }
 ///
+
+
 //echo verestadoasis(20212,2,'2021-10-25',383);
 $tt=0;
-veralumnomatriculados($gcodcurso,semestreactual());
-$tt=veralumnomatriculadostotal($gcodcurso,semestreactual());
+
+
+//veralumnomatriculados($gcodcurso,$semestreactual);
+$tt=veralumnomatriculadostotal($gcodcurso,$semestreactual);
+echo "Procesados:".$tt;
 //
 
 $spreadsheet = new Spreadsheet();
@@ -100,7 +257,7 @@ $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load('platillasxls/Plantilla
 
 $worksheet = $spreadsheet->getActiveSheet();
 
-$misemestre=left(semestreactual(),4)."-".right(semestreactual(),1);
+$misemestre=left($semestreactual,4)."-".right($semestreactual,1);
 
 
 
@@ -115,10 +272,12 @@ $letra=array("k","l",	"m",	"n",	"o",	"p",	"q",	"r",	"s",	"t",	"u",	"v",	"w",	"x"
 //preparamos las lista de alumnmos
 $ndia1=0;$ndia2=0;$ndia3=0;$ndia4=0;$ndia5=0;$ndia6=0;$ndia7=0;$ndia8=0;$ndia9=0;$ndia10=0;
 $ndia11=0;$ndia12=0;$ndia13=0;$ndia14=0;$ndia15=0;$ndia16=0;
-$miasistencia=new DocenteController(); 
-$misalumnos=$miasistencia->vercursosalumnos($gcodcurso,semestreactual());
+//$miasistencia=new DocenteController(); 
+//$misalumnos=$miasistencia->vercursosalumnos($gcodcurso,$semestreactual);
+$misalumnos=vercursosalumnos($gcodcurso,$semestreactual);
 
-$curso=$miasistencia->fechacursoasistencia($gcodcurso,semestreactual());
+//$curso=$miasistencia->fechacursoasistencia($gcodcurso,s$semestreactual);
+$curso=fechacursoasistencia($gcodcurso,$semestreactual);
 $contseman=0;
 $apag=0;
 /*
@@ -334,13 +493,18 @@ foreach ($curso as $cur) {
 }
 
 
+
+
+
 $nn=0;
 $nro=16;
     foreach ($misalumnos as $alumno) {
       $nro++;
       $nn++;
+     // if($nn<3)
+      {
       $cod=$alumno->alu_vcCodigo;
-      $xcod=$alumno->alu_iCodigo;
+      $xcodalu=$alumno->alu_iCodigo;
       $estudiante=$alumno->alumno;
       $email=$alumno->alu_vcEmail;
  /*    echo "<tr style='color:black'>
@@ -363,8 +527,16 @@ $nro=16;
           $buscfecha= $worksheet->getCell($xlfecha)->getValue();
          // echo "<br>*".$buscfecha;
           
-          $xestado=verestadoasis(semestreactual(),$gcodcurso,$buscfecha, $xcod);
+         //xxxx $xestado=verestadoasis(semestreactual(),$gcodcurso,$buscfecha, $xcod);
+         $xestado="";
+   // $xestado=buscarasistenciafecha($semestreactual,$gcodcurso,$buscfecha,$xcodalu);
          // echo "<br>*".$xestado;
+         //prueb
+      if(isset($miasis["$xcodalu"]["$buscfecha"]))
+        { $xestado= $miasis["$xcodalu"]["$buscfecha"] ;
+
+    } 
+   
           if(strlen($xestado)>0)
          $xestado=left($xestado,1);
 
@@ -385,8 +557,8 @@ $nro=16;
         if($nn==50)
         $nro=118;
 
-        
-        
+        }
+      
     }
 //$worksheet->getCell('E17')->setValue('fer');
 //$worksheet->getCell('E18')->setValue('carlos');
@@ -396,10 +568,14 @@ $nro=16;
 $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
 $writer->save('rptplatillasxls/Plantilla _de_asistencia25.xls');
 //readfile('rptplatillasxls/Plantilla _de_asistencia25.xls');
+
+
 echo "<script>
   //  window.open('../rptplatillasxls/Plantilla _de_asistencia25.xls').focus();
-    location.href='../rptplatillasxls/Plantilla _de_asistencia25.xls' 
+    //location.href='../rptplatillasxls/Plantilla _de_asistencia25.xls' 
+    location.href='rptplatillasxls/Plantilla _de_asistencia25.xls' 
 </script>";
+
 
 
 @endphp

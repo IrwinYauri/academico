@@ -147,7 +147,7 @@ color: white;
 
             <!-- Heading -->
             <div class="sidebar-heading">
-               Carga Horaria
+               CARGA HORARIA
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->

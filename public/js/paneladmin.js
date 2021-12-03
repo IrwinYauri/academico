@@ -12,6 +12,33 @@ function ini()
 }
   
  
+function cerrarSemestre(sem) //activo
+{     
+    $("#cargando").show();
+    
+    $.ajax(
+    {
+		url:"admin/cerrarSemestre/"+sem,		
+		type:"GET",   
+		success:function(result)
+		{			
+			if(result==1)
+			{
+				$("#cargando").hide();	
+			}
+		},
+		error:function() 
+		{
+        	alert("Error");
+			$("#cargando").hide();
+    	},
+		complete: function () 
+		{
+			$("#cargando").hide();
+		}
+	});
+	
+}
 
 function listadocente() //activo
 { 
@@ -372,7 +399,7 @@ function activarsemestre(semestre) //activo
 }
 
 function modificarfechasemetre() //activo
- {   
+{   
  	var  nrosemestre =$("#nrosemestre").val();
 	var  sem_iMatriculaInicio =$("#sem_iMatriculaInicio").val();
 	var sem_iMatriculaFinal =$("#sem_iMatriculaFinal").val();

@@ -64,7 +64,7 @@ if($t>0)
 @endphp
 <style>
   .table-condensed{
-font-size: 10px;
+font-size: 12px;
 color: black;
 }
 
@@ -83,7 +83,7 @@ color: black;
     </div>
   
       <div class="card-body">
-      <table class='table table-striped table-hover table-responsive-md text-dark-800 table-condensed' width='80%'>
+      <table class='table table-striped  table-responsive-md text-dark-800 table-condensed' width='80%'>
       <thead>
         <tr style='background-color:navy;color:white;'>
           <td>NRO</td><td>Curso</td><td>Escuela</td><td>Semestre</td>
@@ -127,7 +127,7 @@ color: black;
             <input id="codcurso" name="codcurso" type="hidden" value="{{$listacur['cur_iCodigo']}}" >
             <input id="semestre" name="semestre" type="hidden" value="{{$listacur['sem_iCodigo']}}" >
             
-            <input type="submit"  value="SUBIR" class="btn btn-primary btn-sm table-condensed">
+            <input type="submit"  value="SUBIR" class="btn btn-primary btn-sm ">
           </form>                                
                                           
           </td>
@@ -136,9 +136,14 @@ color: black;
             //  dd($doc);
 
               if($resta=="COMPLETADO")
-                  $completado++;
+               {   $completado++;
+                $resta="<span class='badge badge-pill badge-success' style='font-size: 14px;'>COMPLETADO</span>";
+                }
               if($resta=="PENDIENTE")
-                 $pendiente++;
+                {  $pendiente++;
+                  $resta="<span class='badge badge-pill badge-danger' style='font-size: 14px;'>PENDIENTE</span>";
+                }
+
               echo $resta;
           @endphp
            </td>

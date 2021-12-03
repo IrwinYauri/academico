@@ -185,10 +185,10 @@ function fotodocente($dni,$t=1,$forma="no")
         $dise="";
         if($forma=="si")
         $dise='class="img-profile rounded-circle"';
-        $bloq=asset('storage/fotosdocen/')."/1_".$dni.'.jpg';
+        $bloq=asset('storage/fotos/')."/1_".$dni.'.jpg';
         echo "<img src='$bloq' alt='foto' width=90 $dise>";
           } else {
-            echo  '<i class="fas fa-user-tie fa-'.$t.'x"></i>';
+            echo  '<i class="fas fa-user fa-'.$t.'x"></i>';
           }
    
      }

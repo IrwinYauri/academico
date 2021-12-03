@@ -24,8 +24,14 @@
  <link href="{{ asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
  <link href="{{ asset('css/seleccion.css')}}" rel="stylesheet" type="text/css">
 </head>
+<style>
+    .fondoc
+    {
+        background-color: #2f4f4f;
+    }
+</style>
 
-<body class="bg-gradient-success">
+<body class=" fondoc" >
 
     <div class="container">
 

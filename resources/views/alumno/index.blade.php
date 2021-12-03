@@ -198,10 +198,10 @@ $color = ['bg-success', 'bg-info', 'bg-warning', 'bg-danger', 'bg-primary', 'bg-
                             data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
                                 <h4 class="collapse-header">Imprimir Constancias</h4>
-                                <a class="collapse-item" href="#" id="bcrearmatricula">Matricula Online</a>
-                                <a class="collapse-item" href="#" id="bmatriculaconstancia">Constancia de Matricula</a>
-                                <a class="collapse-item" href="#" id="bverhorario1">Ver Horario</a>
-                                <a class="collapse-item" href="#" id="bsilabus">Silabus</a>
+                                <a class="collapse-item" href="#" id="bcrearmatricula" onclick="crearmatricula()">Matricula Online</a>
+                                <a class="collapse-item" href="#" id="bmatriculaconstancia" onclick="vermatriculaconstancia()">Constancia de Matricula</a>
+                                <a class="collapse-item" href="#" id="bverhorario1" onclick="mostrarhorario()">Ver Horario</a>
+                                <a class="collapse-item" href="#" id="bsilabus" onclick="versilabus()">Silabus</a>
                             </div>
                         </div>
                     </li>
@@ -217,11 +217,11 @@ $color = ['bg-success', 'bg-info', 'bg-warning', 'bg-danger', 'bg-primary', 'bg-
                             data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
                                 <h6 class="collapse-header">Ver Informe de:</h6>
-                                <a class="collapse-item" href="#" id="bvernotas">Ver Notas</a>
-                                <a class="collapse-item" href="#" id="bboletanotas">Boleta de Notas</a>
-                                <a class="collapse-item" href="#" id="bverasistencia">Asistencia</a>
-                                <a class="collapse-item" href="#" id="brecordacademico">Record Academico</a>
-                                <a class="collapse-item" href="#" id="bpromedioponderado">Promedio Ponderado</a>
+                                <a class="collapse-item" href="#" id="bvernotas" onclick="vernotas()">Ver Notas</a>
+                                <a class="collapse-item" href="#" id="bboletanotas" onclick="verboletanotas()">Boleta de Notas</a>
+                                <a class="collapse-item" href="#" id="bverasistencia" onclick="verasistencia()">Asistencia</a>
+                                <a class="collapse-item" href="#" id="brecordacademico" onclick="verrecordacademico()">Record Academico</a>
+                                <a class="collapse-item" href="#" id="bpromedioponderado" onclick="verpromedioponderado()">Promedio Ponderado</a>
                             </div>
                         </div>
                     </li>
@@ -245,9 +245,9 @@ $color = ['bg-success', 'bg-info', 'bg-warning', 'bg-danger', 'bg-primary', 'bg-
                             data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
                                 <h6 class="collapse-header">Configurar:</h6>
-                                <a class="collapse-item" href="#" id="bsubirfoto">Subir Foto</a>
-                                <a class="collapse-item" href="#" id="bdatospersonales">Datos Personales</a>
-                                <a class="collapse-item" href="#" id="bpassword">Cambiar Contraseña</a>
+                                <a class="collapse-item" href="#" id="bsubirfoto" onclick="subirfoto()">Subir Foto</a>
+                                <a class="collapse-item" href="#" id="bdatospersonales" onclick="datospersonales()">Datos Personales</a>
+                                <a class="collapse-item" href="#" id="bpassword" onclick="cambiarpassword()">Cambiar Contraseña</a>
                                 <div class="collapse-divider"></div>
 
                             </div>
@@ -256,7 +256,7 @@ $color = ['bg-success', 'bg-info', 'bg-warning', 'bg-danger', 'bg-primary', 'bg-
 
                     <!-- Nav Item - Charts -->
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="bcrearencuesta">
+                        <a class="nav-link" href="#" id="bcrearencuesta" onclick="crearencuesta()">
                             <i class="fas fa-fw fa-chart-area"></i>
                             <span>ENCUESTA</span></a>
                     </li>
@@ -896,3 +896,19 @@ $color = ['bg-success', 'bg-info', 'bg-warning', 'bg-danger', 'bg-primary', 'bg-
 </body>
 
 </html>
+<?php
+if(isset($_REQUEST["menu"]))
+  {   if($_REQUEST["menu"]=="ALUMNO")
+        {echo "<script>
+                subirfoto();
+            </script>";
+         }
+           
+ if($_REQUEST["menu"]=="PLANACTIVIDAD")
+     {echo "<script>
+        mostrarplanactividad();
+      </script>";
+    //  echo $_REQUEST["menu"];
+      }
+   }
+?>

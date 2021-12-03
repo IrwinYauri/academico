@@ -16,6 +16,7 @@ curso.cur_vcNombre,
 curso.cur_fCredito,
 seccion.sem_iCodigo,
 curso.cur_iSemestre,
+docente.doc_iCodigo,
 docente.doc_vcPaterno,
 docente.doc_vcMaterno,
 docente.doc_vcNombre
@@ -29,6 +30,46 @@ WHERE matricula.alu_iCodigo='$codalu' AND
 seccion.sem_iCodigo='$semestre'";
     $data1 = DB::select($sql);
     return $data1;
+}
+function buscarcodmatriculacurso($semestre,$codalumno,$codcurso)
+{$sql="SELECT
+
+matriculadetalle.matdet_iCodigo
+FROM
+alumno
+INNER JOIN matricula ON matricula.alu_iCodigo = alumno.alu_iCodigo
+INNER JOIN matriculadetalle ON matriculadetalle.mat_iCodigo = matricula.mat_iCodigo
+INNER JOIN seccion ON matriculadetalle.sec_iCodigo = seccion.sec_iCodigo
+where alumno.alu_iCodigo='$codalumno' and matricula.sem_iCodigo='$semestre'
+and seccion.cur_iCodigo='$codcurso'
+";
+$data1=DB::select($sql);
+    if( isset($data1[0]->matdet_iCodigo))
+    return $data1[0]->matdet_iCodigo;
+    else {
+        return 0;
+    }
+
+}
+function estadoencuesta($codmatricurso)
+{$sql="SELECT
+encuesta_horario.enchor_cActivo
+FROM
+encuesta_horario where
+encuesta_horario.matdet_iCodigo='$codmatricurso'";
+
+$data1=DB::select($sql);
+
+$estado="Pendiente";
+    if( isset($data1[0]->enchor_cActivo))
+    {   if($data1[0]->enchor_cActivo=='S')
+        $estado="Sin terminar";
+        if($data1[0]->enchor_cActivo=='N')
+        $estado="Completado";
+    }
+    
+    return $estado;
+   
 }
 $cursos = sqlvercursosalu($semestreactual, $codalumno);
 @endphp
@@ -63,6 +104,19 @@ $cursos = sqlvercursosalu($semestreactual, $codalumno);
             @endphp
             @foreach ($cursos as $data)
                 <tr>
+                    <?php
+                    $matcurso=buscarcodmatriculacurso($semestreactual,$codalumno,$data->cur_iCodigo);
+                    $estadoencu=estadoencuesta($matcurso);
+                     if($estadoencu=='Pendiente')
+                    $estado="<span class='badge badge-pill badge-danger' style='font-size: 16px;'>Pendiente</span>";
+
+                    if($estadoencu=='Sin terminar')
+                    $estado="<span class='badge badge-pill badge-info' style='font-size: 16px;'>Sin terminar</span>";
+
+                    if($estadoencu=="Completado")
+                    $estado="<span class='badge badge-pill badge-success' style='font-size: 16px;'>Completado</span>";
+                    ?>
+
                     <td>{{ $nn++ }}</td>
                     <td>{{ $data->cur_vcCodigo }}</td>
                     <td>{{ $data->cur_vcNombre }}</td>
@@ -70,12 +124,16 @@ $cursos = sqlvercursosalu($semestreactual, $codalumno);
                     <td>{{ $data->cur_fCredito }}</td>
                     <td rowspan="2">
                         <a type="button" class="btn btn-primary" href="#"
-                        onclick="preguntas()">ENCUESTAR</a>
+                        onclick="preguntas('{{  $data->cur_iCodigo }}','{{ $data->cur_vcNombre }}','{{ $data->cur_vcCodigo }}','{{$matcurso}}','{{$estadoencu}}','{{$data->doc_iCodigo}}')">ENCUESTAR</a>
                     </td>
+                   
                     <td rowspan="2">
-                     <span class="badge badge-pill badge-warning" style="font-size: 13px;">  
-                     Pendiente
-                     </span>
+                     
+                    
+                     <?php
+                    echo  $estado;
+                     ?>
+                
                   </td>
 
                 </tr>
@@ -92,31 +150,40 @@ $cursos = sqlvercursosalu($semestreactual, $codalumno);
 </div>
 
 <script>
-    function preguntas() {
+    function preguntas(codcurso,curso,codcursobas,codmatricurso,estado,coddocente) {
       /*  $("#micontenido").html(
             "<img src='img/carga01.gif'>"
         ); */
        // dire="docente/crearnotascurso?xcod="+coddocente+"&sem="+sem+"&codcurso="+codcurso+"&escuela="+escuela+"&curso="+curso
        // alert(dire)
        // $("#micontenido").load(dire);
-       $("#micontenido").html(
-       "<img src='img/carga01.gif'>"
-     );
+            if(estado=="Pendiente")
+                {   $("#micontenido").html(
+                    "<img src='img/carga01.gif'>"
+                                );
 
-        $.ajax({
-           url: "alumno/encuestalista",
-        
-            success: function(result) {
-             //   alert(result)
-                // $("#modaleditar").modal('show');
-                 $("#micontenido").html(result);
+                        $.ajax({
+                        url: "alumno/encuestalista",
+                        
+                            success: function(result) {
+                            //   alert(result)
+                                // $("#modaleditar").modal('show');
+                                $("#micontenido").html(result);
 
-            },
-            data: {
-            
-            },
-            type: "GET"
-        });
-
+                            },
+                            data: {
+                                codcurso:codcurso,
+                                curso:curso,
+                                codcursobas:codcursobas,
+                                codmatricurso:codmatricurso,
+                                coddocente:coddocente,
+                                semestre:'{{$semestreactual}}',
+                                codalumno:'{{$codalumno}}'
+                            },
+                            type: "GET"
+                        });
+                }else
+                {//alert(estado)
+                    alert('ENCUESTA DEL CURSO COMPLETADO')}
     }
 </script>

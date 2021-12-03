@@ -147,7 +147,7 @@ color: white;
 
             <!-- Heading -->
             <div class="sidebar-heading">
-               Carga Horaria
+               CARGA HORARIA
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -160,19 +160,19 @@ color: white;
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header text-primary" >Operaciones:</h6>
-                        <a class="collapse-item" href="#" id="blistalumnomatriculado">
+                        <a class="collapse-item" href="#" id="blistalumnomatriculado" onclick="mostrarmatriculados()">
                             <i class="fas fa-user-graduate"></i>Alumnos matriculados</a>
-                        <a class="collapse-item" href="#" id="bhorario1">
+                        <a class="collapse-item" href="#" id="bhorario1" onclick="mostrarhorario()">
                             <i class="fas fa-table"></i>Carga Academica<br>Docente</a>
-                        <a class="collapse-item" href="#" id="basistencia1"> 
+                        <a class="collapse-item" href="#" id="basistencia1" onclick="mostrarasistenciaactual()"> 
                             <i class="fas fa-pen-square"></i> Controlar Asistencia<br> en Aula</a>
-                        <a class="collapse-item" href="#" id="basistencia2">
+                        <a class="collapse-item" href="#" id="basistencia2" onclick="mostrarasistenciacompletar()">
                             <i class="fas fa-file-alt"></i>Completar Asistencia</a>
-                        <a class="collapse-item" href="#" id="bsilabus1">
+                        <a class="collapse-item" href="#" id="bsilabus1" onclick="mostrarsilabus()">
                             <i class="fas fa-upload"></i>Subir Sílabo</a>
-                        <a class="collapse-item" href="#" id="bsilabus2">
+                        <a class="collapse-item" href="#" id="bsilabus2" onclick="mostrarsilabusconfigurar()">
                             <i class="fas fa-cog"></i>Configura  Criterios <br> de evaluaciones</a>
-                        <a class="collapse-item" href="#" id="bplanactividad">
+                        <a class="collapse-item" href="#" id="bplanactividad" onclick="mostrarplanactividad()">
                             <i class="fas fa-history"></i> Plan de Actividad<br>lectivas y no lectivas</a>
                     </div>
                 </div>
@@ -190,22 +190,22 @@ color: white;
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Ver Informe de:</h6>
                        
-                        <a class="collapse-item" href="#" id="breporteasistencia1">
+                        <a class="collapse-item" href="#" id="breporteasistencia1" onclick="reporteasistencia()">
                             <i class="fas fa-print"></i> Reporte de Asistencia</a>
 
-                        <a class="collapse-item" href="#" id="breportenotas">
+                        <a class="collapse-item" href="#" id="breportenotas" onclick="reportenotas()">
                             <i class="fas fa-print"></i>   Reporte de Registro<br> de Notas</a>
 
                        
 
-                            <a class="collapse-item" href="#" id="bcrearnotas">
+                            <a class="collapse-item" href="#" id="bcrearnotas" onclick="crearnotas()">
                                 <i class="fas fa-pencil-alt"></i> REGISTRO de Notas<br> por Unidad</a>
-                        <a class="collapse-item" href="#" id="bnotassustitorio">
+                        <a class="collapse-item" href="#" id="bnotassustitorio" onclick="notassustitorio()">
                             <i class="fas fa-pencil-alt"></i> Notas Sustitorio</a>
-                        <a class="collapse-item" href="#" id="bnotasaplazados">
+                        <a class="collapse-item" href="#" id="bnotasaplazados" onclick="notasaplazados()">
                             <i class="fas fa-pencil-alt"></i> Notas Aplazados</a>
                         
-                            <a class="collapse-item" href="#" id="breporterecordacademico">
+                            <a class="collapse-item" href="#" id="breporterecordacademico" onclick="reporterecordacademico()">
                                 <i class="fas fa-briefcase"></i> Record Academico</a>
                     </div>
                 </div>
@@ -231,13 +231,13 @@ color: white;
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Configurar:</h6>
-                        <a class="collapse-item" href="#" id="bsubirfoto">
+                        <a class="collapse-item" href="#" id="bsubirfoto" onclick="subirfoto()">
                             <i class="fas fa-portrait"></i>Subir Foto</a>
-                        <a class="collapse-item" href="#" id="bdatospersonal">
+                        <a class="collapse-item" href="#" id="bdatospersonal" onclick="datospersonales()">
                             <i class="fas fa-file-alt"></i>Datos Personales</a>
-                        <a class="collapse-item" href="#" id="bsubirhojadevida">
+                        <a class="collapse-item" href="#" id="bsubirhojadevida" onclick="subirhojadevida()">
                             <i class="fas fa-list-alt"></i>Hoja de Vida</a>
-                        <a class="collapse-item" href="#" id="bverpassword">
+                        <a class="collapse-item" href="#" id="bverpassword" onclick="verpassword()">
                             <i class="fas fa-keyboard"></i>Cambiar Contraseña</a>
                         <div class="collapse-divider"></div>
                      <!--   <h6 class="collapse-header">Other Pages:</h6>
@@ -249,7 +249,7 @@ color: white;
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="#" id="brespuestaencuesta">
+                <a class="nav-link" href="#" id="brespuestaencuesta" onclick="respuestaencuesta()">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>ENCUESTA</span></a>
             </li>
@@ -770,7 +770,7 @@ color: white;
 
             </div>
             <!-- End of Main Content -->
-            <div class="row">
+          <!--  <div class="row">  -->
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
@@ -778,7 +778,7 @@ color: white;
                         </div>
                     </div>
                 </footer>
-            </div>
+           <!--  </div> -->
            
         </div>
         <!-- End of Content Wrapper -->
@@ -827,6 +827,7 @@ color: white;
                                     </div>
                                 </div>  fin grafico ok //-->
  <!-- Bootstrap core JavaScript-->
+ 
 <script src="{{ asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
@@ -840,8 +841,8 @@ color: white;
     <script src="{{ asset('vendor/chart.js/Chart.min.js')}}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{ asset('js/demo/chart-area-demo.js')}}"></script>
-    <script src="{{ asset('js/demo/chart-pie-demo.js')}}"></script>
+    <script src="{{ asset('js/paneldocente.js')}}"></script>
+
    
 <script>
 $('.miizquierda').css('background-color','#02075d'); 
@@ -904,7 +905,7 @@ function macarSalida(hora)
 }
 
 </script>
-<script src="{{ asset('js/paneldocente.js')}}"></script>
+
 
 <script>
   function jsnotascolor(id)

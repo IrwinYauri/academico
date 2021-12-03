@@ -482,7 +482,7 @@ public function  verrecord($codprofe)
                 $menu="DOCENTE";
           return redirect()->route('docente.index', ['menu' => $menu]);
            //   return view('docente.index',['menu' => $menu]);
-           }
+      }
           public function verdatosdocente($coddoc)
            {$r=0;
                $sql="SELECT 

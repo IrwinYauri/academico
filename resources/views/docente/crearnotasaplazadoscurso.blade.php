@@ -419,7 +419,7 @@ $vernotas = sqlvercursosalumnos($codcurso, $sem, $coddocentex);
 @endphp
 <style>
   .fondocol {
-      background-color: navy;
+      background-color: #551114;
       color: white;
 
   }
@@ -443,7 +443,7 @@ $vernotas = sqlvercursosalumnos($codcurso, $sem, $coddocentex);
                 </td>
                 <td rowspan="3">
 
-                  <button class="btn btn-primary w-100" type="button" 
+                  <button class="btn btn-primary w-100" type="button" style=" background-color: #551114"
                          onclick="vercursoreg()">VER LISTA DE CURSOS </button><br>
                  
 
@@ -599,7 +599,7 @@ $vernotas = sqlvercursosalumnos($codcurso, $sem, $coddocentex);
                                 echo " <td  $prover05> PU$x</td>";
                             }
                         }
-                        echo ' <th> PF</th><th> SUST</th>';
+                        echo ' <th> PF</th><th> SUST</th><th>APLAZ</th>';
                         echo "    </tr>
                                 </thead>";
                         
@@ -1124,11 +1124,18 @@ $vernotas = sqlvercursosalumnos($codcurso, $sem, $coddocentex);
                              $mibloqueo="disabled style='background-color:#cdcdcd;'";
                             if($tpro>=8 && $tpro<=10.5)
                             $mibloqueo="";
-                            ///
-                            echo "<td><input type='text' size=2 $mibloqueo  
+                            /// sustitutoria
+                            echo "<td><input type='text' size=2 disabled style='background-color:#cdcdcd;' 
                             value='".$nota->sust."'
                             onkeyup='jsnotascolor(this);
                             grabarnotassusti(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.");'>
+                            </td>";
+                            ///
+                             /// Aplazado
+                             echo "<td><input type='text' size=2 $mibloqueo  
+                            value='".$nota->aplaz."'
+                            onkeyup='jsnotascolor(this);
+                            grabarnotasaplaz(this,".$nota->cur_iCodigo.",".$nota->alu_iCodigo.");'>
                             </td>";
                             ///
                             echo ' </tr>';
@@ -1154,7 +1161,7 @@ $vernotas = sqlvercursosalumnos($codcurso, $sem, $coddocentex);
         $("#micontenido").html(
             "<img src='img/carga01.gif'>"
         );
-        $("#micontenido").load('docente/crearnotassustitutoria');
+        $("#micontenido").load('docente/crearnotasaplazados');
 
     }
     function grabarnotassusti(idnota,idcurso,idalumno)
@@ -1164,6 +1171,22 @@ $vernotas = sqlvercursosalumnos($codcurso, $sem, $coddocentex);
         alertagrabarx(men,"#301934");
      //editarnotasjs(semestre,codcurso,codalumno,nota)
      editarnotasutisjs({{semestreactual()}},idcurso,idalumno,idnota.value);
+  }
+      else
+      {men="LA NOTA PUEDER MAYOR DE 12";
+      alertagrabarx(men,"red",4000);
+      id.value="";
+      }
+
+  }
+
+  function grabarnotasaplaz(idnota,idcurso,idalumno)
+  {//alert(id.value);
+      if(idnota.value>=0 && idnota.value<=12)
+      {men="GRABANDO:"+idnota.value.toString()+"";
+        alertagrabarx(men,"#301934");
+     //editarnotasjs(semestre,codcurso,codalumno,nota)
+     editarnotaaplazajs({{semestreactual()}},idcurso,idalumno,idnota.value);
   }
       else
       {men="LA NOTA PUEDER MAYOR DE 12";

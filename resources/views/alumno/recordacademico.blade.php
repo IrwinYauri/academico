@@ -62,8 +62,52 @@ nota_actadetalle.alu_iCodigo='$codalumno'";
     return $data;
 }
 
+function calcularponderado($semestre,$codalumno,$escuela,$ciclo)
+{$sql="SELECT 
+sum(r.prom * c.cur_fCredito)/sum(c.cur_fCredito) as promedio 
+FROM 
+registroeval as r 
+inner join matriculadetalle as md on r.matdet_iCodigo=md.matdet_iCodigo 
+inner join matricula as m on md.mat_iCodigo=m.mat_iCodigo 
+inner join alumno as a on m.alu_iCodigo=a.alu_iCodigo 
+inner join escuelaplan as ep on a.escpla_iCodigo=ep.escpla_iCodigo 
+inner join escuela as e on ep.esc_vcCodigo=e.esc_vcCodigo 
+inner join seccion as s on md.sec_iCodigo = s.sec_iCodigo 
+inner join curso as c on s.cur_iCodigo=c.cur_iCodigo 
+where e.esc_vcCodigo='$escuela' and m.sem_iCodigo='$semestre' 
+and quesemestreesta(a.alu_vcCodigo,m.sem_iCodigo) in('$ciclo') 
+and a.alu_iCodigo = '$codalumno' and c.cur_iCodigo NOT IN(131,189)";
+$data=DB::select($sql);
+return $data[0]->promedio;
+}
+function miescuela($codalumno)
+{$sql="SELECT
+escuela.esc_vcCodigo
+FROM
+alumno
+INNER JOIN escuelaplan ON alumno.escpla_iCodigo = escuelaplan.escpla_iCodigo
+INNER JOIN escuela ON escuelaplan.esc_vcCodigo = escuela.esc_vcCodigo
+where alumno.alu_iCodigo='$codalumno'";
+$data=DB::select($sql);
+if(isset($data[0]->esc_vcCodigo))
+return $data[0]->esc_vcCodigo;
+else {
+    return "";
+}
+}
+function queciclo($codalumno,$semestre)
+{$sql="select quesemestreesta('$codalumno','$semestre') as ciclo";
+ $data=DB::select($sql);
+ return $data[0]->ciclo;
+}
+
 $actas = consultaractas($codalumno);
 $actasemestre = semestreagrupado($codalumno);
+$escuela=miescuela($codalumno);
+
+//$miciclo=queciclo($codalumno,$semestre);
+
+//$miprome=calcularponderado($semestre,$codalumno,$escuela,$miciclo);
 //  dd($actasemestre);
 @endphp
 

@@ -389,7 +389,8 @@
                         <button class="btn btn-primary btn-block disabled">Iniciar Semestre</button>
                       </div>              
                     @else
-                      <div class="form-group">                        
+                      <div class="form-group">    
+                        <button type="button" class="btn btn-primary" id="openModSem" data-toggle="modal" data-target="#nueSemestre" style="display: none;"></button>
                         <button class="btn btn-primary btn-block" onclick="openVerificNotsSetDateSem();">Cerrar Semestre - {{$semestre_act->sem_nombre}}</button>
                       </div>  
                     @endif
@@ -563,26 +564,28 @@
             <!-- Modal footer -->
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" onclick="cerrarAbrirN();">Cerrar y Abrir Nuevo</button>
-              <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
+              <button type="button" class="btn btn-secondary" id="ocultarModSem" data-dismiss="modal" style="display:none;">Close</button>
             </div>
             
           </div>
         </div>
       </div>
-      
+
       <script type="text/javascript">
         
         function openVerificNotsSetDateSem()
         {          
           //Evaluar Notas, para ver si hay alguna observación
-          //abrir modulo de datos del nuevo semestre          
-          $('#nueSemestre').modal('show');
+               
+          $('#openModSem').click();//abrir modulo de datos del nuevo semestre     
         }
 
         function cerrarAbrirN()
         {          
-          cerrarSemestre('{{$semestre_act->sem_iCodigo}}');
-          //Cerrar modulo de datos del nuevo semestre
+          cerrarSemestre('{{$semestre_act->sem_iCodigo}}');          
+          modificarfechasemetre();
+          
+          $("#ocultarModSem").click();//Cerrar modulo de datos del nuevo semestre
         }
 
       </script>

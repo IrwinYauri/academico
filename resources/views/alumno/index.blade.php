@@ -818,7 +818,29 @@ $color = ['bg-success', 'bg-info', 'bg-warning', 'bg-danger', 'bg-primary', 'bg-
 
     <!-- Page level custom scripts -->
 
+    <script>
+      function jsnotascolor(id)
+      {
+        if(id.value*1>=10.5)
+        id.style.color ="blue";
+        else
+        id.style.color ="red";
+        }
+      </script>
 
+    <script>
+      
+      function alertagrabarx(t,ncolor="Navy",tiem=2000) {
+          var x = document.getElementById("mimensajex");
+          x.innerHTML=t;
+         x.style.backgroundColor=ncolor;
+        
+         x.style.zIndex =2000;
+          x.className = "show";
+          setTimeout(function(){ x.className = x.className.replace("show", ""); }, tiem);
+          }///mstar
+
+      </script>
 
     <script>
         $('.miizquierda').css('background-color', 'DarkSlateGray');

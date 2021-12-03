@@ -74,25 +74,22 @@ function verdiaactualsemana()
 
 }
 function modalidadclase()
-{return "No Presencial";
-
+{
+  return "No Presencial";
 }
+
 function semestreactual()
-{$sem1="0";
+{
   //$sem=new SemestreController();
-  $rpt=Semestre::where('sem_cActivo','S')->get();
+  $rpt=Semestre::where('sem_cActivo','S')->first();
   //$rpt=$sem->semestreactivo();
- // $sem1={{$sem}};
-  foreach($rpt as $data)
-  {$sem1=$data->sem_iCodigo;
-  }
-  if($sem1=="0")
-  {echo "<script>
-  alert('NO HAY SEMESTRE ACTIVO TIENE QUE CONFIGURARLO')
-  </script>";
-  }
-  
-  return $sem1;
+  //$sem1={{$sem}};
+  /*foreach($rpt as $data)
+  {
+    $sem1=$data->sem_iCodigo;
+  }*/
+
+  return $rpt;
 }
 
 function nroromano($nro)

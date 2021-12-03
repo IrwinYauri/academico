@@ -48,6 +48,8 @@ Route::get('encuesta/registrarpreguntaencuesta',[AdminController::class,'registr
 Route::get('encuesta/eliminarencuestapreguntas',[AdminController::class,'eliminarencuestapreguntas'])->name('admin.eliminarencuestapreguntas');
 Route::get('encuesta/activarencuesta',[AdminController::class,'activarencuesta'])->name('admin.activarencuesta');
 
+Route::get('admin/cerrarSemestre/{sem}',[AdminController::class,'cerrarSemestre'])->name('admin.cerrarSemestre');
+
 //Route::post('docente/login',[DocenteController::class,'login'])->name('docente.login');
 Route::resource('actas',ActasController::class);
 Route::get('actasxls/registro',[ActasController::class,'notasxls'])->name('actas.notasxls');

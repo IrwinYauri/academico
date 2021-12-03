@@ -502,14 +502,13 @@ class AdminController extends Controller
       //  return back();
     }
 
-  public function cerrarSemestre($sem,$semestre,$sem_iMatriculaInicio,$sem_iMatriculaFinal,$sem_dEncuestaInicio,$sem_dEncuestaFinal,$sem_dInicioClases,$sem_iSemanas,$sem_dActaInicio,$sem_dActaFinal,$sem_iToleranciaInicio,$sem_iToleranciaFinal,$fech_ent1_ini,$fech_ent1_fin,$fech_ent2_ini,$fech_ent2_fin,$fech_ent3_ini,$fech_ent3_fin,$fech_ent4_ini,$fech_ent4_fin,$fech_ent5_ini,$fech_ent5_fin,$sem_dAplazadoInicio,$sem_dAplazadoFinal,$fecMatReg_ini,$fecMatReg_fin,$fecMatExt_ini,$fecMatExt_fin,$sem_dSustiInicio,$sem_dSustiFinal)
+  public function cerrarSemestre(Request $request,$sem)
   {
 
-    DB::select('call cerrarActas('.$sem.')');
+    //DB::select('call cerrarActas('.$sem.')');
 
     //registrar nuevo semestre
-    //INSERT INTO `semestre` (`sem_iCodigo`, `sem_nombre`, `sem_cActivo`, `sem_iNumeroActa`, `sem_iNumeroAlumno`, `sem_iMatriculaInicio`, `sem_iMatriculaFinal`, `sem_dEncuestaInicio`, `sem_dEncuestaFinal`, `sem_iHoraPedagogica`, `sem_dInicioClases`, `sem_iSemanas`, `sem_dActaInicio`, `sem_dActaFinal`, `sem_iUnidad`, `sem_iToleranciaInicio`, `sem_iToleranciaFinal`, `fech_ent1_ini`, `fech_ent1_fin`, `fech_ent2_ini`, `fech_ent2_fin`, `fech_ent3_ini`, `fech_ent3_fin`, `fech_ent4_ini`, `fech_ent4_fin`, `sem_dAplazadoInicio`, `sem_dAplazadoFinal`, `fecMatReg_ini`, `fecMatReg_fin`, `fecMatExt_ini`, `fecMatExt_fin`) VALUES (    20212, '2021-2', 'S', 1000, 0, '2021-08-09', '2021-08-20', '2021-11-22', '2021-11-26', 45, '2021-08-30', 16, '2021-12-25', '2021-12-30', NULL, 4, 15, '2021-09-25', '2021-09-28', '2021-10-23', '2021-10-26', '2021-11-20', '2021-11-23', '2021-12-18', '2021-12-21', '2021-12-22', '2021-12-24', '2021-08-09', '2021-08-13', '2021-08-16', '2021-08-20')
-
+/*
     $cont=new Semestre;            
     $cont->sem_iCodigo=$semestre;
     $cont->sem_nombre=$nomSemestre;
@@ -536,9 +535,9 @@ class AdminController extends Controller
     $cont->fech_ent3_fin=$fech_ent3_fin;
     $cont->fech_ent4_ini=$fech_ent4_ini;
     $cont->fech_ent4_fin=$fech_ent4_fin;
-    /*
-    fALTA SEMANA 5
-    */
+    
+    //fALTA SEMANA 5
+    
     $cont->sem_dAplazadoInicio=$sem_dAplazadoInicio;
     $cont->sem_dAplazadoFinal=$sem_dAplazadoFinal;
     $cont->fecMatReg_ini=$fecMatReg_ini;
@@ -548,10 +547,10 @@ class AdminController extends Controller
 
     $cont->sem_dSustituInicio=$sem_dSustiInicio;
     $cont->sem_dSustituFin=$sem_dSustiFinal;
-    $cont->save();
+    $cont->save();*/
 
 
-    echo 1;
+    echo $request->sem_iMatriculaInicio;
 
   }
 

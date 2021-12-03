@@ -346,12 +346,12 @@
         
             <div class="row g-4">
               <div class="col-sm-3">
-                <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO REGISTRO MATRICULA</label>
+                <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO MATRICULA REGULAR</label>
                 <input type="date" class="form-control" placeholder="fecMatReg_ini" aria-label="fecMatReg_ini" id="fecMatReg_ini" style="font-size:12px;">
               </div>
         
               <div class="col-sm-3">
-                <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE REGISTRO MATRICULA</label>
+                <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE MATRICULA REGULAR</label>
                 <input type="date" class="form-control" placeholder="fecMatReg_fin" aria-label="fecMatReg_fin" id="fecMatReg_fin" style="font-size:12px;">
               </div>
               <div class="col-sm-3">
@@ -536,12 +536,12 @@
             
                 <div class="row g-4">
                   <div class="col-sm-3">
-                    <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO REGISTRO MATRICULA</label>
+                    <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO MATRICULA REGULAR</label>
                     <input type="date" class="form-control" placeholder="fecMatReg_ini" aria-label="fecMatReg_ini" id="fecMatReg_ini" style="font-size:12px;">
                   </div>
             
                   <div class="col-sm-3">
-                    <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE REGISTRO MATRICULA</label>
+                    <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE MATRICULA REGULAR</label>
                     <input type="date" class="form-control" placeholder="fecMatReg_fin" aria-label="fecMatReg_fin" id="fecMatReg_fin" style="font-size:12px;">
                   </div>
                   <div class="col-sm-3">
@@ -582,9 +582,8 @@
 
         function cerrarAbrirN()
         {          
-          cerrarSemestre('{{$semestre_act->sem_iCodigo}}');          
-          modificarfechasemetre();
-          
+          cerrarSemestre('{{$semestre_act->sem_iCodigo}}');         
+
           $("#ocultarModSem").click();//Cerrar modulo de datos del nuevo semestre
         }
 

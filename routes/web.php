@@ -15,6 +15,7 @@ use App\Http\Controllers\PlanactividadController;
 use App\Http\Controllers\HojavidaController;
 use App\Http\Controllers\CrudController;
 use App\Http\Controllers\ActasController;
+use App\Http\Controllers\PagosController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -79,10 +80,16 @@ Route::post('silabusemestre',[SilabusemestreController::class,'store'])->name('s
 Route::post('silabusemestre/{arch}', [SilabusemestreController::class,'destroy'])->name('destroy');
 
 
-Route::resource('planactividad',PlanactividadController::class);
+Route::resource('silabusemestre',SilabusemestreController::class);
+Route::post('silabusemestre',[SilabusemestreController::class,'store'])->name('store');
 
 
-Route::post('recordalumno',[ReportepdfController::class,'recordalumno'])->name('recordalumno');
+
+Route::resource('pagosmatricula',PagosController::class);
+Route::post('pagosmatriculax',[PagosController::class,'store'])->name('store');
+//Route::post('pagosmatricula/{arch}', [SilabusemestreController::class,'destroy'])->name('destroy');
+
+Route::post('pagosmatricula',[ReportepdfController::class,'recordalumno'])->name('recordalumno');
 Route::post('boletaalumno',[ReportepdfController::class,'boletaalumno'])->name('boletaalumno');
 //---Route::post('silabusemestre/{nomfile}',[SilabusemestreController::class,'destroy'])->name('destroy');
 //Route::post('docente/validardocentes',[DocenteController::class,'validardocentes'])->name('docente.validardocentes');

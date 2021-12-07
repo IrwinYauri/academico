@@ -24,8 +24,18 @@
  <link href="{{ asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
  <link href="{{ asset('css/seleccion.css')}}" rel="stylesheet" type="text/css">
 </head>
+<style>
+    .fondoc
+    {
+        background-color: #2f4f4f;
+    }
+    .bg-login-image
+    {
+        
+    }
+</style>
 
-<body class="bg-gradient-success">
+<body class=" fondoc" >
 
     <div class="container">
 
@@ -38,7 +48,8 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image" id="mibloque"></div>
+                          <!--  <div class="col-lg-6 d-none d-lg-block bg-login-image" id="mibloque"></div> -->
+                          <div class="col-lg-6 d-none d-lg-block bg-login-image" id="mibloque"></div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">

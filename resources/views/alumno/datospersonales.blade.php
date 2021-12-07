@@ -67,7 +67,7 @@ text-transform: uppercase;
 </style>
 <div class="card mb-4">
 <div class="card-header text-black" style="text-transform: uppercase;">
-    <i class="fas fa-list-alt fa-2x " style="color: black"></i> Datos del docente
+    <i class="fas fa-list-alt fa-2x " style="color: black"></i> DATOS DEL ESTUDIANTE
 </div>
 <div class="card-body">
 <div style="overflow: scroll;">                               

@@ -2,21 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-//use Laravel\Sanctum\HasApiTokens;//opcional
-
-use Illuminate\database\Eloquent\Model;
 class Semestre extends Model
 {
     protected $table = 'semestre';
     protected $primaryKey = 'sem_iCodigo';    
     public $incrementing = false;
-    public $timestamps = true;
-
+    public $timestamps = false;
+  
     protected $fillable = [         
       'sem_nombre',
       'sem_cActivo',
@@ -49,7 +43,8 @@ class Semestre extends Model
       'fecMatExt_ini',
       'fecMatExt_fin',
       'sem_dSustituInicio',
-      'sem_dSustituFin'
+      'sem_dSustituFin',
+      'inicio'
     ];
 
     /*

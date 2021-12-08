@@ -418,139 +418,139 @@
                 <div class="row g-4">
                   <div class="col-sm">
                     <label for="colFormLabelSm" class=" col-form-label  tamletra  ">INICIO DE MATRICULAS</label>
-                    <input type="date" class="form-control" placeholder="sem_iMatriculaInicio" aria-label="sem_iMatriculaInicio" id="sem_iMatriculaInicio" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="sem_iMatriculaInicio" aria-label="sem_iMatriculaInicio" id="sem_iMatriculaInicio_" style="font-size:12px;">
                   </div>
                   <div class="col-sm">
                     <label for="colFormLabelSm" class=" col-form-label  tamletra ">CIERRE DE MATRICULAS</label>
-                    <input type="date" class="form-control" placeholder="sem_iMatriculaFinal" aria-label="sem_iMatriculaFinal" id="sem_iMatriculaFinal" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="sem_iMatriculaFinal" aria-label="sem_iMatriculaFinal" id="sem_iMatriculaFinal_" style="font-size:12px;">
                   </div>
                   <div class="col-sm">
                     <label for="colFormLabelSm" class=" col-form-label  tamletra ">INICIO DE ENCUESTA</label>
-                    <input type="date" class="form-control" placeholder="sem_dEncuestaInicio" aria-label="sem_dEncuestaInicio" id="sem_dEncuestaInicio" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="sem_dEncuestaInicio" aria-label="sem_dEncuestaInicio" id="sem_dEncuestaInicio_" style="font-size:12px;">
                   </div>
             
                   <div class="col-sm">
                     <label for="colFormLabelSm" class=" col-form-label  tamletra ">CIERRE DE ENCUESTA</label>
-                    <input type="date" class="form-control" placeholder="sem_dEncuestaFinal" aria-label="sem_dEncuestaFinal" id="sem_dEncuestaFinal" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="sem_dEncuestaFinal" aria-label="sem_dEncuestaFinal" id="sem_dEncuestaFinal_" style="font-size:12px;">
                   </div>                
                 </div>
                     
                 <div class="row g-4" >
                   <div class="col-sm">
                     <label for="colFormLabelSm" class=" col-form-label  tamletra ">INICIO DE CLASES</label>
-                      <input type="date" class="form-control" placeholder="sem_dInicioClases" aria-label="sem_dInicioClases" id="sem_dInicioClases" style="font-size:12px;">
+                      <input type="date" class="form-control" placeholder="sem_dInicioClases" aria-label="sem_dInicioClases" id="sem_dInicioClases_" style="font-size:12px;">
                   </div>
                   <div class="col-sm">
                     <label for="colFormLabelSm" class=" col-form-label  tamletra ">NRO DE SEMANAS</label>
-                    <input type="text" class="form-control" placeholder="sem_iSemanas" aria-label="sem_iSemanas" id="sem_iSemanas" style="font-size:12px;">
+                    <input type="text" class="form-control" placeholder="sem_iSemanas" aria-label="sem_iSemanas" id="sem_iSemanas_" style="font-size:12px;">
                   </div>
                   <div class="col-sm">
                     <label for="colFormLabelSm" class=" col-form-label  tamletra ">INICIO DE ACTAS</label>
-                    <input type="date" class="form-control" placeholder="sem_dActaInicio" aria-label="sem_dActaInicio" id="sem_dActaInicio" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="sem_dActaInicio" aria-label="sem_dActaInicio" id="sem_dActaInicio_" style="font-size:12px;">
                   </div>
             
                   <div class="col-sm">
                     <label for="colFormLabelSm" class=" col-form-label  tamletra ">CIERRE DE ACTAS</label>
-                    <input type="date" class="form-control" placeholder="sem_dActaFinal" aria-label="sem_dActaFinal" id="sem_dActaFinal" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="sem_dActaFinal" aria-label="sem_dActaFinal" id="sem_dActaFinal_" style="font-size:12px;">
                   </div>
                 </div>
                     
                 <div class="row g-4">
                   <div class="col-sm">
                     <label for="colFormLabelSm" class=" col-form-label  tamletra ">MINUTOS ESPERA</label>
-                      <input type="text" class="form-control" placeholder="sem_iToleranciaInicio" aria-label="sem_iToleranciaInicio" id="sem_iToleranciaInicio" style="font-size:12px;">
+                      <input type="text" class="form-control" placeholder="sem_iToleranciaInicio" aria-label="sem_iToleranciaInicio" id="sem_iToleranciaInicio_" style="font-size:12px;">
                   </div>
                   <div class="col-sm">
                     <label for="colFormLabelSm" class=" col-form-label  tamletra ">MINUTOS CIERRE</label>
-                    <input type="text" class="form-control" placeholder="sem_iToleranciaFinal" aria-label="sem_iToleranciaFinal" id="sem_iToleranciaFinal" style="font-size:12px;">
+                    <input type="text" class="form-control" placeholder="sem_iToleranciaFinal" aria-label="sem_iToleranciaFinal" id="sem_iToleranciaFinal_" style="font-size:12px;">
                   </div>
                   <div class="col-sm">
                     <label for="colFormLabelSm" class=" col-form-label  tamletra ">INICIO UNIDAD I</label>
-                    <input type="date" class="form-control" placeholder="fech_ent1_ini" aria-label="fech_ent1_ini" id="fech_ent1_ini" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="fech_ent1_ini" aria-label="fech_ent1_ini" id="fech_ent1_ini_" style="font-size:12px;">
                   </div>
             
                   <div class="col-sm">
                     <label for="colFormLabelSm" class=" col-form-label  tamletra ">CIERRE UNIDAD I</label>
-                    <input type="date" class="form-control" placeholder="fech_ent1_fin" aria-label="fech_ent1_fin" id="fech_ent1_fin" style="font-size:12px;" >
+                    <input type="date" class="form-control" placeholder="fech_ent1_fin" aria-label="fech_ent1_fin" id="fech_ent1_fin_" style="font-size:12px;" >
                   </div>                  
                 </div>
 
                 <div class="row g-4 ">   
                   <div class="col-sm">
                     <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO UNIDAD II</label>
-                      <input type="date" class="form-control" placeholder="fech_ent2_ini" aria-label="fech_ent2_ini" id="fech_ent2_ini" style="font-size:12px;">
+                      <input type="date" class="form-control" placeholder="fech_ent2_ini" aria-label="fech_ent2_ini" id="fech_ent2_ini_" style="font-size:12px;">
                   </div>
                   <div class="col-sm">
                     <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE UNIDAD II</label>
-                    <input type="date" class="form-control" placeholder="fech_ent2_fin" aria-label="fech_ent2_fin" id="fech_ent2_fin" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="fech_ent2_fin" aria-label="fech_ent2_fin" id="fech_ent2_fin_" style="font-size:12px;">
                   </div>
                   <div class="col-sm">
                     <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO UNIDAD III</label>
-                    <input type="date" class="form-control" placeholder="fech_ent3_ini" aria-label="fech_ent3_ini" id="fech_ent3_ini" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="fech_ent3_ini" aria-label="fech_ent3_ini" id="fech_ent3_ini_" style="font-size:12px;">
                   </div>
                   <div class="col-sm">
                     <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE UNIDAD III</label>
-                    <input type="date" class="form-control" placeholder="fech_ent3_fin" aria-label="fech_ent3_fin" id="fech_ent3_fin" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="fech_ent3_fin" aria-label="fech_ent3_fin" id="fech_ent3_fin_" style="font-size:12px;">
                   </div>
                 </div>
             
                 <div class="row g-4">
                   <div class="col-sm">
                     <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO UNIDAD IV</label>
-                      <input type="date" class="form-control" placeholder="fech_ent4_ini" aria-label="fech_ent4_ini" id="fech_ent4_ini" style="font-size:12px;">
+                      <input type="date" class="form-control" placeholder="fech_ent4_ini" aria-label="fech_ent4_ini" id="fech_ent4_ini_" style="font-size:12px;">
                   </div>
                   <div class="col-sm">
                     <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE UNIDAD IV</label>
-                    <input type="date" class="form-control" placeholder="fech_ent2_fin" aria-label="fech_ent4_fin" id="fech_ent4_fin" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="fech_ent2_fin" aria-label="fech_ent4_fin" id="fech_ent4_fin_" style="font-size:12px;">
                   </div>
                   <div class="col-sm">
                     <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO UNIDAD V</label>
-                    <input type="date" class="form-control" placeholder="fech_ent5_ini" aria-label="fech_ent5_ini" id="fech_ent5_ini" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="fech_ent5_ini" aria-label="fech_ent5_ini" id="fech_ent5_ini_" style="font-size:12px;">
                   </div>
             
                   <div class="col-sm">
                     <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE UNIDAD V</label>
-                    <input type="date" class="form-control" placeholder="fech_ent5_fin" aria-label="fech_ent5_fin" id="fech_ent5_fin" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="fech_ent5_fin" aria-label="fech_ent5_fin" id="fech_ent5_fin_" style="font-size:12px;">
                   </div>
                 </div>
             
                 <div class="row g-4">
                   <div class="col-sm">
                     <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO APLAZADOS</label>
-                      <input type="date" class="form-control" placeholder="sem_dAplazadoInicio" aria-label="sem_dAplazadoInicio" id="sem_dAplazadoInicio" style="font-size:12px;">
+                      <input type="date" class="form-control" placeholder="sem_dAplazadoInicio" aria-label="sem_dAplazadoInicio" id="sem_dAplazadoInicio_" style="font-size:12px;">
                   </div>
                   <div class="col-sm">
                     <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE APLAZADOS</label>
-                    <input type="date" class="form-control" placeholder="sem_dAplazadoFinal" aria-label="sem_dAplazadoFinal" id="sem_dAplazadoFinal" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="sem_dAplazadoFinal" aria-label="sem_dAplazadoFinal" id="sem_dAplazadoFinal_" style="font-size:12px;">
                   </div>
                   <div class="col-sm">
                     <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO SUSTITUTORIO</label>
-                    <input type="date" class="form-control" placeholder="sem_dSustiInicio" aria-label="sem_dSustiInicio" id="sem_dSustiInicio" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="sem_dSustiInicio" aria-label="sem_dSustiInicio" id="sem_dSustiInicio_" style="font-size:12px;">
                   </div>
             
                   <div class="col-sm">
                     <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE SUSTITUTORIO</label>
-                    <input type="date" class="form-control" placeholder="sem_dSustiFinal" aria-label="sem_dSustiFinal" id="sem_dSustiFinal" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="sem_dSustiFinal" aria-label="sem_dSustiFinal" id="sem_dSustiFinal_" style="font-size:12px;">
                   </div>
                 </div>
             
                 <div class="row g-4">
                   <div class="col-sm-3">
                     <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO MATRICULA REGULAR</label>
-                    <input type="date" class="form-control" placeholder="fecMatReg_ini" aria-label="fecMatReg_ini" id="fecMatReg_ini" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="fecMatReg_ini" aria-label="fecMatReg_ini" id="fecMatReg_ini_" style="font-size:12px;">
                   </div>
             
                   <div class="col-sm-3">
                     <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE MATRICULA REGULAR</label>
-                    <input type="date" class="form-control" placeholder="fecMatReg_fin" aria-label="fecMatReg_fin" id="fecMatReg_fin" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="fecMatReg_fin" aria-label="fecMatReg_fin" id="fecMatReg_fin_" style="font-size:12px;">
                   </div>
                   <div class="col-sm-3">
                     <label for="colFormLabelSm" class="col-form-label  tamletra">INICIO  MATRICULA EXTEMPORANEA</label>
-                      <input type="date" class="form-control" placeholder="fecMatExt_ini" aria-label="fecMatExt_ini" id="fecMatExt_ini" style="font-size:12px;">
+                      <input type="date" class="form-control" placeholder="fecMatExt_ini" aria-label="fecMatExt_ini" id="fecMatExt_ini_" style="font-size:12px;">
                   </div>
                   <div class="col-sm-3">
                     <label for="colFormLabelSm" class="col-form-label  tamletra">CIERRE MATRICULA EXTEMPORANEA</label>
-                    <input type="date" class="form-control" placeholder="fecMatExt_fin" aria-label="fecMatExt_fin" id="fecMatExt_fin" style="font-size:12px;">
+                    <input type="date" class="form-control" placeholder="fecMatExt_fin" aria-label="fecMatExt_fin" id="fecMatExt_fin_" style="font-size:12px;">
                   </div>
                 </div>
                 <br>

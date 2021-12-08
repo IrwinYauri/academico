@@ -1,13 +1,13 @@
 $(document).ready(ini);
 function ini()
 { //$("#bverhorario1").click(updateasistenciadia);
-	$("#blistadocente").click(listadocente);
-	$("#blistaalumno").click(listaalumno);
-	$("#blistausuario").click(listausuario);
-	$("#blistasemestre").click(listasemestre);
-	$("#blistaaula").click(listaaula);
-	$("#bhorario").click(listahorario);
-	$("#bencuesta").click(listaencuesta);
+	$("#blistadocente").click(listadocente);//activo
+	$("#blistaalumno").click(listaalumno);//activo
+	$("#blistausuario").click(listausuario);//activo
+	$("#blistasemestre").click(listasemestre);//activo
+	$("#blistaaula").click(listaaula);//activo
+	$("#bhorario").click(listahorario);//activo
+	$("#bencuesta").click(listaencuesta);//activo
 	$("#bordenmerito").click(listaordenmerito);
 }
   
@@ -541,4 +541,80 @@ function modificarfechasemetre() //activo
 		type:"GET"   
 	});
 	
+}
+
+function verpagos()
+{ $("#cargando").show();
+	$.ajax({
+	url:"admin/pagosdepositos",
+success:function(result){
+//alert(result);
+$("#micontenido").html(result);
+$("#cargando").hide();
+ },
+data:{ },
+	type:"GET"   
+ } );
+
+}
+
+function verpagos2()
+{  $("#cargando").show();
+	$.ajax({
+	url:"admin/pagosdepositosrpt",
+success:function(result){
+//alert(result);
+$("#micontenido").html(result);
+$("#cargando").hide();
+ },
+data:{ },
+	type:"GET"   
+ } );
+
+}
+
+function verseguros()
+{  $("#cargando").show();
+	$.ajax({
+	url:"admin/seguros",
+success:function(result){
+//alert(result);
+$("#micontenido").html(result);
+$("#cargando").hide();
+ },
+data:{ },
+	type:"GET"   
+ } );
+
+}
+
+function verreservasemestre()
+{  $("#cargando").show();
+	$.ajax({
+	url:"admin/consultareserva",
+success:function(result){
+//alert(result);
+$("#micontenido").html(result);
+$("#cargando").hide();
+ },
+data:{ },
+	type:"GET"   
+ } );
+
+}
+
+
+function vermatriculados()
+{  $("#cargando").show();
+	$.ajax({
+	url:"admin/consultamatriculados",
+success:function(result){
+//alert(result);
+$("#micontenido").html(result);
+$("#cargando").hide();
+ },
+data:{ },
+	type:"GET"   
+ } );
+
 }

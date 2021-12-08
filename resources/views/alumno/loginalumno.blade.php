@@ -29,6 +29,13 @@
     {
         background-color: #2f4f4f;
     }
+<<<<<<< HEAD
+=======
+    .bg-login-image
+    {
+        
+    }
+>>>>>>> ferx
 </style>
 
 <body class=" fondoc" >
@@ -44,7 +51,8 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image" id="mibloque"></div>
+                          <!--  <div class="col-lg-6 d-none d-lg-block bg-login-image" id="mibloque"></div> -->
+                          <div class="col-lg-6 d-none d-lg-block bg-login-image" id="mibloque"></div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">

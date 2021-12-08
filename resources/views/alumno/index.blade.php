@@ -888,5 +888,16 @@ if(isset($_REQUEST["menu"]))
       </script>";
     //  echo $_REQUEST["menu"];
       }
+<<<<<<< HEAD
+=======
+   
+
+   if($_REQUEST["menu"]=="ENCUESTA")
+     {echo "<script>
+        crearencuesta();
+           </script>";
+    //  echo $_REQUEST["menu"];
+      }
+>>>>>>> ferx
    }
 ?>

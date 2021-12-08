@@ -108,7 +108,7 @@ color: white;
                             <a class="collapse-item" href="#" id="bencuesta">
                                 <i class="fa fa-tasks"></i> Configuracion <br>de Encuesta</a>
                             <a class="collapse-item" href="#" id="blistausuario">
-                                <i class="fas fa-check"></i> Crear Cuentas <br>de Sistema</a>
+                                <i class="fas fa-cog"></i> Crear Cuentas <br>de Sistema</a>
                                 
                             <a class="collapse-item" href="#" id="blistaalumno">
                                 <i class="fas fa-user"></i>Gestion Alumnos</a>
@@ -134,7 +134,7 @@ color: white;
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Operaciones:</h6>
                             <a class="collapse-item" href="#" id="basistencia1">Alumnos Matriculados</a>
-                            <a class="collapse-item" href="#" id="bsilabus1">Validar Matriculas</a>
+                            <a class="collapse-item" href="#" id="bsilabus1" >Validar Matriculas</a>
                             <a class="collapse-item" href="#" id="breportenotas">Reporte de Registro<br> de Notas</a>
                             <a class="collapse-item" href="#" id="breporterecordacademico">Configurar Horario <br>por Escuela</a>
                                     <a class="collapse-item" href="#" id="basistencia2">Auditoria de Notas</a>
@@ -153,8 +153,8 @@ color: white;
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Operaciones:</h6>
-                            <a class="collapse-item" href="#" id="basistencia1">VALIDAR PAGOS</a>
-                            <a class="collapse-item" href="#" id="bsilabus1">REPORTE DE PAGOS</a>
+                            <a class="collapse-item" href="#" id="bpagos" onclick="verpagos()">VALIDAR PAGOS</a>
+                            <a class="collapse-item" href="#" id="bpagosrpt" onclick="verpagos2()">REPORTE DE PAGOS</a>
                                                    
                         </div>
                     </div>
@@ -170,8 +170,8 @@ color: white;
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Operaciones:</h6>
-                            <a class="collapse-item" href="#" id="basistencia1">VALIDAR SEGUROS</a>
-                            <a class="collapse-item" href="#" id="bsilabus1">CONSULTAR FSECO</a>
+                            <a class="collapse-item" href="#" id="bseguros" onclick="verseguros()">VALIDAR SEGUROS</a>
+                            <a class="collapse-item" href="#" id="bseguros2">REPORTE SEGURO</a>
                                                    
                         </div>
                     </div>
@@ -187,8 +187,8 @@ color: white;
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Operaciones:</h6>
-                            <a class="collapse-item" href="#" id="basistencia1">Estudiantes Matriculados</a>
-                            <a class="collapse-item" href="#" id="bsilabus1">Estudiantes con Reserva</a>
+                            <a class="collapse-item" href="#" id="bmatriculados" onclick="vermatriculados()">Estudiantes Matriculados</a>
+                            <a class="collapse-item" href="#" id="breserva" onclick="verreservasemestre()">Estudiantes con Reserva</a>
                             <a class="collapse-item" href="#" id="bsilabus1">Estudiantes poblacion
                                 <br> incluido reserva</a>
                             <a class="collapse-item" href="#" id="bsilabus1">Reporte de Ficha<br> de matricula</a>

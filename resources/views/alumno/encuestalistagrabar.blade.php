@@ -1,4 +1,10 @@
 ENCUESTA GRABADA<br>
+<<<<<<< HEAD
+=======
+<body bgcolor="black">
+    
+
+>>>>>>> ferx
 <?php
 
 $semestre = $_REQUEST['semestre'];
@@ -236,7 +242,16 @@ if (isset($_REQUEST['ntotal'])) {
 
    // cerrarhora($coddocenteencuesta,$codhora,$codmatricurso);
     cerrarhora($codhora);
+<<<<<<< HEAD
     echo "    <script>        location.href='alumno'        </script>";
 
 }
 ?>
+=======
+    echo "    <script>        location.href='../alumno?menu=encuesta'        </script>";
+
+}
+?>
+
+</body>
+>>>>>>> ferx

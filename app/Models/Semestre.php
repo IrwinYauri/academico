@@ -12,12 +12,20 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\database\Eloquent\Model;
 class Semestre extends Model
 {
+<<<<<<< HEAD
     protected $table = 'semestre';
     protected $primaryKey = 'sem_iCodigo';    
     public $incrementing = false;
     public $timestamps = true;
 
     protected $fillable = [         
+=======
+   protected $table = 'semestre';
+    protected $primaryKey = 'sem_iCodigo';    
+    public $timestamps = false;
+
+    protected $fillable = [                
+>>>>>>> ferx
       'sem_nombre',
       'sem_cActivo',
       'sem_iNumeroActa',
@@ -51,6 +59,7 @@ class Semestre extends Model
       'sem_dSustituInicio',
       'sem_dSustituFin'
     ];
+<<<<<<< HEAD
 
     /*
     public function preguntas()
@@ -58,5 +67,7 @@ class Semestre extends Model
         return $this->hasMany('App\preguntas', 'CodEva');//de muchos a uno
     }   
     */
+=======
+>>>>>>> ferx
 }
 

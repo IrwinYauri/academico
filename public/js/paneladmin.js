@@ -15,7 +15,7 @@ function ini()
 function cerrarSemestre(sem) //activo
 {     
     $("#cargando").show();
-    var  nrosemestre 			="";//$("#nrosemestre").val();
+    var  nrosemestre 			="1234";//$("#nrosemestre").val();
 	var  sem_iMatriculaInicio 	=$("#sem_iMatriculaInicio").val();
 	var sem_iMatriculaFinal 	=$("#sem_iMatriculaFinal").val();
 	var sem_dEncuestaInicio		=$("#sem_dEncuestaInicio").val();

@@ -465,18 +465,12 @@ class AdminController extends Controller
 
   public function activarsemestre($semestre)
   {
-    $sql="
-   update semestre
-   set sem_cActivo='N'
-     ";
-   $r=DB::select($sql);
-    $sql="
-   update semestre
-   set sem_cActivo='S'
-   where sem_iCodigo='$semestre'";
-   $r=DB::select($sql);
-  //  return back();
-    }
+    $sql="update semestre set sem_cActivo='N'";
+    $r=DB::select($sql);
+    $sql="update semestre set sem_cActivo='S' where sem_iCodigo='$semestre'";
+    $r=DB::select($sql);
+    //  return back();
+  }
 
     public function listadocentesemestre($semestre)
     {
@@ -508,7 +502,7 @@ class AdminController extends Controller
     //DB::select('call cerrarActas('.$sem.')');
 
     //registrar nuevo semestre
-/*
+    /*
     $cont=new Semestre;            
     $cont->sem_iCodigo=$semestre;
     $cont->sem_nombre=$nomSemestre;
@@ -547,10 +541,11 @@ class AdminController extends Controller
 
     $cont->sem_dSustituInicio=$sem_dSustiInicio;
     $cont->sem_dSustituFin=$sem_dSustiFinal;
-    $cont->save();*/
+    $cont->save();
+    */
 
 
-    echo $request->sem_iMatriculaInicio;
+    echo $request->Semestre."|";
 
   }
 

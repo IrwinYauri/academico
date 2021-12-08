@@ -23,6 +23,6 @@ class Docente extends Model
       'doc_vcTelefonoCelular','doc_vcEmail1',
       'doc_vcEmail2','condDocente','cateDocente'
    ];
-   public $timestamps=false; //descativando funcion de laravel
+   public $timestamps=false; //descativando funcion de laravel 8
 
 }

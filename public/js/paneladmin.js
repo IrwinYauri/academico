@@ -16,8 +16,8 @@ function cerrarSemestre(sem) //activo
 {     
     $("#cargando").show();
 
-    var sem_iCodigo 			=20232;//$("#nrosemestre").val();
-    var sem_nombre 			    ="2023-2";//$("#nrosemestre").val();
+    var sem_iCodigo 			=$("#codsemestre_").val();
+    var sem_nombre 			    =$("#nomsemestre_").val();
 	var sem_iMatriculaInicio 	=$("#sem_iMatriculaInicio_").val();
 	var sem_iMatriculaFinal 	=$("#sem_iMatriculaFinal_").val();
 	var sem_dEncuestaInicio		=$("#sem_dEncuestaInicio_").val();

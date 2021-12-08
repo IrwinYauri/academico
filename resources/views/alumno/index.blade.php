@@ -910,9 +910,7 @@ if(isset($_REQUEST["menu"]))
       </script>";
     //  echo $_REQUEST["menu"];
       }
-<<<<<<< HEAD
-=======
-   
+
 
    if($_REQUEST["menu"]=="ENCUESTA")
      {echo "<script>
@@ -920,6 +918,5 @@ if(isset($_REQUEST["menu"]))
            </script>";
     //  echo $_REQUEST["menu"];
       }
->>>>>>> ferx
    }
 ?>

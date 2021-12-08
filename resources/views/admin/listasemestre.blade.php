@@ -386,7 +386,7 @@
                   @else
                     @if($semestre_act->inicio==0)
                       <div class="form-group">
-                        <button class="btn btn-primary btn-block disabled">Iniciar Semestre</button>
+                        <button class="btn btn-primary btn-block" onclick="IniciarSemestre();">Iniciar Semestre</button>
                       </div>              
                     @else
                       <div class="form-group">    
@@ -416,7 +416,7 @@
             <div class="modal-body">
                           
                 <div class="row g-4">
-                  <div class="col-sm">
+                  <div class="col-sm">nb bn b
                     <label for="colFormLabelSm" class=" col-form-label  tamletra  ">INICIO DE MATRICULAS</label>
                     <input type="date" class="form-control" placeholder="sem_iMatriculaInicio" aria-label="sem_iMatriculaInicio" id="sem_iMatriculaInicio_" style="font-size:12px;">
                   </div>
@@ -575,17 +575,23 @@
         
         function openVerificNotsSetDateSem()
         {          
-          //Evaluar Notas, para ver si hay alguna observación
-               
+          //Evaluar Notas, para ver si hay alguna observación               
           $('#openModSem').click();//abrir modulo de datos del nuevo semestre     
         }
 
         function cerrarAbrirN()
         {          
-          cerrarSemestre('{{$semestre_act->sem_iCodigo}}');         
-
+          cerrarSemestre('{{$semestre_act->sem_iCodigo}}');  
           $("#ocultarModSem").click();//Cerrar modulo de datos del nuevo semestre
         }
+
+        function IniciarSemestre()
+        {    
+          //  asis_gen_asistencia_alumno();      
+          ///cerrarSemestre('{{$semestre_act->sem_iCodigo}}');  
+          //$("#ocultarModSem").click();//Cerrar modulo de datos del nuevo semestre
+        }
+
 
       </script>
 

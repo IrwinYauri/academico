@@ -103,6 +103,12 @@ function cerrarSemestre(sem) //activo
 	
 }
 
+
+function asis_gen_asistencia_alumno() //activo
+{
+
+}
+
 function listadocente() //activo
 { 
     var n1="";

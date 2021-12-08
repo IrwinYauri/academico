@@ -506,54 +506,69 @@ class AdminController extends Controller
   public function cerrarSemestre(Request $request,$sem)
   {
 
-    //registrar nuevo semestre
-    
-    if($request->ajax())
+    DB::beginTransaction();
+
+    try 
+    { 
+    //FILTRAR QUE SOLO EL CREADOR LO PUEDA ELIMINAR
+
+        if($request->ajax())
+        {   
+          //crea actas y hace el cierre del semestre
+          DB::select('call cerrarActas('.$sem.')');
+          //crea nuevo semestre
+          $cont=new Semestre();            
+          $cont->sem_iCodigo  = $request->sem_iCodigo;
+          $cont->sem_nombre = $request->sem_nombre;
+          $cont->sem_cActivo = "S";
+          $cont->sem_iNumeroActa = 1000;
+          $cont->sem_iNumeroAlumno = 0;
+          $cont->sem_iMatriculaInicio = $request->sem_iMatriculaInicio;
+          $cont->sem_iMatriculaFinal = $request->sem_iMatriculaFinal;
+          $cont->sem_dEncuestaInicio = $request->sem_dEncuestaInicio;
+          $cont->sem_dEncuestaFinal = $request->sem_dEncuestaFinal;
+          $cont->sem_iHoraPedagogica = 45;
+          $cont->sem_dInicioClases = $request->sem_dInicioClases;
+          $cont->sem_iSemanas = $request->sem_iSemanas;
+          $cont->sem_dActaInicio = $request->sem_dActaInicio;
+          $cont->sem_dActaFinal = $request->sem_dActaFinal;
+          $cont->sem_iUnidad = NULL;
+          $cont->sem_iToleranciaInicio = $request->sem_iToleranciaInicio;
+          $cont->sem_iToleranciaFinal = $request->sem_iToleranciaFinal;
+          $cont->fech_ent1_ini = $request->fech_ent1_ini;
+          $cont->fech_ent1_fin = $request->fech_ent1_fin;
+          $cont->fech_ent2_ini = $request->fech_ent2_ini;
+          $cont->fech_ent2_fin = $request->fech_ent2_fin;
+          $cont->fech_ent3_ini = $request->fech_ent3_ini;
+          $cont->fech_ent3_fin = $request->fech_ent3_fin;
+          $cont->fech_ent4_ini = $request->fech_ent4_ini;
+          $cont->fech_ent4_fin = $request->fech_ent4_fin;
+          //FALTA SEMANA 5
+          $cont->sem_dAplazadoInicio = $request->sem_dAplazadoInicio;
+          $cont->sem_dAplazadoFinal = $request->sem_dAplazadoFinal;
+          $cont->fecMatReg_ini = $request->fecMatReg_ini;
+          $cont->fecMatReg_fin = $request->fecMatReg_fin;
+          $cont->fecMatExt_ini = $request->fecMatExt_ini;
+          $cont->fecMatExt_fin = $request->fecMatExt_fin;
+          $cont->sem_dSustituInicio = $request->sem_dSustiInicio;
+          $cont->sem_dSustituFin = $request->sem_dSustiFinal;
+          $cont->inicio = 0;
+
+          $cont->save();
+          //return response()->json($archi);
+              
+        }
+    } 
+    catch (Exception $e) 
     {
-      DB::select('call cerrarActas('.$sem.')');    
-      $cont=new Semestre();            
-      $cont->sem_iCodigo  = $request->sem_iCodigo;
-      $cont->sem_nombre = $request->sem_nombre;
-      $cont->sem_cActivo = "S";
-      $cont->sem_iNumeroActa = 1000;
-      $cont->sem_iNumeroAlumno = 0;
-      $cont->sem_iMatriculaInicio = $request->sem_iMatriculaInicio;
-      $cont->sem_iMatriculaFinal = $request->sem_iMatriculaFinal;
-      $cont->sem_dEncuestaInicio = $request->sem_dEncuestaInicio;
-      $cont->sem_dEncuestaFinal = $request->sem_dEncuestaFinal;
-      $cont->sem_iHoraPedagogica = 45;
-      $cont->sem_dInicioClases = $request->sem_dInicioClases;
-      $cont->sem_iSemanas = $request->sem_iSemanas;
-      $cont->sem_dActaInicio = $request->sem_dActaInicio;
-      $cont->sem_dActaFinal = $request->sem_dActaFinal;
-      $cont->sem_iUnidad = NULL;
-      $cont->sem_iToleranciaInicio = $request->sem_iToleranciaInicio;
-      $cont->sem_iToleranciaFinal = $request->sem_iToleranciaFinal;
-      $cont->fech_ent1_ini = $request->fech_ent1_ini;
-      $cont->fech_ent1_fin = $request->fech_ent1_fin;
-      $cont->fech_ent2_ini = $request->fech_ent2_ini;
-      $cont->fech_ent2_fin = $request->fech_ent2_fin;
-      $cont->fech_ent3_ini = $request->fech_ent3_ini;
-      $cont->fech_ent3_fin = $request->fech_ent3_fin;
-      $cont->fech_ent4_ini = $request->fech_ent4_ini;
-      $cont->fech_ent4_fin = $request->fech_ent4_fin;
-      //FALTA SEMANA 5
-      $cont->sem_dAplazadoInicio = $request->sem_dAplazadoInicio;
-      $cont->sem_dAplazadoFinal = $request->sem_dAplazadoFinal;
-      $cont->fecMatReg_ini = $request->fecMatReg_ini;
-      $cont->fecMatReg_fin = $request->fecMatReg_fin;
-      $cont->fecMatExt_ini = $request->fecMatExt_ini;
-      $cont->fecMatExt_fin = $request->fecMatExt_fin;
-      $cont->sem_dSustituInicio = $request->sem_dSustiInicio;
-      $cont->sem_dSustituFin = $request->sem_dSustiFinal;
-      $cont->inicio = 0;
-
-      $cont->save();
-      //return response()->json($archi);
-      return response()->json($request->sem_iCodigo);  
+        DB::rollback();
+        return response()->json("error: ".$e);   
     }
-    
 
+    DB::commit();
+
+    //return response()->json($datos->EstComPub);
+    return response()->json("ok");    
     
   }
 

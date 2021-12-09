@@ -324,7 +324,7 @@ function versilabuscriterioexiste($sem, $codcurso)
     function vercriteriox(semestre,codcurso) { //actas/veractas?xcod=2
       $("#myModal").modal("show");
         $("#mirespuesta").html(
-            "<img src='img/carga01.gif'>"
+            "<img src='img/cargar.gif'>"
         );
       
         $.ajax({

@@ -143,7 +143,7 @@ $miscursosgrupo = sqlvercursos($semestreactual, $coddocentex);
            //alert(4)
            //$("#micontenido").load('docente/registronotascurso2');
            $("#micontenido").html(
-             "<img src='img/carga01.gif'>"
+             "<img src='img/cargar.gif'>"
            );
             $.ajax({
                   url: "docente/completarasistenciacurso2",

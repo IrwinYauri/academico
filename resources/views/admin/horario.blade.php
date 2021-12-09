@@ -44,7 +44,7 @@ return $data;
   function verhorario()
   { var escuela=$("#escuelax").val();
     var semestre='{{$semestreactual}}'
-    $("#listahorario").html("<img src='img/carga01.gif'>");
+    $("#listahorario").html("<img src='img/cargar.gif'>");
     $.ajax({
         url: "admin/horariolista",
         success: function(result) {

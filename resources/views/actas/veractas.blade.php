@@ -15,7 +15,7 @@ if (isset($_REQUEST['xcod'])) {
 <div id="micarga">
     <table>
         <tr><td>
-            <img src="{{ asset('img/carga01.gif')}}" alt="UNAAT">  
+            <img src="{{ asset('img/cargar.gif')}}" alt="UNAAT">  
         </td></tr>
     
     <tr align="center"><td>

@@ -848,7 +848,7 @@ NOTAS REGISTRADAS
 <script>
     function vercursoreg() {
         $("#micontenido").html(
-            "<img src='img/carga01.gif'>"
+            "<img src='img/cargar.gif'>"
         );
         $("#micontenido").load('docente/registronotas');
 
@@ -856,7 +856,7 @@ NOTAS REGISTRADAS
 
     function xverregistro(codcurso,semestre,coddocente) { //actas/veractas?xcod=2
         $("#micontenido").html(
-            "<img src='img/carga01.gif'>"
+            "<img src='img/cargar.gif'>"
         );
       
         $.ajax({

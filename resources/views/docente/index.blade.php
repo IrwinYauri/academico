@@ -17,14 +17,93 @@ if(isset($_SESSION['docentex'])){
 
 }
 
-use App\Http\Controllers\DocenteController; 
-$datodoc=new DocenteController();
-$verdocente=$datodoc->verdatosdocente($coddocentex);
-$dni="";
-foreach ($verdocente as $vdocente) {
-    $dni=$vdocente->doc_vcDocumento;
-}
+function verdatosdocentedni($coddoc)
+           {$r=0;
+               $sql="SELECT 
+                           `docente`.`doc_vcDocumento`
+              FROM
+               `docente`
+              WHERE
+                `docente`.`doc_iCodigo`='$coddoc' ";
+               $data1=DB::select($sql); 
+               if(isset($data1[0]->doc_vcDocumento))
+              return $data1[0]->doc_vcDocumento;
+              else {
+                  return 0;
+              }
+           }
+
+//$verdocente=$datodoc->verdatosdocente($coddocentex);
+$dni=verdatosdocentedni($coddocentex);
+
+
 $semestreactual=semestreactual();
+function vercargahoraria($coddocente,$semestre)
+  { 
+
+    //session_start();
+
+  //  $coddocente=2;//$_SESSION['coddocentex'];
+ //   $semestre=semestreactual();
+
+    $sql='
+      SELECT
+      seccion_horario.sec_iCodigo,
+      seccion_horario.dia_vcCodigo,
+      seccion_horario.sechor_iHoraInicio,
+      seccion_horario.sechor_iHoraFinal,
+      seccion_horario.sectip_cCodigo,
+      docente.doc_vcDocumento,
+      docente.doc_vcPaterno,
+      docente.doc_vcMaterno,
+      docente.doc_vcNombre,
+      seccion.sem_iCodigo,
+      seccion.cur_iCodigo,
+      curso.cur_vcNombre,
+      seccion.tur_cCodigo,
+      seccion_horario.doc_iCodigo,
+      seccion_horario.sechor_iCodigo,
+      curso.escpla_iCodigo,
+      escuela.esc_vcNombre,
+      escuela.esc_vcCodigo,
+      curso.cur_iSemestre,
+      seccion.sec_iNumero,
+      cursotipodictado.curdic_vcNombre AS tipodictado,
+      seccion.sec_iCodigo,
+      seccion_horario.aul_iCodigo,
+      aula.loc_iCodigo,
+      aula.aul_vcCodigo,
+      `local`.loc_vcNombre,
+      curso.cur_vcCodigo,
+      cursohoras.curhor_iHoras,
+      docentedepaca.depaca_vcNombre,
+      docente.cateDocente,
+      concat(docente.doc_vcPaterno," ",
+      docente.doc_vcMaterno," ",
+      docente.doc_vcNombre) as docente
+      FROM
+      seccion_horario
+      INNER JOIN docente ON (seccion_horario.doc_iCodigo = docente.doc_iCodigo)
+      INNER JOIN seccion ON (seccion_horario.sec_iCodigo = seccion.sec_iCodigo)
+      INNER JOIN curso ON (seccion.cur_iCodigo = curso.cur_iCodigo)
+      INNER JOIN escuelaplan ON (curso.escpla_iCodigo = escuelaplan.escpla_iCodigo)
+      INNER JOIN escuela ON (escuelaplan.esc_vcCodigo = escuela.esc_vcCodigo)
+      INNER JOIN cursotipodictado ON (seccion_horario.sectip_cCodigo = cursotipodictado.curdic_cCodigo)
+      INNER JOIN aula ON (seccion_horario.aul_iCodigo = aula.aul_iCodigo)
+      INNER JOIN `local` ON (aula.loc_iCodigo = `local`.loc_iCodigo)
+      INNER JOIN cursohoras ON cursohoras.cur_iCodigo = curso.cur_iCodigo AND cursohoras.curdic_cCodigo = cursotipodictado.curdic_cCodigo
+      INNER JOIN docentedepaca ON docente.depaca_iCodigo = docentedepaca.depaca_iCodigo
+      WHERE
+      seccion.sem_iCodigo = "'.$semestre.'" AND 
+      seccion_horario.doc_iCodigo = "'.$coddocente.'"
+      ORDER BY
+      curso.cur_vcCodigo,  
+      seccion_horario.dia_vcCodigo';
+    
+    $listahora=DB::select($sql);
+
+    return  $listahora; 
+ }
 function sqlvercursos($semestre, $coddocente)
 {
     $sql =
@@ -51,7 +130,7 @@ INNER JOIN escuela ON escuelaplan.esc_vcCodigo = escuela.esc_vcCodigo
         $semestre .
         '" AND 
   `seccion_horario`.`doc_iCodigo` ="' .
-        $coddocente .
+  $coddocente.
         '"
   GROUP BY
   seccion_horario.doc_iCodigo,
@@ -89,21 +168,15 @@ escuela.esc_vcNombre
     <!-- Custom fonts for this template-->
     <link  rel="icon"   href=" {{ asset('img/escudo.png')}}" type="image/png" />
     <link href=" {{ asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-   <!--
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-    -->
+ 
+  
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
     <link href="{{ asset('css/seleccion.css')}}" rel="stylesheet" type="text/css">
 
     <link href="{{ asset('css/seleccion.css')}}" rel="stylesheet" type="text/css">
-<!--
-    <link href="{ asset('wow/css/libs/animate.css')}}" rel="stylesheet" type="text/css">
-    <link href="{ asset('wow/css/site.css')}}" rel="stylesheet" type="text/css">
-    -->
+
 
 <style>
 .miizquierda{
@@ -240,9 +313,7 @@ color: white;
                         <a class="collapse-item" href="#" id="bverpassword" onclick="verpassword()">
                             <i class="fas fa-keyboard"></i>Cambiar Contraseña</a>
                         <div class="collapse-divider"></div>
-                     <!--   <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a> //-->
+                     
                     </div>
                 </div>
             </li>
@@ -336,55 +407,7 @@ color: white;
                         </li>
 
                         <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
+                        
 
                         <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow mx-1">
@@ -542,36 +565,7 @@ color: white;
                             </div>
                         </div>
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <!-- inicio grafico
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Proceso de Encuesta
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Pendiente 0% </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                                            fin grafico esta    //-->
+                    
                         <!-- Pending Requests Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2">
@@ -645,8 +639,8 @@ color: white;
                   $miscursosgrupo= sqlvercursos($semestreactual, $coddocentex);
 
             function buscarturno($coddoc,$semestre)
-            {  $miasistencia=new DocenteController(); 
-                $miscursos=$miasistencia->vercargahoraria($coddoc,$semestre);
+            { 
+             $miscursos=vercargahoraria($coddoc,$semestre);
                 $turno1="";
                 $turno2="";
                 $separador="";

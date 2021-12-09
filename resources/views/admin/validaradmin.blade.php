@@ -12,8 +12,8 @@ use App\Http\Controllers\AdminController;
    
 $adminx=new AdminController();
 //$rpt=$docentex->buscardocente('41231912');
-
-$rpt=$adminx->verusuario($_REQUEST['userx']);
+if(isset($_REQUEST['userx']))
+{$rpt=$adminx->verusuario($_REQUEST['userx']);
 $user =$_REQUEST['userx'];
 $password = $_REQUEST['passwordx'];
 $xcodalumno="";
@@ -50,7 +50,12 @@ echo "<br>".$user;
 echo "<br>".$xuser;
 echo strtoupper(sha1($password));
 //echo $password;
-echo "<br>";
+echo "<br>";}else {
+    echo    '<script>
+    //alertagrabarx("ERROR DE ACCESO","red");  
+    location.href="loginadmin?error=1"; 
+</script>';
+}
 //echo $xpassword;
 //dd($rpt);
 @endphp

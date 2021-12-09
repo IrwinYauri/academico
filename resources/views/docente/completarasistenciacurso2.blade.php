@@ -539,7 +539,7 @@ $("#confirmModal").modal('hide');
           }
         function vercursoreg() {
             $("#micontenido").html(
-                "<img src='img/carga01.gif'>"
+                "<img src='img/cargar.gif'>"
             );
             $("#micontenido").load('docente/completarasistencia');
     

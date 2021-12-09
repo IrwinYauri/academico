@@ -356,8 +356,7 @@ WHERE
         return $data1;
      }
      ///
-
-     public function  buscaralumno($dni)
+   public function  buscaralumno($dni)
    { 
        $sql='SELECT 
           *

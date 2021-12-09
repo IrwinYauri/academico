@@ -172,7 +172,7 @@ alert(id);
     	},
 		complete: function () 
 		{
-			$("#cargando").hide();
+			//$("#cargando").hide();
 		}
 	});
 }
@@ -503,47 +503,58 @@ function cambiarpassworddocente(n1,n2)//activo
 	
 }
 function cambiarpasswordalumno(n1,n2)//activo
- {  $.ajax({
+{
+	$("#cargando").show();
+  	$.ajax(
+  	{
 		url:"admin/cambiarpasswordalumno",
-	success:function(result){
-	//alert(result);
-	$("#micontenido11").html(result);
-	 },
-	data:{xcod:n1,xnuevaclave:n2},
+		success:function(result)
+		{
+		//alert(result);
+		$("#micontenido11").html(result);
+		$("#cargando").hide();
+	 	},
+		data:{xcod:n1,xnuevaclave:n2},
 		type:"GET"   
 	 } );
 	
 }
 
 function activarsemestre(semestre) //activo
- {var n1=semestre;
+{
+	$("#cargando").show();
+	var n1=semestre;
    
-     $.ajax({
-	//	url:"asistencia/updateasisalumno",
-	url:"admin/activarsemestre",
-	//url:"{{ route('asistencia.updateasisalumno') }}",
-	success:function(result){
-	//alert(result);
-	$("#micontenidoxx").html(result);
-	listasemestre();
-	
-	$('#tabla-semestre').DataTable();
-
-
-	 },
-	data:{
-		semestre:n1
-		//, bbuscar:bbuscar
-	  },
+    $.ajax(
+    {
+		//	url:"asistencia/updateasisalumno",
+		url:"admin/activarsemestre",
+		//url:"{{ route('asistencia.updateasisalumno') }}",
+		success:function(result)
+		{
+			//alert(result);
+			$("#micontenidoxx").html(result);
+			listasemestre();
+			
+			$('#tabla-semestre').DataTable();
+			$("#cargando").hide();
+		},
+		data:
+		{
+			semestre:n1
+			//, bbuscar:bbuscar
+		},
 		type:"GET"   
-	 } );
+	});
 	
 }
 
 function modificarfechasemetre() //activo
 {   
- 	var  nrosemestre =$("#nrosemestre").val();
-	var  sem_iMatriculaInicio =$("#sem_iMatriculaInicio").val();
+	$("#cargando").show();
+
+ 	var nrosemestre =$("#nrosemestre").val();
+	var sem_iMatriculaInicio =$("#sem_iMatriculaInicio").val();
 	var sem_iMatriculaFinal =$("#sem_iMatriculaFinal").val();
 	var sem_dEncuestaInicio=$("#sem_dEncuestaInicio").val();
 	var sem_dEncuestaFinal =$("#sem_dEncuestaFinal").val();
@@ -573,6 +584,8 @@ function modificarfechasemetre() //activo
 	var fecMatReg_fin=$("#fecMatReg_fin").val();
 	var fecMatExt_ini=$("#fecMatExt_ini").val();
 	var fecMatExt_fin=$("#fecMatExt_fin").val();
+  
+  alert(nrosemestre);
   
     $.ajax(
     {

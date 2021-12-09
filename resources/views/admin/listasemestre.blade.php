@@ -44,7 +44,8 @@
   <body>
     <script>
       const semestre = [];
-      const  sem_iMatriculaInicio = [];
+      const sem_cActivo = [];
+      const sem_iMatriculaInicio = [];
       const sem_iMatriculaFinal = [];
       const sem_dEncuestaInicio = [];
       const sem_dEncuestaFinal = [];
@@ -79,6 +80,7 @@
       {       
         $n++;     
         echo "semestre[".$n."]=".$sem->sem_iCodigo.";";
+        echo "sem_cActivo[".$n."]='".trim($sem->sem_cActivo)."';";
         echo "sem_iMatriculaInicio[".$n."]='".$sem->sem_iMatriculaInicio."';";
         echo "sem_iMatriculaFinal[".$n."]='".$sem->sem_iMatriculaFinal."';";
         echo "sem_dEncuestaInicio[".$n."]='".$sem->sem_dEncuestaInicio."';";
@@ -179,7 +181,7 @@
                       <tr>
                         <!--td>{{ $sem->sem_iCodigo }}</td-->
                         <td style="text-align: center;">
-                           @if(left($sem->sem_cActivo,1)=="S")
+                           @if(trim($sem->sem_cActivo)=="S")
                             <span class="badge badge-pill badge-success" style="font-size: 11px;">{{ $sem->sem_nombre }}</span>
                           @else
                             <span style="font-size: 11px;">{{ $sem->sem_nombre }}</span>
@@ -187,7 +189,7 @@
                           
                         </td>               
                         <td style="text-align: center;">
-                          @if(left($sem->sem_cActivo,1)=="S")
+                          @if(trim($sem->sem_cActivo)=="S")
                             <div class="bg-success text-white">
                               {{$sem->sem_cActivo}}  
                             </div>   
@@ -201,14 +203,14 @@
                         <td style="text-align: center;">{{$sem->sem_dEncuestaInicio}}</td>
                         <td style="text-align: center;">{{$sem->sem_dEncuestaFinal}}</td>
                         <td style="text-align: center;">                          
-                          @if(left($sem->sem_cActivo,1)=="S")
+                          @if(trim($sem->sem_cActivo)=="S")
                             <a href="javascript:void(0)" onclick="$('#editarSemestre').modal('show');" class="btn btn-success btn-sm btn-block"><i class="fa fa-pencil"></i> EDITAR</a>
                           @else
                             <a href="javascript:void(0)" onclick="activarsemestre('{{$sem->sem_iCodigo}}'); " class="btn btn-info btn-sm btn-block"><i class="fa fa-mail-reply-all"></i> RE-APERTURAR</a>
                           @endif   
 
-                          @if($sem->inicio==0)                            
-                            <button type="button" name="delete" onclick="eliminarSemestre('{{$sem->sem_iCodigo}}');" class="delete btn btn-danger btn-sm table-condensed"> Eliminar </button>
+                          @if($sem->inicio==0 && trim($sem->sem_cActivo)!="S")                            
+                            <button type="button" onclick="eliminarSemestre('{{$sem->sem_iCodigo}}');" class="delete btn btn-danger btn-sm btn-block"> Eliminar </button>
                           @endif
                           
                         </td>
@@ -374,10 +376,10 @@
               </div>
             </div>
             <br>
-            <!--div class="row g-4" align="center">                  
+            <div class="row g-4" align="center" id="btnUpdate_" style="display: none;">                  
               <button type="button" class="btn btn-primary" onclick="modificarfechasemetre();revisarestadofecha();">
               <i class="fas fa-save"></i> GUARDAR CAMBIOS</button>                   
-            </div-->
+            </div>
           </div>  
 
           <div class="tab-pane fade" id="semestre" role="tabpanel" aria-labelledby="semestre-tab">
@@ -1107,6 +1109,11 @@
             $("#fecMatReg_fin").val(fecMatReg_fin[x]);
             $("#fecMatExt_ini").val(fecMatExt_ini[x]);
             $("#fecMatExt_fin").val(fecMatExt_fin[x]);
+
+            if(sem_cActivo[x]=="S")
+              $("#btnUpdate_").show();
+            else
+              $("#btnUpdate_").hide();
           }
         }
         $("#cargando").hide();

@@ -15,83 +15,109 @@ function ini()
 function cerrarSemestre(sem) //activo
 {     
     $("#cargando").show();
-    var  nrosemestre 			="1234";//$("#nrosemestre").val();
-	var  sem_iMatriculaInicio 	=$("#sem_iMatriculaInicio").val();
-	var sem_iMatriculaFinal 	=$("#sem_iMatriculaFinal").val();
-	var sem_dEncuestaInicio		=$("#sem_dEncuestaInicio").val();
-	var sem_dEncuestaFinal 		=$("#sem_dEncuestaFinal").val();
-	var sem_dInicioClases		=$("#sem_dInicioClases").val();
-	var sem_iSemanas			=$("#sem_iSemanas").val();
-	var sem_dActaInicio 		=$("#sem_dActaInicio").val();
-	var sem_dActaFinal			=$("#sem_dActaFinal").val();
-	var sem_iToleranciaInicio 	=$("#sem_iToleranciaInicio").val();
-	var sem_iToleranciaFinal 	=$("#sem_iToleranciaFinal").val();
-	var fech_ent1_ini 			=$("#fech_ent1_ini").val();
-	var fech_ent1_fin			=$("#fech_ent1_fin").val();
-	var fech_ent2_ini 			=$("#fech_ent2_ini").val();
-	var fech_ent2_fin 			=$("#fech_ent2_fin").val();
-	var fech_ent3_ini 			=$("#fech_ent3_ini").val();
-	var fech_ent3_fin			=$("#fech_ent3_fin").val();
-	var fech_ent4_ini 			=$("#fech_ent4_ini").val();
-	var fech_ent4_fin 			=$("#fech_ent4_fin").val();
-	var fech_ent5_ini 			=$("#fech_ent5_ini").val();
-	var fech_ent5_fin			=$("#fech_ent5_fin").val();
-	var sem_dAplazadoInicio		=$("#sem_dAplazadoInicio").val();
-	var sem_dAplazadoFinal		=$("#sem_dAplazadoFinal").val();
-	var sem_dSustiInicio		=$("#sem_dSustiInicio").val();
-	var sem_dSustiFinal			=$("#sem_dSustiFinal").val();
-	var fecMatReg_ini			=$("#fecMatReg_ini").val();
-	var fecMatReg_fin			=$("#fecMatReg_fin").val();
-	var fecMatExt_ini			=$("#fecMatExt_ini").val();
-	var fecMatExt_fin			=$("#fecMatExt_fin").val();
-    
+
+    var sem_iCodigo 			=$("#codsemestre_").val();
+    var sem_nombre 			    =$("#nomsemestre_").val();
+	var sem_iMatriculaInicio 	=$("#sem_iMatriculaInicio_").val();
+	var sem_iMatriculaFinal 	=$("#sem_iMatriculaFinal_").val();
+	var sem_dEncuestaInicio		=$("#sem_dEncuestaInicio_").val();
+	var sem_dEncuestaFinal 		=$("#sem_dEncuestaFinal_").val();
+	var sem_dInicioClases		=$("#sem_dInicioClases_").val();
+	var sem_iSemanas			=$("#sem_iSemanas_").val();
+	var sem_dActaInicio 		=$("#sem_dActaInicio_").val();
+	var sem_dActaFinal			=$("#sem_dActaFinal_").val();
+	var sem_iToleranciaInicio 	=$("#sem_iToleranciaInicio_").val();
+	var sem_iToleranciaFinal 	=$("#sem_iToleranciaFinal_").val();
+	var fech_ent1_ini 			=$("#fech_ent1_ini_").val();
+	var fech_ent1_fin			=$("#fech_ent1_fin_").val();
+	var fech_ent2_ini 			=$("#fech_ent2_ini_").val();
+	var fech_ent2_fin 			=$("#fech_ent2_fin_").val();
+	var fech_ent3_ini 			=$("#fech_ent3_ini_").val();
+	var fech_ent3_fin			=$("#fech_ent3_fin_").val();
+	var fech_ent4_ini 			=$("#fech_ent4_ini_").val();
+	var fech_ent4_fin 			=$("#fech_ent4_fin_").val();
+	var fech_ent5_ini 			=$("#fech_ent5_ini_").val();
+	var fech_ent5_fin			=$("#fech_ent5_fin_").val();
+	var sem_dAplazadoInicio		=$("#sem_dAplazadoInicio_").val();
+	var sem_dAplazadoFinal		=$("#sem_dAplazadoFinal_").val();
+	var sem_dSustiInicio		=$("#sem_dSustiInicio_").val();
+	var sem_dSustiFinal			=$("#sem_dSustiFinal_").val();
+	var fecMatReg_ini			=$("#fecMatReg_ini_").val();
+	var fecMatReg_fin			=$("#fecMatReg_fin_").val();
+	var fecMatExt_ini			=$("#fecMatExt_ini_").val();
+	var fecMatExt_fin			=$("#fecMatExt_fin_").val();
+
     $.ajax(
     {
-		url:"admin/cerrarSemestre/"+sem,		
-		type:"GET",   
-		data:
+		url  : "admin/cerrarSemestre/"+sem,		
+		type : "GET",   
+		data :
 		{
-			semestre: nrosemestre,
-			sem_iMatriculaInicio:sem_iMatriculaInicio,
-			sem_iMatriculaFinal:sem_iMatriculaFinal,
-			sem_dEncuestaInicio:sem_dEncuestaInicio,
-			sem_dEncuestaFinal:sem_dEncuestaFinal,
-			sem_dInicioClases:sem_dInicioClases,
-			sem_iSemanas:sem_iSemanas,
-			sem_dActaInicio:sem_dActaInicio,
-			sem_dActaFinal:sem_dActaFinal,
-			sem_iToleranciaInicio:sem_iToleranciaInicio,
-			sem_iToleranciaFinal:sem_iToleranciaFinal,
-			fech_ent1_ini:fech_ent1_ini,
-			fech_ent1_fin:fech_ent1_fin,
-			fech_ent2_ini:fech_ent2_ini,
-			fech_ent2_fin:fech_ent2_fin,
-			fech_ent3_ini:fech_ent3_ini,
-			fech_ent3_fin:fech_ent3_fin,
-			fech_ent4_ini:fech_ent4_ini,
-			fech_ent4_fin:fech_ent4_fin,
-			fech_ent5_ini:fech_ent5_ini,
-			fech_ent5_fin:fech_ent5_fin,
-			sem_dAplazadoInicio:sem_dAplazadoInicio,
-			sem_dAplazadoFinal:sem_dAplazadoFinal,
-			fecMatReg_ini:fecMatReg_ini,
-			fecMatReg_fin:fecMatReg_fin,
-			fecMatExt_ini:fecMatExt_ini,
-			fecMatExt_fin:fecMatExt_fin,
-			sem_dSustiInicio:sem_dSustiInicio,
-			sem_dSustiFinal:sem_dSustiFinal			
-		  },
-		success:function(result)
-		{			
-			alert(result);
-			if(result==1)
-			{
-				alert("Creación de semestre correctamente...");	
-			}
+			sem_iCodigo : sem_iCodigo,
+			sem_nombre : sem_nombre,
+			sem_iMatriculaInicio : sem_iMatriculaInicio,
+			sem_iMatriculaFinal : sem_iMatriculaFinal,
+			sem_dEncuestaInicio : sem_dEncuestaInicio,
+			sem_dEncuestaFinal : sem_dEncuestaFinal,
+			sem_dInicioClases : sem_dInicioClases,
+			sem_iSemanas : sem_iSemanas,
+			sem_dActaInicio : sem_dActaInicio,
+			sem_dActaFinal : sem_dActaFinal,
+			sem_iToleranciaInicio : sem_iToleranciaInicio,
+			sem_iToleranciaFinal : sem_iToleranciaFinal,
+			fech_ent1_ini : fech_ent1_ini,
+			fech_ent1_fin : fech_ent1_fin,
+			fech_ent2_ini : fech_ent2_ini,
+			fech_ent2_fin : fech_ent2_fin,
+			fech_ent3_ini : fech_ent3_ini,
+			fech_ent3_fin : fech_ent3_fin,
+			fech_ent4_ini : fech_ent4_ini,
+			fech_ent4_fin : fech_ent4_fin,
+			fech_ent5_ini : fech_ent5_ini,
+			fech_ent5_fin : fech_ent5_fin,
+			sem_dAplazadoInicio : sem_dAplazadoInicio,
+			sem_dAplazadoFinal : sem_dAplazadoFinal,
+			fecMatReg_ini : fecMatReg_ini,
+			fecMatReg_fin : fecMatReg_fin,
+			fecMatExt_ini : fecMatExt_ini,
+			fecMatExt_fin : fecMatExt_fin,
+			sem_dSustiInicio : sem_dSustiInicio,
+			sem_dSustiFinal : sem_dSustiFinal			
 		},
-		error:function() 
-		{
-        	alert("Error");
+		success:function(result)
+		{	
+			if(result=="ok")
+			{
+				listasemestre();			
+				$("#sms").show();	
+				$("#sms2").hide();	
+			}
+			/*else
+			{
+								
+			}*/
+
+		},
+    	error: function (jqXHR, exception) {
+	        var msg = '';
+	        if (jqXHR.status === 0) {
+	            msg = 'Not connect.\n Verify Network.';
+	        } else if (jqXHR.status == 404) {
+	            msg = 'Requested page not found. [404]';
+	        } else if (jqXHR.status == 500) {
+	            msg = 'Internal Server Error [500].';
+	        } else if (exception === 'parsererror') {
+	            msg = 'Requested JSON parse failed.';
+	        } else if (exception === 'timeout') {
+	            msg = 'Time out error.';
+	        } else if (exception === 'abort') {
+	            msg = 'Ajax request aborted.';
+	        } else {
+	            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+	        }
+	        $("#sms").hide();	
+			$("#sms2").show();
+	        $("#sms2_1").html(msg);
     	},
 		complete: function () 
 		{
@@ -99,6 +125,62 @@ function cerrarSemestre(sem) //activo
 		}
 	});
 	
+}
+
+function eliminarSemestre(id)
+{
+	$("#cargando").show();
+alert(id);
+    $.ajax(
+    {
+		url  : "admin/eliminarSemestre/"+id,		
+		type : "GET",   
+		success:function(result)
+		{	
+			if(result=="ok")
+			{
+				listasemestre();			
+				$("#sms").show();	
+				$("#sms2").hide();	
+			}
+			/*else
+			{
+								
+			}*/
+		},
+    	error: function (jqXHR, exception) 
+    	{
+	        var msg = '';
+	        if (jqXHR.status === 0) {
+	            msg = 'Not connect.\n Verify Network.';
+	        } else if (jqXHR.status == 404) {
+	            msg = 'Requested page not found. [404]';
+	        } else if (jqXHR.status == 500) {
+	            msg = 'Internal Server Error [500].';
+	        } else if (exception === 'parsererror') {
+	            msg = 'Requested JSON parse failed.';
+	        } else if (exception === 'timeout') {
+	            msg = 'Time out error.';
+	        } else if (exception === 'abort') {
+	            msg = 'Ajax request aborted.';
+	        } else {
+	            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+	        }
+	        $("#sms").hide();	
+			$("#sms2").show();
+	        $("#sms2_1").html(msg);
+    	},
+		complete: function () 
+		{
+			//$("#cargando").hide();
+		}
+	});
+}
+
+
+function asis_gen_asistencia_alumno() //activo
+{
+
 }
 
 function listadocente() //activo
@@ -421,48 +503,58 @@ function cambiarpassworddocente(n1,n2)//activo
 	
 }
 function cambiarpasswordalumno(n1,n2)//activo
- {  $.ajax({
+{
+	$("#cargando").show();
+  	$.ajax(
+  	{
 		url:"admin/cambiarpasswordalumno",
-	success:function(result){
-	//alert(result);
-	$("#micontenido11").html(result);
-	 },
-	data:{xcod:n1,
-		  xnuevaclave:n2  },
+		success:function(result)
+		{
+		//alert(result);
+		$("#micontenido11").html(result);
+		$("#cargando").hide();
+	 	},
+		data:{xcod:n1,xnuevaclave:n2},
 		type:"GET"   
 	 } );
 	
 }
 
 function activarsemestre(semestre) //activo
- {var n1=semestre;
+{
+	$("#cargando").show();
+	var n1=semestre;
    
-     $.ajax({
-	//	url:"asistencia/updateasisalumno",
-	url:"admin/activarsemestre",
-	//url:"{{ route('asistencia.updateasisalumno') }}",
-	success:function(result){
-	//alert(result);
-	$("#micontenidoxx").html(result);
-	listasemestre();
-	
-	$('#tabla-semestre').DataTable();
-
-
-	 },
-	data:{
-		semestre:n1
-		//, bbuscar:bbuscar
-	  },
+    $.ajax(
+    {
+		//	url:"asistencia/updateasisalumno",
+		url:"admin/activarsemestre",
+		//url:"{{ route('asistencia.updateasisalumno') }}",
+		success:function(result)
+		{
+			//alert(result);
+			$("#micontenidoxx").html(result);
+			listasemestre();
+			
+			$('#tabla-semestre').DataTable();
+			$("#cargando").hide();
+		},
+		data:
+		{
+			semestre:n1
+			//, bbuscar:bbuscar
+		},
 		type:"GET"   
-	 } );
+	});
 	
 }
 
 function modificarfechasemetre() //activo
 {   
- 	var  nrosemestre =$("#nrosemestre").val();
-	var  sem_iMatriculaInicio =$("#sem_iMatriculaInicio").val();
+	$("#cargando").show();
+
+ 	var sem_iCodigo =$("#nrosemestre").val();
+	var sem_iMatriculaInicio =$("#sem_iMatriculaInicio").val();
 	var sem_iMatriculaFinal =$("#sem_iMatriculaFinal").val();
 	var sem_dEncuestaInicio=$("#sem_dEncuestaInicio").val();
 	var sem_dEncuestaFinal =$("#sem_dEncuestaFinal").val();
@@ -484,60 +576,95 @@ function modificarfechasemetre() //activo
 	var fech_ent5_fin=$("#fech_ent5_fin").val();
 	var sem_dAplazadoInicio=$("#sem_dAplazadoInicio").val();
 	var sem_dAplazadoFinal=$("#sem_dAplazadoFinal").val();
-
 	var sem_dSustiInicio=$("#sem_dSustiInicio").val();
-	var sem_dSustiFinal=$("#sem_dSustiFinal").val();
-	
+	var sem_dSustiFinal=$("#sem_dSustiFinal").val();	
 	var fecMatReg_ini=$("#fecMatReg_ini").val();
 	var fecMatReg_fin=$("#fecMatReg_fin").val();
 	var fecMatExt_ini=$("#fecMatExt_ini").val();
 	var fecMatExt_fin=$("#fecMatExt_fin").val();
   
+  //alert(nrosemestre);
+
     $.ajax(
     {
-	//	url:"asistencia/updateasisalumno",
-	url:"admin/modificarfechasemestre",
-	//url:"{{ route('asistencia.updateasisalumno') }}",
-	success:function(result)
-	{
-		//alert(result);
-		$("#micontenidoxx").html(result);
-		alertagrabarx("CRONOGRAMA ACTUALIZADO","#301934");
-		//listasemestre();
-		//$('#tabla-semestre').DataTable();
-	},
-	data:
-	{
-		semestre: nrosemestre,
-		sem_iMatriculaInicio:sem_iMatriculaInicio,
-		sem_iMatriculaFinal:sem_iMatriculaFinal,
-		sem_dEncuestaInicio:sem_dEncuestaInicio,
-		sem_dEncuestaFinal:sem_dEncuestaFinal,
-		sem_dInicioClases:sem_dInicioClases,
-		sem_iSemanas:sem_iSemanas,
-		sem_dActaInicio:sem_dActaInicio,
-		sem_dActaFinal:sem_dActaFinal,
-		sem_iToleranciaInicio:sem_iToleranciaInicio,
-		sem_iToleranciaFinal:sem_iToleranciaFinal,
-		fech_ent1_ini:fech_ent1_ini,
-		fech_ent1_fin:fech_ent1_fin,
-		fech_ent2_ini:fech_ent2_ini,
-		fech_ent2_fin:fech_ent2_fin,
-		fech_ent3_ini:fech_ent3_ini,
-		fech_ent3_fin:fech_ent3_fin,
-		fech_ent4_ini:fech_ent4_ini,
-		fech_ent4_fin:fech_ent4_fin,
-		fech_ent5_ini:fech_ent5_ini,
-		fech_ent5_fin:fech_ent5_fin,
-		sem_dAplazadoInicio:sem_dAplazadoInicio,
-		sem_dAplazadoFinal:sem_dAplazadoFinal,
-		fecMatReg_ini:fecMatReg_ini,
-		fecMatReg_fin:fecMatReg_fin,
-		fecMatExt_ini:fecMatExt_ini,
-		fecMatExt_fin:fecMatExt_fin
-		//, bbuscar:bbuscar
-	  },
-		type:"GET"   
+		url	:"admin/modificarfechasemestre/"+sem_iCodigo,		
+		type:"GET",
+		success:function(result)
+		{
+			//$("#cargando").hide();
+
+			if(result=="ok")
+			{				
+				$("#sms").show();	
+				$("#sms2").hide();	
+				listasemestre();							
+			}
+			//$("#micontenidoxx").html(result);
+			//alertagrabarx("CRONOGRAMA ACTUALIZADO","#301934");
+			
+		},
+		data:
+		{
+			sem_iCodigo: sem_iCodigo,
+			sem_iMatriculaInicio:sem_iMatriculaInicio,
+			sem_iMatriculaFinal:sem_iMatriculaFinal,
+			sem_dEncuestaInicio:sem_dEncuestaInicio,
+			sem_dEncuestaFinal:sem_dEncuestaFinal,
+			sem_dInicioClases:sem_dInicioClases,
+			sem_iSemanas:sem_iSemanas,
+			sem_dActaInicio:sem_dActaInicio,
+			sem_dActaFinal:sem_dActaFinal,
+			sem_iToleranciaInicio:sem_iToleranciaInicio,
+			sem_iToleranciaFinal:sem_iToleranciaFinal,
+			fech_ent1_ini:fech_ent1_ini,
+			fech_ent1_fin:fech_ent1_fin,
+			fech_ent2_ini:fech_ent2_ini,
+			fech_ent2_fin:fech_ent2_fin,
+			fech_ent3_ini:fech_ent3_ini,
+			fech_ent3_fin:fech_ent3_fin,
+			fech_ent4_ini:fech_ent4_ini,
+			fech_ent4_fin:fech_ent4_fin,
+			fech_ent5_ini:fech_ent5_ini,
+			fech_ent5_fin:fech_ent5_fin,
+			sem_dAplazadoInicio:sem_dAplazadoInicio,
+			sem_dAplazadoFinal:sem_dAplazadoFinal,
+			fecMatReg_ini:fecMatReg_ini,
+			fecMatReg_fin:fecMatReg_fin,
+			fecMatExt_ini:fecMatExt_ini,
+			fecMatExt_fin:fecMatExt_fin,			
+			sem_dSustiInicio : sem_dSustiInicio,
+			sem_dSustiFinal : sem_dSustiFinal	
+	  	}
+		,
+    	error: function (jqXHR, exception) 
+    	{
+	        var msg = '';
+	        if (jqXHR.status === 0) {
+	            msg = 'Not connect.\n Verify Network.';
+	        } else if (jqXHR.status == 404) {
+	            msg = 'Requested page not found. [404]';
+	        } else if (jqXHR.status == 500) {
+	            msg = 'Internal Server Error [500].';
+	        } else if (exception === 'parsererror') {
+	            msg = 'Requested JSON parse failed.';
+	        } else if (exception === 'timeout') {
+	            msg = 'Time out error.';
+	        } else if (exception === 'abort') {
+	            msg = 'Ajax request aborted.';
+	        } else {
+	            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+	        }
+	        $("#sms").hide();	
+			$("#sms2").show();
+	        $("#sms2_1").html(msg);
+	        $("#cargando").hide();
+
+    	},
+		complete: function () 
+		{
+			$("#cargando").hide();
+		}
+   
 	});
 	
 }

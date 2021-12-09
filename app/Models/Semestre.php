@@ -2,30 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-//use Laravel\Sanctum\HasApiTokens;//opcional
-
-use Illuminate\database\Eloquent\Model;
 class Semestre extends Model
 {
-<<<<<<< HEAD
+
     protected $table = 'semestre';
     protected $primaryKey = 'sem_iCodigo';    
     public $incrementing = false;
-    public $timestamps = true;
-
-    protected $fillable = [         
-=======
-   protected $table = 'semestre';
-    protected $primaryKey = 'sem_iCodigo';    
     public $timestamps = false;
+  
+    protected $fillable = [         
 
-    protected $fillable = [                
->>>>>>> ferx
       'sem_nombre',
       'sem_cActivo',
       'sem_iNumeroActa',
@@ -50,6 +38,8 @@ class Semestre extends Model
       'fech_ent3_fin',
       'fech_ent4_ini',
       'fech_ent4_fin',
+      'fech_ent5_ini',
+      'fech_ent5_fin',
       'sem_dAplazadoInicio',
       'sem_dAplazadoFinal',
       'fecMatReg_ini',
@@ -57,9 +47,10 @@ class Semestre extends Model
       'fecMatExt_ini',
       'fecMatExt_fin',
       'sem_dSustituInicio',
-      'sem_dSustituFin'
+      'sem_dSustituFin',
+      'inicio'
     ];
-<<<<<<< HEAD
+
 
     /*
     public function preguntas()
@@ -67,7 +58,6 @@ class Semestre extends Model
         return $this->hasMany('App\preguntas', 'CodEva');//de muchos a uno
     }   
     */
-=======
->>>>>>> ferx
+
 }
 

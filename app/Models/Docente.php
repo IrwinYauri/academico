@@ -24,5 +24,6 @@ class Docente extends Model
       'doc_vcEmail2','condDocente','cateDocente'
    ];
    public $timestamps=false; //descativando funcion de laravel 8
+   //actualizando datos
 
 }

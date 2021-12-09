@@ -512,7 +512,7 @@ class AdminController extends Controller
     { 
     //FILTRAR QUE SOLO EL CREADOR LO PUEDA ELIMINAR
 
-        if($request->ajax())
+        //if($request->ajax())
         {   
           //crea actas y hace el cierre del semestre
           DB::select('call cerrarActas('.$sem.')');
@@ -543,6 +543,10 @@ class AdminController extends Controller
           $cont->fech_ent3_fin = $request->fech_ent3_fin;
           $cont->fech_ent4_ini = $request->fech_ent4_ini;
           $cont->fech_ent4_fin = $request->fech_ent4_fin;
+
+          $cont->fech_ent5_ini = $request->fech_ent5_ini;
+          $cont->fech_ent5_fin = $request->fech_ent5_fin;
+
           //FALTA SEMANA 5
           $cont->sem_dAplazadoInicio = $request->sem_dAplazadoInicio;
           $cont->sem_dAplazadoFinal = $request->sem_dAplazadoFinal;
@@ -557,6 +561,34 @@ class AdminController extends Controller
           $cont->save();
           //return response()->json($archi);
               
+        }
+    } 
+    catch (Exception $e) 
+    {
+        DB::rollback();
+        return response()->json("error: ".$e);   
+    }
+
+    DB::commit();
+
+    //return response()->json($datos->EstComPub);
+    return response()->json("ok");    
+    
+  }
+
+  public function eliminarSemestre($sem)
+  {
+
+    DB::beginTransaction();
+
+    try 
+    { 
+    //FILTRAR QUE SOLO EL CREADOR LO PUEDA ELIMINAR
+
+        //if($request->ajax())
+        { 
+          //Eliminar semestre
+          Semestre::where("sem_iCodigo",$sem)->delete();              
         }
     } 
     catch (Exception $e) 

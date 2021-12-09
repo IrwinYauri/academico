@@ -85,15 +85,39 @@ function cerrarSemestre(sem) //activo
 			sem_dSustiFinal : sem_dSustiFinal			
 		},
 		success:function(result)
-		{			
-			alert(result);
+		{	
+			if(result=="ok")
+			{
+				listasemestre();			
+				$("#sms").show();	
+				$("#sms2").hide();	
+			}
+			/*else
+			{
+								
+			}*/
 
-			if(result==1)
-				alert("Creación de semestre correctamente...");	
 		},
-		error:function() 
-		{
-        	alert("Error");
+    	error: function (jqXHR, exception) {
+	        var msg = '';
+	        if (jqXHR.status === 0) {
+	            msg = 'Not connect.\n Verify Network.';
+	        } else if (jqXHR.status == 404) {
+	            msg = 'Requested page not found. [404]';
+	        } else if (jqXHR.status == 500) {
+	            msg = 'Internal Server Error [500].';
+	        } else if (exception === 'parsererror') {
+	            msg = 'Requested JSON parse failed.';
+	        } else if (exception === 'timeout') {
+	            msg = 'Time out error.';
+	        } else if (exception === 'abort') {
+	            msg = 'Ajax request aborted.';
+	        } else {
+	            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+	        }
+	        $("#sms").hide();	
+			$("#sms2").show();
+	        $("#sms2_1").html(msg);
     	},
 		complete: function () 
 		{
@@ -101,6 +125,56 @@ function cerrarSemestre(sem) //activo
 		}
 	});
 	
+}
+
+function eliminarSemestre(id)
+{
+	$("#cargando").show();
+alert(id);
+    $.ajax(
+    {
+		url  : "admin/eliminarSemestre/"+id,		
+		type : "GET",   
+		success:function(result)
+		{	
+			if(result=="ok")
+			{
+				listasemestre();			
+				$("#sms").show();	
+				$("#sms2").hide();	
+			}
+			/*else
+			{
+								
+			}*/
+		},
+    	error: function (jqXHR, exception) 
+    	{
+	        var msg = '';
+	        if (jqXHR.status === 0) {
+	            msg = 'Not connect.\n Verify Network.';
+	        } else if (jqXHR.status == 404) {
+	            msg = 'Requested page not found. [404]';
+	        } else if (jqXHR.status == 500) {
+	            msg = 'Internal Server Error [500].';
+	        } else if (exception === 'parsererror') {
+	            msg = 'Requested JSON parse failed.';
+	        } else if (exception === 'timeout') {
+	            msg = 'Time out error.';
+	        } else if (exception === 'abort') {
+	            msg = 'Ajax request aborted.';
+	        } else {
+	            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+	        }
+	        $("#sms").hide();	
+			$("#sms2").show();
+	        $("#sms2_1").html(msg);
+    	},
+		complete: function () 
+		{
+			$("#cargando").hide();
+		}
+	});
 }
 
 

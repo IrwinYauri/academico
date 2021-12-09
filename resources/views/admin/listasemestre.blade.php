@@ -16,14 +16,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mod. Semestre</title>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.0/datatables.min.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script> //-->
-  <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
-  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.0/datatables.min.js"></script>
   
   <style>
     .table-condensed
@@ -131,23 +123,29 @@
 
     <div class="container table-condensed">
       <h1 class="h3 mb-0 text-gray-600"><i class="fas fa-clock"></i> MOD. SEMESTRE</h1><br>
+      <div class="alert alert-success" id="sms" style="display:none;">
+        <strong>Correcto!</strong> Se registro bien.
+      </div>
+      <div class="alert alert-danger" id="sms2" style="display:none;">
+        <strong>Error!</strong> <span id="sms2_1">Vuelva a intentarlo.</span>
+      </div>
       <div class="card shadow mb-4">        
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             
         
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item m-0 font-weight-bold text-primary" role="presentation">
-                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"><i class="fa fa-bars" aria-hidden="true"></i> Lista de Semestres</button>
+                <button class="btn btn-primary active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true" style="border:1px solid white;"><i class="fa fa-bars" aria-hidden="true"></i> Lista de Semestres</button>
             </li>
             <!--li class="nav-item" role="presentation">
                 <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
                   Nuevo cuenta de Sistema</button>
             </li-->
             <li class="nav-item m-0 font-weight-bold text-primary" role="presentation">
-              <button class="nav-link" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestrefecha" type="button" role="tab" aria-controls="semestrefecha" aria-selected="false"><i class="fas fa-calendar-alt"></i> Calendario Académico</button>
+              <button class="btn btn-primary" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestrefecha" type="button" role="tab" aria-controls="semestrefecha" aria-selected="false" style="border:1px solid white;"><i class="fas fa-calendar-alt"></i> Calendario Académico</button>
             </li>
             <li class="nav-item m-0 font-weight-bold text-primary" role="presentation">
-              <button class="nav-link" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestre" type="button" role="tab" aria-controls="semestre" aria-selected="false"><i class="fa fa-toggle-on" aria-hidden="true"></i> Apertura/Cierre Semestre</button>
+              <button class="btn btn-primary" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestre" type="button" role="tab" aria-controls="semestre" aria-selected="false" style="border:1px solid white;"><i class="fa fa-toggle-on" aria-hidden="true"></i> Apertura/Cierre Semestre</button>
             </li>
           </ul>
         </div>  
@@ -164,24 +162,29 @@
           <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             
               <div class="row" style="padding: 20px 45px;">
-                <table id="tabla-semestre" class="table table-hover table-condensed text-dark-80">
-                  <thead class="micolor">
+                <table class="table table-striped table-bordered">
+                  <thead>
                     <!--th>codigo</th-->
-                    <th style="border-top: 0px solid #e3e6f0;">SEMESTRE</th>
-                    <th style="border-top: 0px solid #e3e6f0;">ESTADO</th>
-                    <th style="border-top: 0px solid #e3e6f0;">INICIO MATRÍCULA</th>
-                    <th style="border-top: 0px solid #e3e6f0;">CIERRE MATRÍCULA</th>
-                    <th style="border-top: 0px solid #e3e6f0;">INICIO SEMESTRE</th>
-                    <th style="border-top: 0px solid #e3e6f0;">INICIO ENCUESTA</th>
-                    <th style="border-top: 0px solid #e3e6f0;">CIERRE ENCUESTA</th>        
-                    <th style="border-top: 0px solid #e3e6f0;">ACCIONES</th>
+                    <th>SEMESTRE</th>
+                    <th>ESTADO</th>
+                    <th>INICIO MATRÍCULA</th>
+                    <th>CIERRE MATRÍCULA</th>
+                    <th>INICIO SEMESTRE</th>
+                    <th>INICIO ENCUESTA</th>
+                    <th>CIERRE ENCUESTA</th>        
+                    <th>ACCIONES</th>
                   </thead>
                   <tbody>
                     @foreach ($listasemestre as $sem)
-                      <tr class="micolor">
+                      <tr>
                         <!--td>{{ $sem->sem_iCodigo }}</td-->
                         <td style="text-align: center;">
-                          <span class="badge badge-pill badge-info" style="font-size: 11px;">{{ $sem->sem_nombre }}</span>
+                           @if(left($sem->sem_cActivo,1)=="S")
+                            <span class="badge badge-pill badge-success" style="font-size: 11px;">{{ $sem->sem_nombre }}</span>
+                          @else
+                            <span style="font-size: 11px;">{{ $sem->sem_nombre }}</span>
+                          @endif
+                          
                         </td>               
                         <td style="text-align: center;">
                           @if(left($sem->sem_cActivo,1)=="S")
@@ -197,10 +200,17 @@
                         <td style="text-align: center;">{{$sem->sem_dInicioClases}}</td>
                         <td style="text-align: center;">{{$sem->sem_dEncuestaInicio}}</td>
                         <td style="text-align: center;">{{$sem->sem_dEncuestaFinal}}</td>
-                        <td style="text-align: center;">
-                          <a href="javascript:void(0)" onclick="activarsemestre('{{$sem->sem_iCodigo}}'); " class="btn btn-success btn-sm table-condensed"> ACTIVAR</a>
-                          <a href="javascript:void(0)" onclick="$('#editarSemestre').modal('show');" class="btn btn-info btn-sm table-condensed"> Editar </a>
-                            <!--&nbsp;&nbsp;<button type="button" name="delete" id="'.$animales->id.'" class="delete btn btn-danger btn-sm table-condensed"> Eliminar </button-->
+                        <td style="text-align: center;">                          
+                          @if(left($sem->sem_cActivo,1)=="S")
+                            <a href="javascript:void(0)" onclick="$('#editarSemestre').modal('show');" class="btn btn-success btn-sm btn-block"><i class="fa fa-pencil"></i> EDITAR</a>
+                          @else
+                            <a href="javascript:void(0)" onclick="activarsemestre('{{$sem->sem_iCodigo}}'); " class="btn btn-info btn-sm btn-block"><i class="fa fa-mail-reply-all"></i> RE-APERTURAR</a>
+                          @endif   
+
+                          @if($sem->inicio==0)                            
+                            <button type="button" name="delete" onclick="eliminarSemestre('{{$sem->sem_iCodigo}}');" class="delete btn btn-danger btn-sm table-condensed"> Eliminar </button>
+                          @endif
+                          
                         </td>
                       </tr>
                     @endforeach  
@@ -217,12 +227,31 @@
 
           <div class="tab-pane fade" id="semestrefecha" role="tabpanel" aria-labelledby="semestrefecha-tab" style="padding: 31px 32px;font-size: 12px;">
             <div id="row g-4">
-              <select id="nrosemestre" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" onchange="vercalendario(this); revisarestadofecha();" style="font-size: 14px;">
+              <select id="nrosemestre" class="form-control" aria-label=".form-select-lg example" onchange="vercalendario(this); revisarestadofecha();" style="font-size: 14px;">
                 <option >Seleccionar semestre</option>
                 @foreach ($listasemestre as $sem)
                   <option value="{{ $sem->sem_iCodigo }}">{{ $sem->sem_iCodigo }}</option>               
                 @endforeach
               </select>
+            </div>
+
+            <div class="row g-4" >
+              <div class="col-sm">
+                <label for="colFormLabelSm" class=" col-form-label  tamletra ">INICIO DE CLASES</label>
+                  <input type="date" class="form-control" placeholder="sem_dInicioClases" aria-label="sem_dInicioClases" id="sem_dInicioClases" style="font-size:12px;">
+              </div>
+              <div class="col-sm">
+                <label for="colFormLabelSm" class=" col-form-label  tamletra ">NRO DE SEMANAS</label>
+                <input type="text" class="form-control" placeholder="sem_iSemanas" aria-label="sem_iSemanas" id="sem_iSemanas" style="font-size:12px;">
+              </div>
+              <div class="col-sm">
+                <label for="colFormLabelSm" class=" col-form-label  tamletra ">MINUTOS ESPERA</label>
+                  <input type="text" class="form-control" placeholder="sem_iToleranciaInicio" aria-label="sem_iToleranciaInicio" id="sem_iToleranciaInicio" style="font-size:12px;">
+              </div>
+              <div class="col-sm">
+                <label for="colFormLabelSm" class=" col-form-label  tamletra ">MINUTOS CIERRE</label>
+                <input type="text" class="form-control" placeholder="sem_iToleranciaFinal" aria-label="sem_iToleranciaFinal" id="sem_iToleranciaFinal" style="font-size:12px;">
+              </div>              
             </div>
                                       
             <div class="row g-4">
@@ -245,15 +274,7 @@
               </div>                
             </div>
                 
-            <div class="row g-4" >
-              <div class="col-sm">
-                <label for="colFormLabelSm" class=" col-form-label  tamletra ">INICIO DE CLASES</label>
-                  <input type="date" class="form-control" placeholder="sem_dInicioClases" aria-label="sem_dInicioClases" id="sem_dInicioClases" style="font-size:12px;">
-              </div>
-              <div class="col-sm">
-                <label for="colFormLabelSm" class=" col-form-label  tamletra ">NRO DE SEMANAS</label>
-                <input type="text" class="form-control" placeholder="sem_iSemanas" aria-label="sem_iSemanas" id="sem_iSemanas" style="font-size:12px;">
-              </div>
+            <div class="row g-4">
               <div class="col-sm">
                 <label for="colFormLabelSm" class=" col-form-label  tamletra ">INICIO DE ACTAS</label>
                 <input type="date" class="form-control" placeholder="sem_dActaInicio" aria-label="sem_dActaInicio" id="sem_dActaInicio" style="font-size:12px;">
@@ -262,17 +283,6 @@
               <div class="col-sm">
                 <label for="colFormLabelSm" class=" col-form-label  tamletra ">CIERRE DE ACTAS</label>
                 <input type="date" class="form-control" placeholder="sem_dActaFinal" aria-label="sem_dActaFinal" id="sem_dActaFinal" style="font-size:12px;">
-              </div>
-            </div>
-                
-            <div class="row g-4">
-              <div class="col-sm">
-                <label for="colFormLabelSm" class=" col-form-label  tamletra ">MINUTOS ESPERA</label>
-                  <input type="text" class="form-control" placeholder="sem_iToleranciaInicio" aria-label="sem_iToleranciaInicio" id="sem_iToleranciaInicio" style="font-size:12px;">
-              </div>
-              <div class="col-sm">
-                <label for="colFormLabelSm" class=" col-form-label  tamletra ">MINUTOS CIERRE</label>
-                <input type="text" class="form-control" placeholder="sem_iToleranciaFinal" aria-label="sem_iToleranciaFinal" id="sem_iToleranciaFinal" style="font-size:12px;">
               </div>
               <div class="col-sm">
                 <label for="colFormLabelSm" class=" col-form-label  tamletra ">INICIO UNIDAD I</label>
@@ -386,12 +396,12 @@
                   @else
                     @if($semestre_act->inicio==0)
                       <div class="form-group">
-                        <button class="btn btn-primary btn-block" onclick="IniciarSemestre();">Iniciar Semestre</button>
+                        <button class="btn btn-warning btn-block" onclick="IniciarSemestre();">Iniciar Semestre</button>
                       </div>              
                     @else
                       <div class="form-group">    
                         <button type="button" class="btn btn-primary" id="openModSem" data-toggle="modal" data-target="#nueSemestre" style="display: none;"></button>
-                        <button class="btn btn-primary btn-block" onclick="openVerificNotsSetDateSem();">Cerrar Semestre - {{$semestre_act->sem_nombre}}</button>
+                        <button class="btn btn-danger btn-block" onclick="openVerificNotsSetDateSem();">Cerrar Semestre - {{$semestre_act->sem_nombre}}</button>
                       </div>  
                     @endif
                   @endif
@@ -421,7 +431,7 @@
                   </div>
                   <div class="col-sm">
                     <label for="colFormLabelSm" class=" col-form-label  tamletra">Nombre del Semestre</label>
-                    <input type="text" class="form-control" placeholder="XXXY-Z" aria-label="nomsemestre_" id="nomsemestre_" style="font-size:12px;">
+                    <input type="text" class="form-control" placeholder="XXXY-Z" aria-label="nomsemestre_" id="nomsemestre_" style="font-size:12px;" maxlength="6">
                   </div>                
                 </div>
 
@@ -602,94 +612,125 @@
         function validacionCreacion()
         {
           let key = true;
-          /*          
           
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          sem_dSustiInicio_
-          sem_dSustiFinal_
-          fecMatReg_ini_
-          fecMatReg_fin_
-          fecMatExt_ini_
-          fecMatExt_fin_
-          */
-          if($("#codsemestre_").val()=="")
+          if($("#codsemestre_").val()=="" || !Number.isInteger(parseFloat($("#codsemestre_").val())))
           {
             $("#codsemestre_").css("border","1px solid red");
             key=false;
           }
+          else
+          {
+            $("#codsemestre_").css("border","1px solid #d1d3e2");
+          }
+
           if($("#nomsemestre_").val()=="")
           {
             $("#nomsemestre_").css("border","1px solid red");
             key=false;
           }
+          else
+          {
+            $("#nomsemestre_").css("border","1px solid #d1d3e2");
+          }
+
           if($("#sem_dInicioClases_").val()=="")
           {
             $("#sem_dInicioClases_").css("border","1px solid red");
             key=false;
           }
+          else
+          {
+            $("#sem_dInicioClases_").css("border","1px solid #d1d3e2");
+          }
+
           if($("#sem_iSemanas_").val()=="")
           {
             $("#sem_iSemanas_").css("border","1px solid red");
             key=false;
           }
+          else
+          {
+            $("#sem_iSemanas_").css("border","1px solid #d1d3e2");
+          }
+
           if($("#sem_iToleranciaInicio_").val()=="")
           {
             $("#sem_iToleranciaInicio_").css("border","1px solid red");
             key=false;
           }
+          else
+          {
+            $("#sem_iToleranciaInicio_").css("border","1px solid #d1d3e2");
+          }
+
           if($("#sem_iToleranciaFinal_").val()=="")
           {
             $("#sem_iToleranciaFinal_").css("border","1px solid red");
             key=false;
           }
+          else
+          {
+            $("#sem_iToleranciaFinal_").css("border","1px solid #d1d3e2");
+          }
+
           if($("#sem_iMatriculaInicio_").val()=="")
           {
             $("#sem_iMatriculaInicio_").css("border","1px solid red");
             key=false;
           }
+          else
+          {
+            $("#sem_iMatriculaInicio_").css("border","1px solid #d1d3e2");
+          }
+
           if($("#sem_iMatriculaFinal_").val()=="")
           {
             $("#sem_iMatriculaFinal_").css("border","1px solid red");
             key=false;
           }
+          else
+          {
+            $("#sem_iMatriculaFinal_").css("border","1px solid #d1d3e2");
+          }
+
           if($("#sem_dEncuestaInicio_").val()=="")
           {
             $("#sem_dEncuestaInicio_").css("border","1px solid red");
             key=false;
           }
+          else
+          {
+            $("#sem_dEncuestaInicio_").css("border","1px solid #d1d3e2");
+          }
+
           if($("#sem_dEncuestaFinal_").val()=="")
           {
             $("#sem_dEncuestaFinal_").css("border","1px solid red");
             key=false;
           }
+          else
+          {
+            $("#sem_dEncuestaFinal_").css("border","1px solid #d1d3e2");
+          }
+
           if($("#sem_dActaInicio_").val()=="")
           {
             $("#sem_dActaInicio_").css("border","1px solid red");
             key=false;
           }
+          else
+          {
+            $("#sem_dActaInicio_").css("border","1px solid #d1d3e2");
+          }
+
           if($("#sem_dActaFinal_").val()=="")
           {
             $("#sem_dActaFinal_").css("border","1px solid red");
             key=false;
+          }
+          else
+          {
+            $("#sem_dActaFinal_").css("border","1px solid #d1d3e2");
           }
 
           if($("#fech_ent1_ini_").val()=="")
@@ -697,30 +738,56 @@
             $("#fech_ent1_ini_").css("border","1px solid red");
             key=false;
           }
+          else
+          {
+            $("#fech_ent1_ini_").css("border","1px solid #d1d3e2");
+          }
+
           if($("#fech_ent1_fin_").val()=="")
           {
             $("#fech_ent1_fin_").css("border","1px solid red");
             key=false;
           }
+          else
+          {
+            $("#fech_ent1_fin_").css("border","1px solid #d1d3e2");
+          }
+
           if($("#fech_ent2_ini_").val()=="")
           {
             $("#fech_ent2_ini_").css("border","1px solid red");
             key=false;
+          }
+          else
+          {
+            $("#fech_ent2_ini_").css("border","1px solid #d1d3e2");
           }
           if($("#fech_ent2_fin_").val()=="")
           {
             $("#fech_ent2_fin_").css("border","1px solid red");
             key=false;
           }
+          else
+          {
+            $("#fech_ent2_fin_").css("border","1px solid #d1d3e2");
+          }
           if($("#fech_ent3_ini_").val()=="")
           {
             $("#fech_ent3_ini_").css("border","1px solid red");
             key=false;
           }
+          else
+          {
+            $("#fech_ent3_ini_").css("border","1px solid #d1d3e2");
+          }
           if($("#fech_ent3_fin_").val()=="")
           {
             $("#fech_ent3_fin_").css("border","1px solid red");
             key=false;
+          }
+          else
+          {
+            $("#fech_ent3_fin_").css("border","1px solid #d1d3e2");
           }
 
           if($("#fech_ent4_ini_").val()=="")
@@ -728,10 +795,18 @@
             $("#fech_ent4_ini_").css("border","1px solid red");
             key=false;
           }
+          else
+          {
+            $("#fech_ent4_ini_").css("border","1px solid #d1d3e2");
+          }
           if($("#fech_ent4_fin_").val()=="")
           {
             $("#fech_ent4_fin_").css("border","1px solid red");
             key=false;
+          }
+          else
+          {
+            $("#fech_ent4_fin_").css("border","1px solid #d1d3e2");
           }
 
           if($("#fech_ent5_ini_").val()=="")
@@ -739,24 +814,94 @@
             $("#fech_ent5_ini_").css("border","1px solid red");
             key=false;
           }
+          else
+          {
+            $("#fech_ent5_ini_").css("border","1px solid #d1d3e2");
+          }
           if($("#fech_ent5_fin_").val()=="")
           {
             $("#fech_ent5_fin_").css("border","1px solid red");
             key=false;
           }
-          
+          else
+          {
+            $("#fech_ent5_fin_").css("border","1px solid #d1d3e2");
+          }
+
           if($("#sem_dAplazadoInicio_").val()=="")
           {
             $("#sem_dAplazadoInicio_").css("border","1px solid red");
             key=false;
+          }
+          else
+          {
+            $("#sem_dAplazadoInicio_").css("border","1px solid #d1d3e2");
           }
           if($("#sem_dAplazadoFinal_").val()=="")
           {
             $("#sem_dAplazadoFinal_").css("border","1px solid red");
             key=false;
           }
+          else
+          {
+            $("#sem_dAplazadoFinal_").css("border","1px solid #d1d3e2");
+          }
 
+          if($("#sem_dSustiInicio_").val()=="")
+          {
+            $("#sem_dSustiInicio_").css("border","1px solid red");
+            key=false;
+          }
+          else
+          {
+            $("#sem_dSustiInicio_").css("border","1px solid #d1d3e2");
+          }
+          if($("#sem_dSustiFinal_").val()=="")
+          {
+            $("#sem_dSustiFinal_").css("border","1px solid red");
+            key=false;
+          }
+          else
+          {
+            $("#sem_dSustiFinal_").css("border","1px solid #d1d3e2");
+          }
+          if($("#fecMatReg_ini_").val()=="")
+          {
+            $("#fecMatReg_ini_").css("border","1px solid red");
+            key=false;
+          }
+          else
+          {
+            $("#fecMatReg_ini_").css("border","1px solid #d1d3e2");
+          }
+          if($("#fecMatReg_fin_").val()=="")
+          {
+            $("#fecMatReg_fin_").css("border","1px solid red");
+            key=false;
+          }
+          else
+          {
+            $("#fecMatReg_fin_").css("border","1px solid #d1d3e2");
+          }
 
+          if($("#fecMatExt_ini_").val()=="")
+          {
+            $("#fecMatExt_ini_").css("border","1px solid red");
+            key=false;
+          }
+          else
+          {
+            $("#fecMatExt_ini_").css("border","1px solid #d1d3e2");
+          }
+          if($("#fecMatExt_fin_").val()=="")
+          {
+            $("#fecMatExt_fin_").css("border","1px solid red");
+            key=false;
+          }
+          else
+          {
+            $("#fecMatExt_fin_").css("border","1px solid #d1d3e2");
+          }
 
           return key;
         }
@@ -924,9 +1069,10 @@
      
       function vercalendario(element)
       { 
+        $("#cargando").show();
         var t1={{$n}};
         var sem1=element.value;
-       // alert(sem1)
+        //alert(sem1)
         for(x=0;x<=t1;x++)
         {
           if(semestre[x]==sem1)
@@ -963,6 +1109,7 @@
             $("#fecMatExt_fin").val(fecMatExt_fin[x]);
           }
         }
+        $("#cargando").hide();
       }
 
       function revisarestadofecha()
@@ -1084,7 +1231,7 @@
         
     </script>
 
-    <div id="mimensajex">GRABANDO</div>
+    <!--div id="mimensajex">GRABANDO</div-->
 
   </body>
 </html>

@@ -38,6 +38,8 @@ class Semestre extends Model
       'fech_ent3_fin',
       'fech_ent4_ini',
       'fech_ent4_fin',
+      'fech_ent5_ini',
+      'fech_ent5_fin',
       'sem_dAplazadoInicio',
       'sem_dAplazadoFinal',
       'fecMatReg_ini',

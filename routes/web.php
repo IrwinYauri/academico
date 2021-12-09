@@ -96,6 +96,7 @@ Route::post('pagosmatriculax',[PagosController::class,'store'])->name('store');
 
 Route::post('pagosmatricula',[ReportepdfController::class,'recordalumno'])->name('recordalumno');
 Route::post('boletaalumno',[ReportepdfController::class,'boletaalumno'])->name('boletaalumno');
+Route::get('rptboletaalumno',[ReportepdfController::class,'boletaalumno01'])->name('boletaalumno01');
 //---Route::post('silabusemestre/{nomfile}',[SilabusemestreController::class,'destroy'])->name('destroy');
 //Route::post('docente/validardocentes',[DocenteController::class,'validardocentes'])->name('docente.validardocentes');
 //Route::get('alumno/reportepdf',[AlumnoController::class,'reportepdf'])->name('alumno.reportepdf');

@@ -3,6 +3,8 @@ use App\Http\Controllers\AlumnoController;
    
 $docentex=new AlumnoController();
 //$rpt=$docentex->buscardocente('41231912');
+if(isset($_REQUEST['userx']))
+{
 $rpt=$docentex->buscaralumno($_REQUEST['userx']);
 $user =$_REQUEST['userx'];
 $password = $_REQUEST['passwordx'];
@@ -35,6 +37,12 @@ if(($user==$xuser) && (strtoupper(sha1($password))==$xpassword))
 }
 echo strtoupper(sha1($password));
 echo "<br>";
+}else {
+    echo    '<script>
+    //alertagrabarx("ERROR DE ACCESO","red");  
+    location.href="loginalumno?error=1"; 
+</script>';
+}
 //echo $xpassword;
 //dd($rpt);
 @endphp

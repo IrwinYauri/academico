@@ -279,7 +279,9 @@ function cambiarpassword()
 	
 }
 function vermensaje()
- { var n1=$("#n1").val();
+ {  $("#micontenido").html(
+	"<img src='img/cargar.gif'>"  );
+	 var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
      $.ajax({
 		url:"alumno/mensajes",

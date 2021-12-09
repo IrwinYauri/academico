@@ -860,7 +860,7 @@ $xfomulaunidad05 = versilabusformula($sem, $codcurso, 5);
 <script>
     function vercursoreg() {
         $("#micontenido").html(
-            "<img src='img/carga01.gif'>"
+            "<img src='img/cargar.gif'>"
         );
         $("#micontenido").load('docente/registronotas');
 
@@ -868,7 +868,7 @@ $xfomulaunidad05 = versilabusformula($sem, $codcurso, 5);
 
     function xverregistro(codcurso,semestre,coddocente) { //actas/veractas?xcod=2
         $("#micontenido").html(
-            "<img src='img/carga01.gif'>"
+            "<img src='img/cargar.gif'>"
         );
       
         $.ajax({

@@ -1144,20 +1144,20 @@ $vernotas = sqlvercursosalumnos($codcurso, $sem, $coddocentex);
 <script>
     function vercursoreg() {
         $("#micontenido").html(
-            "<img src='img/carga01.gif'>"
+            "<img src='img/cargar.gif'>"
         );
         $("#micontenido").load('docente/crearnotas');
 
     }
     function actualizarpromedio(coddocente,sem,codcurso,escuela,curso) {
       /*  $("#micontenido").html(
-            "<img src='img/carga01.gif'>"
+            "<img src='img/cargar.gif'>"
         ); */
        // dire="docente/crearnotascurso?xcod="+coddocente+"&sem="+sem+"&codcurso="+codcurso+"&escuela="+escuela+"&curso="+curso
        // alert(dire)
        // $("#micontenido").load(dire);
        $("#micontenido").html(
-       "<img src='img/carga01.gif'>"
+       "<img src='img/cargar.gif'>"
      );
 
         $.ajax({

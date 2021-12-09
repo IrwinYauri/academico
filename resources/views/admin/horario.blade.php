@@ -247,10 +247,16 @@
   });
 
   function verhorario()
+<<<<<<< HEAD
   { 
     var escuela=$("#escuelax").val();
     var semestre='{{$semestreactual}}';
     $("#listahorario").html("<img src='img/carga01.gif'>");
+=======
+  { var escuela=$("#escuelax").val();
+    var semestre='{{$semestreactual}}'
+    $("#listahorario").html("<img src='img/cargar.gif'>");
+>>>>>>> 899fbda6d4910635a554d17a651c37ad5d46c959
     $.ajax({
         url: "admin/horariolista",
         success: function(result) {

@@ -225,7 +225,7 @@ function subirfoto()
  { var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
      $.ajax({
-		url:"subirfoto.php",
+		url:"alumno/subirfoto",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
@@ -277,10 +277,12 @@ function cambiarpassword()
 	
 }
 function vermensaje()
- { var n1=$("#n1").val();
+ {  $("#micontenido").html(
+	"<img src='img/cargar.gif'>"  );
+	 var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
      $.ajax({
-		url:"mensajes.php",
+		url:"alumno/mensajes",
 	success:function(result){
 	//alert(result);
 	$("#micontenido").html(result);
@@ -295,7 +297,9 @@ function vermensaje()
 }
 
 function crearencuesta()
- { var n1=$("#n1").val();
+ { $("#micontenido").html(
+	"<img src='img/cargar.gif'>"  );
+	 var n1=$("#n1").val();
    var bbuscar=$("#bbuscar").val();
      $.ajax({
 		url:"alumno/crearencuesta",

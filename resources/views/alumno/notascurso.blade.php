@@ -116,7 +116,7 @@ aria-hidden="true">
   function vernotasx(codalumno,semestre,codcurso,curso,escuela)
   {$("#confirmModal").modal("show");
   $("#misnotas").html(
-       "<img src='img/carga01.gif'>"
+       "<img src='img/cargar.gif'>"
      );
 
         $.ajax({

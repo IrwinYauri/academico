@@ -4,7 +4,8 @@ use App\Http\Controllers\DocenteController;
    
 $docentex=new DocenteController();
 //$rpt=$docentex->buscardocente('41231912');
-$rpt=$docentex->buscardocente($_REQUEST['userx']);
+if(isset($_REQUEST['userx']))
+{$rpt=$docentex->buscardocente($_REQUEST['userx']);
 $user =$_REQUEST['userx'];
 $password = $_REQUEST['passwordx'];
 $xcoddocente="";
@@ -35,7 +36,12 @@ if(($user==$xuser) && (strtoupper(sha1($password))==$xpassword))
 </script>';
 }
 echo strtoupper(sha1($password));
-echo "<br>";
+echo "<br>"; }
+else {echo    '<script>
+    //alertagrabarx("ERROR DE ACCESO","red");  
+    location.href="logindocente?error=1"; 
+</script>';
+}
 //echo $xpassword;
 //dd($rpt);
 @endphp

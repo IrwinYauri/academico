@@ -160,7 +160,7 @@ $cod2 = $alumno[0]->alu_vcCodigo;
 <script src="{{ asset('jspdf/jspdf.min.js') }}"></script>
 <script>
     function vernotas(semestre, codalumno, escuela, cod2) {
-        $("#detallex").html('<img src="img/carga01.gif">');
+        $("#detallex").html('<img src="img/cargar.gif">');
         $.ajax({
             url: "alumno/boletanotasdetalle",
             success: function(result) {

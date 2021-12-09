@@ -79,4 +79,22 @@ return view('reportepdf.boletasnotas',["sales"=>$sales,"dataalumno"=>$dataalumno
 
     return $pdf->download('boletanotas.pdf');
    }
+
+   public function boletaalumno01(Request $request)
+   {/*
+    $pdf=PDF::loadView('alumno/recordacademico');
+    return $pdf->download('reporte.pdf');
+    */
+    //$contenido="Sistema Academico<br>".$request->imprimirx;
+    //$contenido="Boleta de prueba";
+    $pdf = app('dompdf.wrapper');
+    $pdf->loadView('alumno/boletanotas2')
+    //$pdf->loadHTML('<h1>Styde.net</h1>');
+    //$pdf->loadHTML($contenido)
+    //->setPaper('a4', 'landscape')//horizontal
+    ->setPaper('a4', 'portrait')
+    ->download('archivo.pdf');
+
+    return $pdf->download('boletanotas01.pdf');
+   }
 }

@@ -14,8 +14,51 @@
 
  $silabus=new SilabusemestreController();
  $miasistencia=new DocenteController();  
- $miscursos=$miasistencia->vercursos(semestreactual(),$coddocentex);
 
+
+ function  vercursos($semestre,$coddocente)
+   { 
+       $sql="SELECT DISTINCT
+	seccion_horario.doc_iCodigo,
+	seccion.cur_iCodigo,
+	docente.doc_vcPaterno,
+	docente.doc_vcMaterno,
+	docente.doc_vcNombre,
+	seccion.sem_iCodigo,
+	curso.cur_vcNombre,
+	curso.cur_iSemestre,
+	curso.cur_iCodigo,
+	curso.cur_vcCodigo,
+	seccion.sec_iNumero,
+	curso.escpla_iCodigo,
+	escuelaplan.escpla_vcCodigo,
+	seccion.sec_iCodigo
+FROM
+	seccion_horario
+INNER JOIN docente ON (
+	seccion_horario.doc_iCodigo = docente.doc_iCodigo
+)
+INNER JOIN seccion ON (
+	seccion_horario.sec_iCodigo = seccion.sec_iCodigo
+)
+INNER JOIN curso ON (
+	seccion.cur_iCodigo = curso.cur_iCodigo
+)
+INNER JOIN escuelaplan ON (
+	curso.escpla_iCodigo = escuelaplan.escpla_iCodigo
+)
+WHERE
+	`seccion`.`sem_iCodigo` = '$semestre'
+AND `seccion_horario`.`doc_iCodigo` = '$coddocente'
+ORDER BY
+	curso.cur_vcCodigo,
+	curso.cur_iCodigo
+  ";
+   $data1=DB::select($sql);
+  return $data1;
+  }
+ //$miscursos=$miasistencia->vercursos(semestreactual(),$coddocentex);
+ $miscursos=vercursos(semestreactual(),$coddocentex);
 //dd($miscursos);
 
 @endphp
@@ -63,8 +106,8 @@ if($t>0)
 //FIN agrupando filtrando evitar duplicados
 @endphp
 <style>
-  .table-condensed{
-font-size: 10px;
+  .table{
+
 color: black;
 }
 
@@ -83,7 +126,7 @@ color: black;
     </div>
   
       <div class="card-body">
-      <table class='table table-striped table-hover table-responsive-md text-dark-800 table-condensed' width='80%'>
+      <table class='table table-striped   '>
       <thead>
         <tr style='background-color:navy;color:white;'>
           <td>NRO</td><td>Curso</td><td>Escuela</td><td>Semestre</td>
@@ -102,7 +145,9 @@ color: black;
       $pendiente=0;
       $completado=0;
         @endphp
-        @foreach($milistadata as $listacur)
+      
+        @foreach($miscursos as $listacur)
+
         @php
       
         $nn++;
@@ -111,21 +156,21 @@ color: black;
           <tr>
             
           <td>{{$nn}}</td>
-          <td>{{ $listacur["cur_vcNombre"] }}</td>
-          <td>{{ $listacur["escpla_vcCodigo"] }}</td>
-          <td>{{ nroromano($listacur["cur_iSemestre"]) }}</td>
+          <td>{{ $listacur->cur_vcNombre }}</td>
+          <td>{{ $listacur->escpla_vcCodigo }}</td>
+          <td>{{ nroromano($listacur->cur_iSemestre) }}</td>
           <td>
             @php
-            $resta=$silabus->estadosilasbufile($listacur['sem_iCodigo'],$listacur['cur_iCodigo']);
-            $doc=$silabus->silabusfilenombre($listacur['sem_iCodigo'],$listacur['cur_iCodigo']);
+            $resta=$silabus->estadosilasbufile($listacur->sem_iCodigo,$listacur->cur_iCodigo);
+            $doc=$silabus->silabusfilenombre($listacur->sem_iCodigo,$listacur->cur_iCodigo);
             @endphp
 
             <form action="silabusemestre" method="POST" enctype="multipart/form-data">
             @csrf
             
             <input id="file" name="file" type="file" class="file" data-show-preview="false" >
-            <input id="codcurso" name="codcurso" type="hidden" value="{{$listacur['cur_iCodigo']}}" >
-            <input id="semestre" name="semestre" type="hidden" value="{{$listacur['sem_iCodigo']}}" >
+            <input id="codcurso" name="codcurso" type="hidden" value="{{$listacur->cur_iCodigo}}" >
+            <input id="semestre" name="semestre" type="hidden" value="{{$listacur->sem_iCodigo}}" >
             
             <input type="submit"  value="SUBIR" class="btn btn-primary btn-sm table-condensed">
           </form>                                
@@ -166,8 +211,8 @@ color: black;
           </button>
           {{ method_field('DELETE') }}
           @csrf
-          <input id="codcurso" name="codcurso" type="hidden" value="{{$listacur['cur_iCodigo']}}" >
-          <input id="semestre" name="semestre" type="hidden" value="{{$listacur['sem_iCodigo']}}" >
+          <input id="codcurso" name="codcurso" type="hidden" value="{{$listacur->cur_iCodigo}}" >
+          <input id="semestre" name="semestre" type="hidden" value="{{$listacur->sem_iCodigo}}" >
           </form>
         </td>
         </td>

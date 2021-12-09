@@ -101,7 +101,7 @@
 <script>
      function miaulas(){
  
-    $("#miaula").html("<img src='img/carga01.gif'>");
+    $("#miaula").html("<img src='img/cargar.gif'>");
     $.ajax({
         url: "admin/listaaulatabla",
         success: function(result) {

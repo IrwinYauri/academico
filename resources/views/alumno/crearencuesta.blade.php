@@ -152,14 +152,14 @@ $cursos = sqlvercursosalu($semestreactual, $codalumno);
 <script>
     function preguntas(codcurso,curso,codcursobas,codmatricurso,estado,coddocente) {
       /*  $("#micontenido").html(
-            "<img src='img/carga01.gif'>"
+            "<img src='img/cargar.gif'>"
         ); */
        // dire="docente/crearnotascurso?xcod="+coddocente+"&sem="+sem+"&codcurso="+codcurso+"&escuela="+escuela+"&curso="+curso
        // alert(dire)
        // $("#micontenido").load(dire);
             if(estado=="Pendiente")
                 {   $("#micontenido").html(
-                    "<img src='img/carga01.gif'>"
+                    "<img src='img/cargar.gif'>"
                                 );
 
                         $.ajax({

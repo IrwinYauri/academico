@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Http;
 
 use Illuminate\Support\Facades\DB; //uso base datos
 use Illuminate\Http\Request;//capturar datos
+
+use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\Storage;
 use DataTables;
 use Barryvdh\DomPDF\Facade as PDF;
 use View;
@@ -41,6 +44,37 @@ class AlumnoController extends Controller
   return view('alumno.index',$misdatos);
       
    }
+   public function store(Request $request)
+    { 
+     //   $mifecha=date("Y-m-d");
+        $coddoc=request('codalumno');
+      //  $semestre=request('semestre');
+     //   $nro=request('nro');
+        $file=$request->file('file') ;
+       $extension = $request->file('file')->extension();
+        // $extension="";
+        echo $extension ; 
+        if(strtoupper($extension)!="JPG")
+         {echo "NO ES UN JPG";
+            $menu="ALUMNO";
+            // return view('docente.index',['menu' => $menu]);
+             return redirect()->route('alumno.index', ['menu' => $menu]);
+         }
+        //   $fecha=$mifecha;
+        $filenom="1_".$coddoc;
+        echo $filenom;
+          //   if($request->hasFile('file'))
+          { $file=$request->file('file')->store('fotos','public');
+            if (!File::exists('public/fotos/'.$filenom.'.jpg'))
+            Storage::delete('public/fotos/'.$filenom.'.jpg');
+            }
+          Storage::move('public/'.$file, 'public/fotos/'.$filenom.'.jpg');
+          
+            $addsilabu=new PlanactividadController();
+                $menu="ALUMNO";
+         return redirect()->route('alumno.index', ['menu' => $menu]);
+           //   return view('docente.index',['menu' => $menu]);
+      }
 
    public function show($mivistas)
    {return view("alumno.".$mivistas."");
@@ -322,8 +356,7 @@ WHERE
         return $data1;
      }
      ///
-
-     public function  buscaralumno($dni)
+   public function  buscaralumno($dni)
    { 
        $sql='SELECT 
           *

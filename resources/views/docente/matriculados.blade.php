@@ -5,18 +5,93 @@ session_start();
   $coddocentex=$_SESSION['coddocentex'];
  }
 
- use App\Http\Controllers\DocenteController; 
- $miasistencia=new DocenteController();  
-$miscursos=$miasistencia->vercursos(20212,$coddocentex);
+ 
+  
+ $semestreactual=semestreactual();
+
+
+ function  vercursos($semestre,$coddocente)
+   { 
+       $sql="SELECT DISTINCT
+	seccion_horario.doc_iCodigo,
+	seccion.cur_iCodigo,
+	docente.doc_vcPaterno,
+	docente.doc_vcMaterno,
+	docente.doc_vcNombre,
+	seccion.sem_iCodigo,
+	curso.cur_vcNombre,
+	curso.cur_iSemestre,
+	curso.cur_iCodigo,
+	curso.cur_vcCodigo,
+	seccion.sec_iNumero,
+	curso.escpla_iCodigo,
+	escuelaplan.escpla_vcCodigo,
+	seccion.sec_iCodigo
+FROM
+	seccion_horario
+INNER JOIN docente ON (
+	seccion_horario.doc_iCodigo = docente.doc_iCodigo
+)
+INNER JOIN seccion ON (
+	seccion_horario.sec_iCodigo = seccion.sec_iCodigo
+)
+INNER JOIN curso ON (
+	seccion.cur_iCodigo = curso.cur_iCodigo
+)
+INNER JOIN escuelaplan ON (
+	curso.escpla_iCodigo = escuelaplan.escpla_iCodigo
+)
+WHERE
+	`seccion`.`sem_iCodigo` = '$semestre'
+AND `seccion_horario`.`doc_iCodigo` = '$coddocente'
+ORDER BY
+	curso.cur_vcCodigo,
+	curso.cur_iCodigo
+  ";
+   $data1=DB::select($sql);
+  return $data1;
+  }
 //$miscursos=$miasistencia->vercursos(semestreactual(),$coddocentex);
+function  vercursosalumnos($codcurso,$semestre)
+  { 
+      $sql='SELECT 
+      concat(alumno.alu_vcPaterno," ",
+      alumno.alu_vcMaterno," ",
+      alumno.alu_vcNombre) as alumno,
+      curso.cur_vcNombre,
+      curso.cur_vcCodigo,
+      curso.cur_iCodigo,
+      seccion.sem_iCodigo,
+      seccion.sec_iCodigo,
+      matriculadetalle.mat_iCodigo,
+      matriculadetalle.matdet_iCodigo,
+      matricula.alu_iCodigo,
+      matricula.sem_iCodigo,
+  alumno.alu_vcEmail,
+   alumno.alu_vcCodigo
+    FROM
+      alumno
+      INNER JOIN matricula ON (alumno.alu_iCodigo = matricula.alu_iCodigo)
+      INNER JOIN matriculadetalle ON (matricula.mat_iCodigo = matriculadetalle.mat_iCodigo)
+      INNER JOIN seccion ON (seccion.sec_iCodigo = matriculadetalle.sec_iCodigo)
+      INNER JOIN curso ON (curso.cur_iCodigo = seccion.cur_iCodigo)
+    WHERE
+      curso.cur_iCodigo = "'.$codcurso.'" AND 
+      seccion.sem_iCodigo = "'.$semestre.'"
+      order by alumno.alu_vcPaterno';
+  $data1=DB::select($sql);
+ return $data1;
+ }
 function veralumnomatriculados($codcur,$semestre,$fila)
- {$miasistencia=new DocenteController(); 
+ {//$miasistencia=new DocenteController(); 
 
    echo "<table class='table table-striped'>
        <tr style='background-color:black;color:white;'>
     <td>Nro</td> <td>Codigo</td> <td>Nombre</td><td>Email</td>
   </tr>";
-   $misalumnos=$miasistencia->vercursosalumnos(trim($codcur),$semestre);
+   //$misalumnos=$miasistencia->vercursosalumnos(trim($codcur),$semestre);
+  
+   $misalumnos=vercursosalumnos(trim($codcur),$semestre);
 //dd($codcur);
 $nro=0;
     foreach ($misalumnos as $alumno) {
@@ -38,7 +113,8 @@ echo "
 </script>";
 
 }  
-
+ //$miscursos=$miasistencia->vercursos($semestreactual,$coddocentex);
+ $miscursos=vercursos($semestreactual,$coddocentex);
 //dd($miscursos);
 
 @endphp

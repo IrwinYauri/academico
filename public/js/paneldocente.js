@@ -502,11 +502,13 @@ function subirhojadevida()
    
 }
 function respuestaencuesta()
-{  $.ajax({
+{  $("#micontenido" ).load( "docente/cargando" );
+	 $.ajax({
 	   url:"docente/respuestaencuesta",
    success:function(result){
    //alert(result);
    $("#micontenido").html(result);
+     $("#cargando").hide();
 	},
    data:{  },
 	   type:"GET"   
@@ -515,7 +517,7 @@ function respuestaencuesta()
 }
 function vermensaje()
 {  $.ajax({
-	   url:"mensajes.php",
+	   url:"docente/mensajes",
    success:function(result){
    //alert(result);
    $("#micontenido").html(result);

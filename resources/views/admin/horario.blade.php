@@ -194,48 +194,56 @@
 
           </div>
           <div class="col-sm-6">
-              
-            <table class="">
-              
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>N°</th>
+                  <th>Carrera</th>
+                  <th>Curso</th>
+                  <th>Ciclo</th>
+                  <th>Día</th>
+                  <th>Horas</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
             </table>
-
           </div>
         </div>
 
         <hr>
 
-        <table class='table table-striped  table-responsive-md' >
-            <thead>
-                <tr style='background-color:navy;color:white;'>
-
-                    <th>LUNES</th>
-                    <th>MARTES</th>
-                    <th>MIERCOLES</th>
-                    <th>JUEVES</th>
-                    <th>VIERNES</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-
-                    <th>
-                        <div id="LUN"></div>
-                    </th>
-                    <th>
-                        <div id="MAR"></div>
-                    </th>
-                    <th>
-                        <div id="MIE"></div>
-                    </th>
-                    <th>
-                        <div id="JUE"></div>
-                    </th>
-                    <th>
-                        <div id="VIE"></div>
-                    </th>
-                </tr>
-            </tbody>
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Hora/Día</th>
+              <th>Lunes</th>
+              <th>Martes</th>
+              <th>Miércoles</th>
+              <th>Jueves</th>
+              <th>Viernes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
         </table>
+
       </div>   
     </div> 
   </div>
@@ -247,16 +255,12 @@
   });
 
   function verhorario()
-<<<<<<< HEAD
+
   { 
     var escuela=$("#escuelax").val();
     var semestre='{{$semestreactual}}';
     $("#listahorario").html("<img src='img/carga01.gif'>");
-=======
-  { var escuela=$("#escuelax").val();
-    var semestre='{{$semestreactual}}'
-    $("#listahorario").html("<img src='img/cargar.gif'>");
->>>>>>> 899fbda6d4910635a554d17a651c37ad5d46c959
+
     $.ajax({
         url: "admin/horariolista",
         success: function(result) {

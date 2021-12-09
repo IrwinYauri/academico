@@ -284,113 +284,127 @@ class AdminController extends Controller
         return back();
     }
 
-    public function modificarfechasemestre($semestre,
-    $sem_iMatriculaInicio,
-    $sem_iMatriculaFinal,
-    $sem_dEncuestaInicio,
-    $sem_dEncuestaFinal,
-    $sem_dInicioClases,
-     $sem_iSemanas,
-     $sem_dActaInicio,
-     $sem_dActaFinal,
-      $sem_iToleranciaInicio,
-      $sem_iToleranciaFinal,
-      $fech_ent1_ini,
-       $fech_ent1_fin ,
-      $fech_ent2_ini ,
-       $fech_ent2_fin,
-      $fech_ent3_ini ,
-       $fech_ent3_fin,
-      $fech_ent4_ini,
-       $fech_ent4_fin,
-      $fech_ent5_ini ,
-      $fech_ent5_fin,
-       $sem_dAplazadoInicio,
-      $sem_dAplazadoFinal,
-      $fecMatReg_ini,
-      $fecMatReg_fin,
-      $fecMatExt_ini,
-      $fecMatExt_fin)
-      {
+    public function modificarfechasemestre(Request $request,$sem)
+    {
         //inicio codigo 
-        $semestre=$_REQUEST["semestre"];
-        $sem_iMatriculaInicio=$_REQUEST["sem_iMatriculaInicio"];
-        $sem_iMatriculaFinal=$_REQUEST["sem_iMatriculaFinal"];
-        $sem_dEncuestaInicio=$_REQUEST["sem_dEncuestaInicio"];
-        $sem_dEncuestaFinal=$_REQUEST["sem_dEncuestaFinal"];
-        $sem_dInicioClases=$_REQUEST["sem_dInicioClases"];
-        $sem_iSemanas=$_REQUEST["sem_iSemanas"];
-        $sem_dActaInicio=$_REQUEST["sem_dActaInicio"];
-        $sem_dActaFinal=$_REQUEST["sem_dActaFinal"];
-        $sem_iToleranciaInicio=$_REQUEST["sem_iToleranciaInicio"];
-        $sem_iToleranciaFinal=$_REQUEST["sem_iToleranciaFinal"];
-        $fech_ent1_ini=$_REQUEST["fech_ent1_ini"];
-        $fech_ent1_fin=$_REQUEST["fech_ent1_fin"];
-        $fech_ent2_ini=$_REQUEST["fech_ent2_ini"];
-        $fech_ent2_fin=$_REQUEST["fech_ent2_fin"];
-        $fech_ent3_ini=$_REQUEST["fech_ent3_ini"];
-        $fech_ent3_fin=$_REQUEST["fech_ent3_fin"];
-        $fech_ent4_ini=$_REQUEST["fech_ent4_ini"];
-        $fech_ent4_fin=$_REQUEST["fech_ent4_fin"];
-        $fech_ent5_ini=$_REQUEST["fech_ent5_ini"];
-        $fech_ent5_fin=$_REQUEST["fech_ent5_fin"];
-        $sem_dAplazadoInicio=$_REQUEST["sem_dAplazadoInicio"];
-        $sem_dAplazadoFinal=$_REQUEST["sem_dAplazadoFinal"];
-        $fecMatReg_ini=$_REQUEST["fecMatReg_ini"];
-        $fecMatReg_fin=$_REQUEST["fecMatReg_fin"];
-        $fecMatExt_ini=$_REQUEST["fecMatExt_ini"];
-        $fecMatExt_fin=$_REQUEST["fecMatExt_fin"];
-        try { 
-        $sql="update semestre set
-        sem_iMatriculaInicio='$sem_iMatriculaInicio'  where sem_iCodigo='$semestre'";
-        $r=DB::select($sql);
-        } catch(\Illuminate\Database\QueryException $ex){  }
+    
 
-        try { 
-        $sql="update semestre set
-        sem_iMatriculaFinal='$sem_iMatriculaFinal' where sem_iCodigo='$semestre'";
-        $r=DB::select($sql);
-        } catch(\Illuminate\Database\QueryException $ex){  }
+        Semestre::where("sem_iCodigo",$sem)
+        ->update([
+          //$cont->sem_iCodigo  = $request->sem_iCodigo;
+          //$cont->sem_nombre = $request->sem_nombre;
+          //$cont->sem_cActivo = "S";
+          //$cont->sem_iNumeroActa = 1000;
+          //$cont->sem_iNumeroAlumno = 0;
+          'sem_iMatriculaInicio' => $request->sem_iMatriculaInicio,
+          'sem_iMatriculaFinal' => $request->sem_iMatriculaFinal,
+          'sem_dEncuestaInicio' => $request->sem_dEncuestaInicio,
+          'sem_dEncuestaFinal' => $request->sem_dEncuestaFinal,
+          //$cont->sem_iHoraPedagogica = 45;
+          'sem_dInicioClases' => $request->sem_dInicioClases,
+          'sem_iSemanas' => $request->sem_iSemanas,
+          'sem_dActaInicio' => $request->sem_dActaInicio,
+          'sem_dActaFinal' => $request->sem_dActaFinal,
+          //$cont->sem_iUnidad = NULL;
+          'sem_iToleranciaInicio' => $request->sem_iToleranciaInicio,
+          'sem_iToleranciaFinal' => $request->sem_iToleranciaFinal,
+          'fech_ent1_ini' => $request->fech_ent1_ini,
+          'fech_ent1_fin' => $request->fech_ent1_fin,
+          'fech_ent2_ini' => $request->fech_ent2_ini,
+          'fech_ent2_fin' => $request->fech_ent2_fin,
+          'fech_ent3_ini' => $request->fech_ent3_ini,
+          'fech_ent3_fin' => $request->fech_ent3_fin,
+          'fech_ent4_ini' => $request->fech_ent4_ini,
+          'fech_ent4_fin' => $request->fech_ent4_fin,
 
-        try {
-              $sql="update semestre set
-        sem_dEncuestaInicio='$sem_dEncuestaInicio' where sem_iCodigo='$semestre'";
-        $r=DB::select($sql);} catch(\Illuminate\Database\QueryException $ex){  }
+          'fech_ent5_ini' => $request->fech_ent5_ini,
+          'fech_ent5_fin' => $request->fech_ent5_fin,
 
-        try {
-        $sql="update semestre set
-        sem_dEncuestaFinal='$sem_dEncuestaFinal' where sem_iCodigo='$semestre'";
-        $r=DB::select($sql);} catch(\Illuminate\Database\QueryException $ex){  }
+          //FALTA SEMANA 5
+          'sem_dAplazadoInicio' => $request->sem_dAplazadoInicio,
+          'sem_dAplazadoFinal' => $request->sem_dAplazadoFinal,
+          'fecMatReg_ini' => $request->fecMatReg_ini,
+          'fecMatReg_fin' => $request->fecMatReg_fin,
+          'fecMatExt_ini' => $request->fecMatExt_ini,
+          'fecMatExt_fin' => $request->fecMatExt_fin,
+          'sem_dSustituInicio' => $request->sem_dSustiInicio,
+          'sem_dSustituFin' => $request->sem_dSustiFinal
+          //'inicio' = 0;
 
-        try {
-        $sql="update semestre set
-        sem_dInicioClases='$sem_dInicioClases' where sem_iCodigo='$semestre'";
-        $r=DB::select($sql);} catch(\Illuminate\Database\QueryException $ex){  }
+        ]);
 
-        try {
-        $sql="update semestre set 
-        sem_iSemanas='$sem_iSemanas' where sem_iCodigo='$semestre'";
-        $r=DB::select($sql);} catch(\Illuminate\Database\QueryException $ex){  }
+        return response()->json("ok");   
 
-        try {
-        $sql="update semestre set 
-        sem_dActaInicio='$sem_dActaInicio'  where sem_iCodigo='$semestre'";
-        $r=DB::select($sql);} catch(\Illuminate\Database\QueryException $ex){  }
+        /*try 
+        { 
+          $sql="update semestre set sem_iMatriculaInicio='$sem_iMatriculaInicio'  where sem_iCodigo='$semestre'";
+          $r=DB::select($sql);
+        }
+        catch(\Illuminate\Database\QueryException $ex){  }
 
-        try {
-        $sql="update semestre set 
-        sem_dActaFinal='$sem_dActaFinal' where sem_iCodigo='$semestre'";
-        $r=DB::select($sql);} catch(\Illuminate\Database\QueryException $ex){  }
+        try 
+        { 
+          $sql="update semestre set sem_iMatriculaFinal='$sem_iMatriculaFinal' where sem_iCodigo='$semestre'";
+          $r=DB::select($sql);
+        }
+        catch(\Illuminate\Database\QueryException $ex){  }
 
-        try {
-        $sql="update semestre set 
-        sem_iToleranciaInicio='$sem_iToleranciaInicio'  where sem_iCodigo='$semestre'";
-        $r=DB::select($sql);} catch(\Illuminate\Database\QueryException $ex){  }
+        try 
+        {
+          $sql="update semestre set sem_dEncuestaInicio='$sem_dEncuestaInicio' where sem_iCodigo='$semestre'";
+          $r=DB::select($sql);
+        }
+        catch(\Illuminate\Database\QueryException $ex){  }
 
-        try {
-        $sql="update semestre set 
-        sem_iToleranciaFinal='$sem_iToleranciaFinal'  where sem_iCodigo='$semestre'";
-        $r=DB::select($sql);} catch(\Illuminate\Database\QueryException $ex){  }
+        try 
+        {
+          $sql="update semestre set sem_dEncuestaFinal='$sem_dEncuestaFinal' where sem_iCodigo='$semestre'";
+          $r=DB::select($sql);
+        }
+        catch(\Illuminate\Database\QueryException $ex){  }
+
+        try
+        {
+          $sql="update semestre set sem_dInicioClases='$sem_dInicioClases' where sem_iCodigo='$semestre'";
+          $r=DB::select($sql);
+        }
+        catch(\Illuminate\Database\QueryException $ex){  }
+
+        try 
+        {
+          $sql="update semestre set sem_iSemanas='$sem_iSemanas' where sem_iCodigo='$semestre'";
+          $r=DB::select($sql);
+        }
+        catch(\Illuminate\Database\QueryException $ex){  }
+
+        try 
+        {
+          $sql="update semestre set sem_dActaInicio='$sem_dActaInicio'  where sem_iCodigo='$semestre'";
+          $r=DB::select($sql);
+        }
+        catch(\Illuminate\Database\QueryException $ex){  }
+
+        try 
+        {
+          $sql="update semestre set sem_dActaFinal='$sem_dActaFinal' where sem_iCodigo='$semestre'";
+          $r=DB::select($sql);
+        }
+        catch(\Illuminate\Database\QueryException $ex){  }
+
+        try 
+        {
+          $sql="update semestre set 
+          sem_iToleranciaInicio='$sem_iToleranciaInicio'  where sem_iCodigo='$semestre'";
+          $r=DB::select($sql);
+        }
+        catch(\Illuminate\Database\QueryException $ex){  }
+
+        try
+        {
+          $sql="update semestre set sem_iToleranciaFinal='$sem_iToleranciaFinal'  where sem_iCodigo='$semestre'";
+          $r=DB::select($sql);
+        }
+        catch(\Illuminate\Database\QueryException $ex){  }
 
         try {
         $sql="update semestre set
@@ -463,10 +477,10 @@ class AdminController extends Controller
         $sql="update semestre set
         fecMatExt_ini='$fecMatExt_ini' where sem_iCodigo='$semestre'";
         $r=DB::select($sql);
-
+  
         $sql="update semestre set
         fecMatExt_fin='$fecMatExt_fin' where sem_iCodigo='$semestre'";
-        $r=DB::select($sql);
+        $r=DB::select($sql);*/
 
     }
 

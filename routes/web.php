@@ -52,6 +52,7 @@ Route::get('encuesta/activarencuesta',[AdminController::class,'activarencuesta']
 //Irwin
 Route::get('admin/cerrarSemestre/{sem}',[AdminController::class,'cerrarSemestre'])->name('admin.cerrarSemestre');
 Route::get('admin/eliminarSemestre/{sem}',[AdminController::class,'eliminarSemestre'])->name('admin.eliminarSemestre');
+Route::get('admin/modificarfechasemestre/{sem}',[AdminController::class,'modificarfechasemestre'])->name('admin.modificarfechasemestre');
 
 //Route::post('docente/login',[DocenteController::class,'login'])->name('docente.login');
 Route::resource('actas',ActasController::class);

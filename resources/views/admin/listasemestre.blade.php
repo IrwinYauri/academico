@@ -8,15 +8,6 @@
   
   $listasemestre=versemestre();
 @endphp
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mod. Semestre</title>
-
-  
   <style>
     .table-condensed
     {
@@ -41,7 +32,7 @@
       background-color: silver;
     }
   </style>
-  <body>
+  
     <script>
       const semestre = [];
       const sem_cActivo = [];
@@ -125,6 +116,7 @@
 
     <div class="container table-condensed">
       <h1 class="h3 mb-0 text-gray-600"><i class="fas fa-clock"></i> MOD. SEMESTRE</h1><br>
+
       <div class="alert alert-success" id="sms" style="display:none;">
         <strong>Correcto!</strong> Se registro bien.
       </div>
@@ -132,17 +124,11 @@
         <strong>Error!</strong> <span id="sms2_1">Vuelva a intentarlo.</span>
       </div>
       <div class="card shadow mb-4">        
-        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            
-        
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">        
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item m-0 font-weight-bold text-primary" role="presentation">
                 <button class="btn btn-primary active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true" style="border:1px solid white;"><i class="fa fa-bars" aria-hidden="true"></i> Lista de Semestres</button>
             </li>
-            <!--li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
-                  Nuevo cuenta de Sistema</button>
-            </li-->
             <li class="nav-item m-0 font-weight-bold text-primary" role="presentation">
               <button class="btn btn-primary" id="semestre-tab" data-bs-toggle="tab" data-bs-target="#semestrefecha" type="button" role="tab" aria-controls="semestrefecha" aria-selected="false" style="border:1px solid white;"><i class="fas fa-calendar-alt"></i> Calendario Académico</button>
             </li>
@@ -151,18 +137,8 @@
             </li>
           </ul>
         </div>  
-        <div class="tab-content" id="myTabContent">
-          
-          <!--div class="card shadow mb-4">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">ESCUELAS PROFESIONALES</h6>                                   
-            </div>  
-            <div class="row" style="padding: 15px 15px 0px 15px;">
-                
-            </div>             
-          </div-->
-          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            
+        <div class="tab-content" id="myTabContent">       
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">            
               <div class="row" style="padding: 20px 45px;">
                 <table class="table table-striped table-bordered">
                   <thead>
@@ -218,8 +194,7 @@
                     @endforeach  
                   </tbody>
                 </table>      
-              </div>             
-            
+              </div> 
           </div>
 
           <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -232,7 +207,11 @@
               <select id="nrosemestre" class="form-control" aria-label=".form-select-lg example" onchange="vercalendario(this); revisarestadofecha();" style="font-size: 14px;">
                 <option >Seleccionar semestre</option>
                 @foreach ($listasemestre as $sem)
-                  <option value="{{ $sem->sem_iCodigo }}">{{ $sem->sem_iCodigo }}</option>               
+                  <option value="{{ $sem->sem_iCodigo }}">{{ $sem->sem_iCodigo }} 
+                  @if(trim($sem->sem_cActivo)=="S")               
+                  [Activo]
+                  @endif
+                  </option>               
                 @endforeach
               </select>
             </div>
@@ -376,7 +355,7 @@
               </div>
             </div>
             <br>
-            <div class="row g-4" align="center" id="btnUpdate_" style="display: none;">                  
+            <div class="" id="btnUpdate_" style="display: none;text-align: right;">                  
               <button type="button" class="btn btn-primary" onclick="modificarfechasemetre();revisarestadofecha();">
               <i class="fas fa-save"></i> GUARDAR CAMBIOS</button>                   
             </div>
@@ -1239,6 +1218,3 @@
     </script>
 
     <!--div id="mimensajex">GRABANDO</div-->
-
-  </body>
-</html>
